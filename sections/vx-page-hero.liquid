@@ -22,7 +22,7 @@
     assign title = section.settings.title | append: ': “' | append: search.terms | append: '”'
   endif
   assign crumb = section.settings.crumb | default: title
-  if page
+  if page and section.settings.crumb == blank
     assign crumb = page.title
   endif
   assign min_h = 600
