@@ -144,7 +144,7 @@ hero['settings'].update({
     'section_width': 'full-width', 'section_height': 'large',
     'horizontal_alignment_flex_direction_column': 'flex-start', 'vertical_alignment_flex_direction_column': 'flex-end',
     'toggle_overlay': True, 'overlay_style': 'gradient', 'overlay_color': '#0a0a0acc', 'gradient_direction': 'to top',
-    'gap': 16, 'padding-block-start': 160, 'padding-block-end': 96,
+    'gap': 16, 'padding-block-start': 100, 'padding-block-end': 96,
 })
 hero.update(blocks(
     kicker=text('<p>Composite decking &amp; cladding</p>', 'h6', text_color=SAND),
@@ -222,7 +222,7 @@ cladding = editorial('vertex-slatted-cladding-house-extension.jpg', '04 / Claddi
 samples = {'type': 'section', 'settings': {
     'background_color': NEAR_BLACK, 'section_width': 'page-width', 'section_height': '',
     'horizontal_alignment_flex_direction_column': 'center', 'gap': 16,
-    'padding-block-start': 112, 'padding-block-end': 112}}
+    'padding-block-start': 100, 'padding-block-end': 100}}
 samples.update(blocks(
     kicker=text('<p>Samples</p>', 'h6', alignment='center', text_color=SAND),
     heading=text('<h2>Hold the colours in your hand.</h2>', 'h2', alignment='center', text_color=WHITE),

@@ -93,7 +93,7 @@
         "gradient_direction": "to top",
         "blurred_reflection": false,
         "reflection_opacity": 75,
-        "padding-block-start": 160,
+        "padding-block-start": 100,
         "padding-block-end": 96,
         "image_1": "shopify://shop_images/vertex-twin-deck-storm-silver-oak-sunken-seating.jpg"
       }
@@ -678,8 +678,8 @@
         "section_height": "",
         "horizontal_alignment_flex_direction_column": "center",
         "gap": 16,
-        "padding-block-start": 112,
-        "padding-block-end": 112
+        "padding-block-start": 100,
+        "padding-block-end": 100
       },
       "blocks": {
         "kicker": {
