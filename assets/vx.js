@@ -1,4 +1,4 @@
-/* Vertex Composite interactions, ported from the Direction B design logic.
+/* Vertex Composite interactions (header, hero, colour, planner, product, collection), ported from the Direction B design logic.
    Vanilla JS, no dependencies. Each feature binds to data-vx-* hooks. */
 (function () {
   'use strict';
