@@ -145,8 +145,54 @@
     render();
   }
 
+  /* Collection grid: category and colour filters, sort, banner after 6 */
+  function initCollection(root) {
+    var grid = root.querySelector('[data-vx-grid]');
+    var items = Array.prototype.slice.call(root.querySelectorAll('[data-vx-item]'));
+    var promo = root.querySelector('[data-vx-promo]');
+    var count = root.querySelector('[data-vx-count]');
+    var empty = root.querySelector('[data-vx-empty]');
+    var sort = root.querySelector('[data-vx-sort]');
+    var types = root.querySelectorAll('[data-vx-type]');
+    var colourBtns = root.querySelectorAll('[data-vx-colour-filter]');
+    var clears = root.querySelectorAll('[data-vx-clear]');
+    function apply() {
+      var t = [], c = [];
+      types.forEach(function (x) { if (x.checked) t.push(x.getAttribute('data-vx-type')); });
+      colourBtns.forEach(function (x) { if (x.getAttribute('aria-pressed') === 'true') c.push(x.getAttribute('data-vx-colour-filter')); });
+      var shown = items.filter(function (el) {
+        var ok = (!t.length || t.indexOf(el.getAttribute('data-type')) > -1) &&
+          (!c.length || el.getAttribute('data-colours').split(',').some(function (x) { return c.indexOf(x) > -1; }));
+        el.hidden = !ok;
+        return ok;
+      });
+      var mode = sort ? sort.value : 'featured';
+      shown.sort(function (a, b) {
+        if (mode === 'az') return a.getAttribute('data-title').localeCompare(b.getAttribute('data-title'));
+        if (mode === 'price-asc') return a.getAttribute('data-price') - b.getAttribute('data-price');
+        if (mode === 'price-desc') return b.getAttribute('data-price') - a.getAttribute('data-price');
+        return a.getAttribute('data-index') - b.getAttribute('data-index');
+      });
+      shown.forEach(function (el, i) { el.style.order = i < 6 ? i : i + 1; });
+      if (promo) { promo.style.order = 6; promo.hidden = shown.length < 7 && (t.length || c.length) ? true : false; }
+      if (count) count.textContent = shown.length + (shown.length === 1 ? ' product' : ' products');
+      if (empty) empty.hidden = shown.length > 0;
+      clears.forEach(function (b) { if (b.closest('aside')) b.hidden = !(t.length || c.length); });
+    }
+    types.forEach(function (x) { x.addEventListener('change', apply); });
+    colourBtns.forEach(function (b) { b.addEventListener('click', function () { b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true'); apply(); }); });
+    if (sort) sort.addEventListener('change', apply);
+    clears.forEach(function (b) { b.addEventListener('click', function () {
+      types.forEach(function (x) { x.checked = false; });
+      colourBtns.forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      apply();
+    }); });
+    apply();
+  }
+
   function init() {
     initHeader();
+    document.querySelectorAll('[data-vx-coll]').forEach(initCollection);
     document.querySelectorAll('[data-vx-hero]').forEach(initHero);
     document.querySelectorAll('[data-vx-colour]').forEach(initColour);
     document.querySelectorAll('[data-vx-plan]').forEach(initPlanner);

@@ -1,0 +1,23 @@
+<section class="vx" id="samples" style="position: relative; overflow: hidden; background: #111; color: #fff;">
+  {%- render 'vx-image', image: section.settings.background, fallback: 'vx-tex-dark.webp', alt: '', style: 'position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.9;', sizes: '100vw' -%}
+  <div class="vx-wrap" style="position: relative; max-width: 1360px; margin: 0 auto; padding: 96px 40px; display: flex; flex-wrap: wrap; gap: 40px; align-items: center; justify-content: space-between;">
+    <div style="flex: 1 1 440px; display: flex; flex-direction: column; gap: 18px; max-width: 560px;">
+      <h2 style="margin: 0; font-size: clamp(36px, 4.2vw, 60px); line-height: 0.98; font-weight: 600; letter-spacing: -0.035em;">{{ section.settings.title }}</h2>
+      <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #d4cfc8;">{{ section.settings.text }}</p>
+    </div>
+    {%- if section.settings.cta != blank -%}<a href="{{ section.settings.cta_link }}" style="background: #b6855f; color: #161616; text-decoration: none; font-weight: 600; font-size: 16px; padding: 18px 30px; min-height: 56px; display: flex; align-items: center;">{{ section.settings.cta }}</a>{%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Vertex samples strip",
+  "settings": [
+    { "type": "image_picker", "id": "background", "label": "Background" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Hold the colours in your hand." },
+    { "type": "text", "id": "text", "label": "Text", "default": "Order samples of up to [NUMBER] colours, sent [SAMPLE DELIVERY TERMS]." },
+    { "type": "text", "id": "cta", "label": "Button label", "default": "Order samples" },
+    { "type": "url", "id": "cta_link", "label": "Button link" }
+  ],
+  "presets": [{ "name": "Vertex samples strip" }]
+}
+{% endschema %}

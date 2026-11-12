@@ -1,236 +1,270 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "section": {
-      "type": "section",
+    "hero": {
+      "type": "vx-collection-hero",
       "blocks": {
-        "text_tqQTNE": {
-          "type": "text",
-          "name": "t:names.title",
+        "pill_1": {
+          "type": "pill",
           "settings": {
-            "text": "<h1>{{ closest.collection.title }}</h1>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "label": "All products",
+            "link": "shopify://collections/all"
+          }
         },
-        "text_twGGkJ": {
-          "type": "text",
-          "name": "t:names.description",
+        "pill_2": {
+          "type": "pill",
           "settings": {
-            "text": "{{ closest.collection.description }}",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "label": "Decking",
+            "link": "shopify://collections/decking"
+          }
+        },
+        "pill_3": {
+          "type": "pill",
+          "settings": {
+            "label": "Cladding",
+            "link": "shopify://collections/cladding"
+          }
+        },
+        "pill_4": {
+          "type": "pill",
+          "settings": {
+            "label": "Trims",
+            "link": "shopify://collections/trims"
+          }
+        },
+        "pill_5": {
+          "type": "pill",
+          "settings": {
+            "label": "Fixings",
+            "link": "shopify://collections/fixings"
+          }
         }
       },
       "block_order": [
-        "text_tqQTNE",
-        "text_twGGkJ"
+        "pill_1",
+        "pill_2",
+        "pill_3",
+        "pill_4",
+        "pill_5"
       ],
-      "name": "t:names.heading",
       "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "image": "shopify://shop_images/vertex-twin-deck-silver-oak-garden.jpg",
+        "title": "Shop the range",
+        "text": "Reversible Twin Deck boards, cladding, L-corner trims and fixings. Boards, trims and cladding come in 4 m lengths.",
+        "usp_1": "Four deck colours, two reversible boards",
+        "usp_2": "10-year fade warranty (terms apply)",
+        "usp_3": "Boards, trims and cladding in 4 m lengths",
+        "usp_4": "[DELIVERY SUMMARY]"
       }
     },
-    "main": {
-      "type": "main-collection",
+    "grid": {
+      "type": "vx-collection-grid",
       "blocks": {
-        "filters": {
-          "type": "filters",
-          "static": true,
+        "side_1": {
+          "type": "side",
           "settings": {
-            "enable_filtering": true,
-            "filter_style": "horizontal",
-            "filter_width": "centered",
-            "text_label_case": "default",
-            "show_swatch_label": false,
-            "show_filter_label": false,
-            "enable_sorting": true,
-            "enable_grid_density": true,
-            "padding-block-start": 8,
-            "padding-block-end": 8,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0,
-            "facets_margin_bottom": 8,
-            "facets_margin_right": 20
-          },
-          "blocks": {}
+            "image": "shopify://shop_images/vertex-twin-deck-chestnut-installed-lakeside.jpg",
+            "link": "shopify://pages/samples"
+          }
         },
-        "product-card": {
-          "type": "_product-card",
-          "static": true,
+        "promo_2": {
+          "type": "promo",
           "settings": {
-            "product_card_gap": 4,
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "card-gallery": {
-              "type": "_product-card-gallery",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_4nY4eT": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_EzJzMm": {
-              "type": "price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "swatches": {
-              "type": "swatches",
-              "name": "t:names.swatches",
-              "settings": {
-                "product_swatches_alignment": "flex-start",
-                "product_swatches_padding_top": 4,
-                "product_swatches_padding_bottom": 0,
-                "product_swatches_padding_left": 0,
-                "product_swatches_padding_right": 0
-              }
-            }
-          },
-          "block_order": [
-            "card-gallery",
-            "product_title_4nY4eT",
-            "price_EzJzMm",
-            "swatches"
-          ]
+            "link": "shopify://pages/samples"
+          }
+        },
+        "soon_3": {
+          "type": "soon",
+          "settings": {
+            "fallback": "vx-fence-board.webp",
+            "title": "Fence boards",
+            "text": "Photo supplied, not yet in the product list"
+          }
+        },
+        "soon_4": {
+          "type": "soon",
+          "settings": {
+            "fallback": "vx-pedestal.webp",
+            "title": "Adjustable pedestals",
+            "text": "Photos supplied, not yet in the product list"
+          }
         }
       },
+      "block_order": [
+        "side_1",
+        "promo_2",
+        "soon_3",
+        "soon_4"
+      ],
+      "settings": {}
+    },
+    "compare": {
+      "type": "vx-compare",
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "Construction",
+            "a": "Wood fibres and recycled plastics, with no outer layer",
+            "b": "A composite core wrapped in a protective polymer cap"
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "Look",
+            "a": "Traditional composite appearance",
+            "b": "Realistic wood-grain finishes and modern colours"
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "Upfront cost",
+            "a": "Generally lower",
+            "b": "Usually higher than uncapped"
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "Stains and moisture",
+            "a": "Can be more prone to both, depending on the product",
+            "b": "Better resistance to both"
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "label": "Colour",
+            "a": "May fade more, depending on the product",
+            "b": "Better colour retention, depending on the product"
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "label": "Upkeep",
+            "a": "Regular cleaning to keep it looking its best",
+            "b": "Cleaning only, with no painting or staining"
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6"
+      ],
       "settings": {
-        "layout_type": "grid",
-        "product_card_size": "medium",
-        "mobile_product_card_size": "small",
-        "product_grid_width": "centered",
-        "full_width_on_mobile": true,
-        "columns_gap_horizontal": 16,
-        "columns_gap_vertical": 24,
-        "padding-inline-start": 0,
-        "padding-inline-end": 0,
-        "padding-block-start": 0,
-        "padding-block-end": 32
+        "text": "Composite boards come in two broad types, often called Generation 1 and Generation 2. Here’s how they differ, so you can compare like with like.",
+        "col2_note": "[CONFIRM: Twin Deck is Gen 2]",
+        "footnote": "Performance varies by manufacturer and board design. Always check the specification for the boards you’re buying.",
+        "card1_title": "Which is right for you?",
+        "card1_text": "Uncapped boards can suit projects where upfront cost matters most. Capped boards are worth a look if you want better surface protection, a richer finish and less upkeep.",
+        "card2_title": "Decking and cladding aren’t interchangeable",
+        "card2_text": "Cladding boards are made for walls and need the right battens, ventilation, fixings and fire-performance checks. Don’t use decking boards as cladding, or cladding as decking."
+      }
+    },
+    "guide": {
+      "type": "vx-guide",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "q": "How many boards do I need?",
+            "a": "<p>Every Twin Deck board is 4 m long and 140 mm wide. Use our <a href=\"/#guides\">deck planner</a> for your area and edge length, and allow extra for gaps, cuts and waste. [CONFIRM: recommended gap between boards]</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "q": "Which side of the board do I lay facing up?",
+            "a": "<p>Either. Each Twin Deck board has a different colour on each face, so you choose the look when you lay it. [CONFIRM: both faces carry the same finish and warranty]</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "q": "What fixings do I need?",
+            "a": "<p>Our SSL starters and MC03 fasteners come in boxes of 100. [ANSWER: how many per m² and spacing]</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "q": "Can I lay boards straight onto pedestals?",
+            "a": "<p>No. Composite boards need a frame of compatible joists, and the frame sits on the pedestals. Only lay boards straight onto pedestals if the board maker has approved that exact set-up.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "q": "How many pedestals will I need?",
+            "a": "<p>As a first guide, allow around 6 to 7 per m² [CONFIRM FOR THE VERTEX SYSTEM]. The real number depends on your joists, pedestal grid, deck height and loading.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "q": "What does the 10-year fade warranty cover?",
+            "a": "<p>Qualifying manufacturing or material defects, subject to the warranty terms. It doesn’t cover damage from incorrect installation, poor storage or handling, misuse or neglect. [CONFIRM: what the fade warranty measures]</p>"
+          }
+        },
+        "faq_7": {
+          "type": "faq",
+          "settings": {
+            "q": "Do I need to register my warranty?",
+            "a": "<p>Yes. Register online with your order number and photos taken during and after installation, including the frame before the boards go on. <a href=\"/pages/warranty\">How to register</a></p>"
+          }
+        },
+        "faq_8": {
+          "type": "faq",
+          "settings": {
+            "q": "How is decking delivered?",
+            "a": "<p>[ANSWER: delivery method, lead times and areas covered]</p>"
+          }
+        },
+        "faq_9": {
+          "type": "faq",
+          "settings": {
+            "q": "Do you offer trade pricing?",
+            "a": "<p>[ANSWER: trade account terms]</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6",
+        "faq_7",
+        "faq_8",
+        "faq_9"
+      ],
+      "settings": {
+        "text": "<p>Composite boards are made to look like timber while cutting out most of the upkeep that comes with it: no yearly sanding, staining or sealing.</p><p>Twin Deck is a reversible board with a different colour on each face: Eclipse with Storm, or Chestnut with Silver Oak. Every board is 4 m long, with S-MF07 L-corner trims in the same colours to finish the edges. Fix it with SSL starters and MC03 fasteners [CONFIRM FIXING METHOD].</p><p>Not sure which colour suits your space? Order samples and see them against your brickwork and planting first.</p>",
+        "link1_label": "Plan your deck",
+        "link1": "/#guides",
+        "link2_label": "Read the installation guide",
+        "link2": "shopify://pages/installation-guide"
+      }
+    },
+    "samples": {
+      "type": "vx-samples-band",
+      "settings": {
+        "cta_link": "shopify://pages/samples"
       }
     }
   },
   "order": [
-    "section",
-    "main"
+    "hero",
+    "grid",
+    "compare",
+    "guide",
+    "samples"
   ]
 }

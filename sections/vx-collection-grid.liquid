@@ -1,0 +1,184 @@
+{%- liquid
+  assign colours = shop.metaobjects['shopify--color-pattern']
+  assign type_order = 'Decking,Trims,Cladding,Fixings' | split: ','
+  assign type_labels = 'Decking boards,Trims,Cladding,Fixings' | split: ','
+  assign promo = section.blocks | where: 'type', 'promo' | first
+  assign soon = section.blocks | where: 'type', 'soon'
+  assign side = section.blocks | where: 'type', 'side' | first
+-%}
+{%- paginate collection.products by 50 -%}
+{%- liquid
+  assign total = 0
+  assign colour_names = ''
+  for p in collection.products
+    assign total = total | plus: p.variants.size
+    for v in p.variants
+      assign names = v.option1 | split: ' / '
+      for nm in names
+        unless colour_names contains nm
+          assign colour_names = colour_names | append: nm | append: ','
+        endunless
+      endfor
+    endfor
+  endfor
+  assign colour_list = colour_names | split: ','
+-%}
+<section class="vx vx-wrap" id="products" data-vx-coll style="max-width: 1360px; margin: 0 auto; padding: 48px 40px 0; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start;">
+  <aside aria-label="Filters" class="vx-side" style="flex: 0 0 248px; max-width: 248px; display: flex; flex-direction: column; gap: 32px;">
+    <div style="display: flex; justify-content: space-between; align-items: baseline;"><h2 style="margin: 0; font-size: 20px; font-weight: 600;">Filter</h2><button type="button" data-vx-clear hidden style="border: 0; background: none; font-size: 14px; font-weight: 600; color: #8a5e3b; cursor: pointer; text-decoration: underline;">Clear all</button></div>
+    {%- if collection.handle == 'all' -%}
+      <fieldset style="border: 0; border-bottom: 1px solid #e2ddd5; margin: 0; padding: 0 0 28px; display: flex; flex-direction: column; gap: 14px;">
+        <legend style="padding: 0 0 14px; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #6b655e;">Category</legend>
+        {%- for t in type_order -%}
+          {%- assign n = 0 -%}
+          {%- for p in collection.products -%}{%- if p.type == t -%}{%- assign n = n | plus: p.variants.size -%}{%- endif -%}{%- endfor -%}
+          {%- if n > 0 -%}
+            <label style="display: flex; align-items: center; gap: 12px; font-size: 16px; cursor: pointer; min-height: 32px;"><input class="vx-check" type="checkbox" data-vx-type="{{ t }}"><span style="flex: 1 1 0%;">{{ type_labels[forloop.index0] }}</span><span style="font-size: 14px; color: #8a847d;">{{ n }}</span></label>
+          {%- endif -%}
+        {%- endfor -%}
+      </fieldset>
+    {%- endif -%}
+    <fieldset style="border: 0; border-bottom: 1px solid #e2ddd5; margin: 0; padding: 0 0 28px; display: flex; flex-direction: column; gap: 14px;">
+      <legend style="padding: 0 0 14px; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #6b655e;">Colour</legend>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;">
+        {%- for nm in colour_list -%}
+          {%- assign nh = nm | handleize -%}{%- assign mo = colours[nh] -%}
+          <button type="button" class="vx-opt" data-vx-colour-filter="{{ nm | escape }}" aria-pressed="false" style="display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 6px 10px; cursor: pointer; text-align: left;"><span style="width: 26px; height: 23px; flex: 0 0 auto; display: block; background: {{ mo.color | default: '#cfc7bc' }}; clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);"></span><span style="font-size: 14px; font-weight: 600; color: #1d1c1c;">{{ nm }}</span></button>
+        {%- endfor -%}
+      </div>
+    </fieldset>
+    {%- if side -%}
+      <a class="vx-card" href="{{ side.settings.link }}" {{ side.shopify_attributes }} style="position: relative; overflow: hidden; height: 260px; display: flex; flex-direction: column; justify-content: flex-end; text-decoration: none; color: #fff; background: #2a2a2a;">
+        {%- render 'vx-image', image: side.settings.image, alt: '', class: 'vx-media', style: 'position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;', width: 600 -%}
+        <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(rgba(10,10,10,0.05) 20%, rgba(10,10,10,0.78) 100%);"></div>
+        <div style="position: relative; padding: 22px; display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #e9dccf;">{{ side.settings.eyebrow }}</span><span style="font-size: 22px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.15;">{{ side.settings.title }}</span><span style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; padding-top: 4px;">{{ side.settings.cta }}{% render 'vx-arrow', size: 16, class: 'vx-arrow' %}</span></div>
+      </a>
+    {%- endif -%}
+  </aside>
+
+  <div style="flex: 1 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 28px;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;">
+      <span role="status" data-vx-count style="font-size: 15px; color: #5b554f;">{{ total }} products</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <label for="vx-sort-{{ section.id }}" style="font-size: 14px; color: #5b554f;">Sort by</label>
+        <select id="vx-sort-{{ section.id }}" data-vx-sort style="height: 44px; padding: 0 36px 0 14px; border: 1px solid #cfc7bc; background: #fff; font-size: 15px; font-weight: 600; color: #1d1c1c; cursor: pointer; border-radius: 0;">
+          <option value="featured">Featured</option><option value="az">Name, A to Z</option><option value="price-asc">Price, low to high</option><option value="price-desc">Price, high to low</option>
+        </select>
+      </div>
+    </div>
+    <div data-vx-grid style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 40px 20px;">
+      {%- assign idx = 0 -%}
+      {%- for t in type_order -%}
+        {%- for p in collection.products -%}
+          {%- unless p.type == t -%}{%- continue -%}{%- endunless -%}
+          {%- assign pm = p.metafields.vertex -%}
+          {%- if t == 'Trims' -%}{%- assign tag = 'Trim' -%}{%- else -%}{%- assign tag = t -%}{%- endif -%}
+          {%- for v in p.variants -%}
+            {%- liquid
+              assign faces = v.option1 | split: ' / '
+              if faces.size > 1
+                assign sub = v.option1 | append: ' · reversible'
+              elsif pm.length.value != blank
+                assign sub = v.option1 | append: ' · ' | append: pm.length.value
+              else
+                assign prof = pm.profile.value | downcase
+                assign sub = v.option1 | append: ' · ' | append: prof
+              endif
+              assign img = v.featured_media | default: p.featured_media
+            -%}
+            <a class="vx-card" href="{{ v.url }}" data-vx-item data-index="{{ idx }}" data-type="{{ t }}" data-colours="{{ faces | join: ',' | escape }}" data-price="{{ v.price }}" data-title="{{ p.title | escape }} {{ v.option1 | escape }}" style="display: flex; flex-direction: column; gap: 16px; text-decoration: none; color: #1d1c1c; min-width: 0;">
+              <div style="position: relative; aspect-ratio: 4 / 5; background: #efebe5; overflow: hidden;">
+                {%- if img -%}
+                  {{ img | image_url: width: 700 | image_tag: alt: '', class: 'vx-cut', style: 'position: absolute; left: 10%; top: 14%; width: 80%; height: 72%; object-fit: contain;', sizes: '(min-width: 990px) 22vw, 50vw' }}
+                {%- else -%}
+                  <span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #8a847d; text-align: center; padding: 20px;">[Product photo to come]</span>
+                {%- endif -%}
+                {%- if faces.size > 1 -%}
+                  {%- assign want = faces[1] | append: ' side' -%}
+                  {%- assign flip = nil -%}
+                  {%- for m in p.media -%}{%- if m.alt contains want -%}{%- assign flip = m -%}{%- break -%}{%- endif -%}{%- endfor -%}
+                  {%- if flip -%}
+                    <div class="vx-swap" style="position: absolute; inset: 0; background: #e6e0d7;">
+                      {{ flip | image_url: width: 700 | image_tag: alt: '', style: 'position: absolute; left: 10%; top: 14%; width: 80%; height: 72%; object-fit: contain;', loading: 'lazy' }}
+                      <span style="position: absolute; left: 14px; bottom: 14px; font-size: 13px; font-weight: 600; color: #1d1c1c;">Flip side: {{ faces[1] }}</span>
+                    </div>
+                  {%- endif -%}
+                {%- endif -%}
+                <span style="position: absolute; left: 14px; top: 14px; background: #fff; padding: 6px 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #1d1c1c;">{{ tag }}</span>
+                <span style="position: absolute; right: 14px; top: 14px; display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: {% if v.available %}#2f6b3a{% else %}#8a5e3b{% endif %};"><span style="width: 7px; height: 7px; border-radius: 4px; background: currentColor; display: block;"></span>{% if v.available %}In stock{% else %}Out of stock{% endif %}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;">
+                <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0;"><span style="font-size: 17px; font-weight: 600;">{{ p.title }}</span><span style="font-size: 14px; color: #6b655e;">{{ sub }}</span></div>
+                <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px; flex: 0 0 auto;"><span style="font-size: 17px; font-weight: 700;">{{ v.price | money }}</span><span style="font-size: 12px; color: #8a847d;">{{ pm.unit_label.value }}</span></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: -6px;">
+                <div aria-hidden="true" style="display: flex; gap: 6px;">
+                  {%- for nm in faces -%}{%- assign nh = nm | handleize -%}{%- assign mo = colours[nh] -%}<span style="width: 16px; height: 14px; display: block; background: {{ mo.color | default: '#cfc7bc' }}; clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);"></span>{%- endfor -%}
+                </div>
+                <span style="font-size: 12px; color: #8a847d; letter-spacing: 0.04em;">{{ pm.model.value }}</span>
+              </div>
+            </a>
+            {%- assign idx = idx | plus: 1 -%}
+          {%- endfor -%}
+        {%- endfor -%}
+      {%- endfor -%}
+      {%- if promo -%}
+        <a class="vx-card" href="{{ promo.settings.link }}" data-vx-promo {{ promo.shopify_attributes }} style="grid-column: 1 / -1; position: relative; overflow: hidden; min-height: 280px; display: flex; align-items: center; text-decoration: none; color: #fff; background: #2a2a2a;">
+          {%- render 'vx-image', image: promo.settings.image, fallback: 'vx-tex-dappled.webp', alt: '', class: 'vx-media', style: 'position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;', width: 1400 -%}
+          <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.35) 60%, rgba(10,10,10,0.1) 100%);"></div>
+          <div style="position: relative; padding: 40px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; width: 100%;">
+            <div style="display: flex; flex-direction: column; gap: 10px; max-width: 460px;"><span style="font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #e9dccf;">{{ promo.settings.eyebrow }}</span><span style="font-size: 36px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.05;">{{ promo.settings.title }}</span><span style="font-size: 16px; color: #e6e1da;">{{ promo.settings.text }}</span></div>
+            <span style="display: flex; align-items: center; gap: 14px; font-size: 15px; font-weight: 600;"><span class="vx-reveal">{{ promo.settings.cta }}</span>{% render 'vx-hex-arrow' %}</span>
+          </div>
+        </a>
+      {%- endif -%}
+    </div>
+    <div data-vx-empty hidden style="padding: 40px 0; font-size: 16px; color: #5b554f;">No products match those filters. <button type="button" data-vx-clear style="border: 0; background: none; font-weight: 600; color: #8a5e3b; cursor: pointer; text-decoration: underline;">Clear filters</button></div>
+    {%- if soon.size > 0 -%}
+      <div style="display: flex; flex-direction: column; gap: 20px; padding-top: 24px; border-top: 1px solid #e2ddd5; margin-top: 16px;">
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap;"><h2 style="margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -0.015em;">{{ section.settings.soon_title }}</h2><span style="font-size: 14px; color: #6b655e;">{{ section.settings.soon_note }}</span></div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px;">
+          {%- for block in soon -%}
+            <div {{ block.shopify_attributes }} style="display: flex; gap: 16px; align-items: center; background: #f6f4f1; padding: 14px;">
+              <div style="width: 96px; height: 80px; flex: 0 0 auto; display: flex; align-items: center; justify-content: center;">{%- render 'vx-image', image: block.settings.image, fallback: block.settings.fallback, alt: '', style: 'width: 100%; height: 100%; object-fit: contain; opacity: 0.75;', width: 300 -%}</div>
+              <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 16px; font-weight: 600;">{{ block.settings.title }}</span><span style="font-size: 13px; color: #6b655e;">{{ block.settings.text }}</span></div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{%- endpaginate -%}
+{% schema %}
+{
+  "name": "Vertex product grid",
+  "settings": [
+    { "type": "text", "id": "soon_title", "label": "Coming soon heading", "default": "Coming soon" },
+    { "type": "text", "id": "soon_note", "label": "Coming soon note", "default": "Not in the current product list" }
+  ],
+  "blocks": [
+    { "type": "side", "name": "Sidebar card", "limit": 1, "settings": [
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Can't decide?" },
+      { "type": "text", "id": "title", "label": "Title", "default": "Order samples of every colour" },
+      { "type": "text", "id": "cta", "label": "Link label", "default": "Order samples" },
+      { "type": "url", "id": "link", "label": "Link" }
+    ]},
+    { "type": "promo", "name": "Banner after 6 products", "limit": 1, "settings": [
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Samples" },
+      { "type": "text", "id": "title", "label": "Title", "default": "See the colours in your own light." },
+      { "type": "text", "id": "text", "label": "Text", "default": "Order up to [NUMBER] samples, sent [SAMPLE DELIVERY TERMS]." },
+      { "type": "text", "id": "cta", "label": "Link label", "default": "Order samples" },
+      { "type": "url", "id": "link", "label": "Link" }
+    ]},
+    { "type": "soon", "name": "Coming soon item", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "text", "id": "fallback", "label": "Fallback theme image" },
+      { "type": "text", "id": "title", "label": "Title" },
+      { "type": "text", "id": "text", "label": "Text" }
+    ]}
+  ]
+}
+{% endschema %}

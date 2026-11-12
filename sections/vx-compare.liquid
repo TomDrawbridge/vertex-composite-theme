@@ -1,0 +1,61 @@
+<section class="vx vx-wrap" id="gen" style="max-width: 1360px; margin: 0 auto; padding: 24px 40px 120px; display: flex; flex-direction: column; gap: 40px;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; border-top: 1px solid #e2ddd5; padding-top: 96px;">
+    <div style="display: flex; flex-direction: column; gap: 18px; max-width: 620px;">
+      {%- render 'vx-kicker', text: section.settings.kicker -%}
+      <h2 style="margin: 0; font-size: clamp(34px, 4vw, 56px); line-height: 1; font-weight: 600; letter-spacing: -0.03em;">{{ section.settings.title }}</h2>
+    </div>
+    <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #5b554f; max-width: 460px;">{{ section.settings.text }}</p>
+  </div>
+  <div style="overflow-x: auto;">
+    <div aria-label="{{ section.settings.col1_title }} and {{ section.settings.col2_title }} compared" role="table" style="min-width: 680px; display: flex; flex-direction: column;">
+      <div role="row" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch;">
+        <div role="columnheader" style="padding: 22px 24px 22px 0; font-size: 14px; color: #6b655e; display: flex; align-items: flex-end;">Compared</div>
+        <div role="columnheader" style="padding: 24px; background: #f6f4f1; display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #6b655e;">{{ section.settings.col1_kicker }}</span><span style="font-size: 24px; font-weight: 600; letter-spacing: -0.015em;">{{ section.settings.col1_title }}</span></div>
+        <div role="columnheader" style="padding: 24px; background: #161616; color: #fff; display: flex; flex-direction: column; gap: 6px;"><span style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #b6855f;"><span>{{ section.settings.col2_kicker }}</span>{%- if section.settings.col2_note != blank -%}<span style="letter-spacing: 0.04em; text-transform: none; color: #e9dccf;">{{ section.settings.col2_note }}</span>{%- endif -%}</span><span style="font-size: 24px; font-weight: 600; letter-spacing: -0.015em;">{{ section.settings.col2_title }}</span></div>
+      </div>
+      {%- for block in section.blocks -%}
+        <div role="row" {{ block.shopify_attributes }} style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; border-bottom: 1px solid #e2ddd5;">
+          <div role="rowheader" style="padding: 18px 24px 18px 0; font-size: 15px; font-weight: 600;">{{ block.settings.label }}</div>
+          <div role="cell" style="padding: 18px 24px; background: #f6f4f1; font-size: 15px; line-height: 1.55; color: #4d4a47;">{{ block.settings.a }}</div>
+          <div role="cell" style="padding: 18px 24px; background: #efebe5; font-size: 15px; line-height: 1.55; color: #1d1c1c; font-weight: 500;">{{ block.settings.b }}</div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+  <p style="margin: -16px 0 0; font-size: 13px; color: #6b655e;">{{ section.settings.footnote }}</p>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+    {%- for i in (1..2) -%}
+      {%- assign tk = 'card' | append: i | append: '_title' -%}{%- assign xk = 'card' | append: i | append: '_text' -%}
+      {%- if section.settings[tk] != blank -%}
+        <div style="border: 1px solid #e2ddd5; padding: 32px; display: flex; flex-direction: column; gap: 12px;"><h3 style="margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.01em;">{{ section.settings[tk] }}</h3><p style="margin: 0; font-size: 16px; line-height: 1.6; color: #4d4a47;">{{ section.settings[xk] }}</p></div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Vertex comparison",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Know your boards" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Capped or uncapped?" },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "text", "id": "col1_kicker", "label": "Column 1 label", "default": "Generation 1" },
+    { "type": "text", "id": "col1_title", "label": "Column 1 title", "default": "Uncapped" },
+    { "type": "text", "id": "col2_kicker", "label": "Column 2 label", "default": "Generation 2" },
+    { "type": "text", "id": "col2_title", "label": "Column 2 title", "default": "Capped" },
+    { "type": "text", "id": "col2_note", "label": "Column 2 note" },
+    { "type": "text", "id": "footnote", "label": "Footnote" },
+    { "type": "text", "id": "card1_title", "label": "Card 1 title" },
+    { "type": "textarea", "id": "card1_text", "label": "Card 1 text" },
+    { "type": "text", "id": "card2_title", "label": "Card 2 title" },
+    { "type": "textarea", "id": "card2_text", "label": "Card 2 text" }
+  ],
+  "blocks": [
+    { "type": "row", "name": "Row", "settings": [
+      { "type": "text", "id": "label", "label": "Label" },
+      { "type": "text", "id": "a", "label": "Column 1" },
+      { "type": "text", "id": "b", "label": "Column 2" }
+    ]}
+  ]
+}
+{% endschema %}
