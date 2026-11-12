@@ -233,3 +233,4 @@
 .vx-cart-line input[type=number]::-webkit-inner-spin-button, .vx-cart-line input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 @media (max-width: 760px) { .vx-cart-summary { padding-top: 0 !important; } .vx-cart-line { padding: 20px !important; gap: 16px !important; } .vx-cart-line > a { width: 88px !important; } }
 .vx-page-hero input::placeholder { color: rgba(255,255,255,0.7); }
+@media (max-width: 640px) { .vx-form > div { padding: 28px 22px !important; } }
