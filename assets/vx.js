@@ -11,8 +11,14 @@
   function initHeader() {
     var header = document.querySelector('[data-vx-header]');
     if (!header) return;
-    var onScroll = function () { header.classList.toggle('is-scrolled', window.scrollY > 24); };
+    // Horizon makes .page-wrapper the scroll container on desktop; the window scrolls on mobile.
+    var pw = document.querySelector('.page-wrapper');
+    var onScroll = function () {
+      var y = Math.max(window.scrollY || 0, pw ? pw.scrollTop : 0);
+      header.classList.toggle('is-scrolled', y > 24);
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
+    if (pw) pw.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     var drawer = document.querySelector('[data-vx-drawer]');
     document.querySelectorAll('[data-vx-burger]').forEach(function (btn) {
