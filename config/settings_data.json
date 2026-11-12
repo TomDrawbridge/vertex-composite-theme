@@ -93,7 +93,10 @@
     "palette_secondary_button_border": "#1d1c1c",
     "palette_selected_variant_background": "#1d1c1c",
     "palette_selected_variant_text": "#ffffff",
-    "palette_selected_variant_border": "#1d1c1c"
+    "palette_selected_variant_border": "#1d1c1c",
+    "favicon": "shopify://shop_images/vertex-favicon.png",
+    "vx_schema_logo": "shopify://shop_images/vertex-favicon.png",
+    "vx_share_image": "shopify://shop_images/vertex-twin-deck-storm-silver-oak-sunken-seating.jpg"
   },
   "presets": {
     "Default": {

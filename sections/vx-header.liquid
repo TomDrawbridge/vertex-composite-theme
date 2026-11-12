@@ -22,6 +22,7 @@
     {%- if section.settings.announcement_link != blank -%}<a href="{{ section.settings.announcement_link }}" style="color: inherit; text-decoration: none;">{{ section.settings.announcement }}</a>{%- else -%}{{ section.settings.announcement }}{%- endif -%}
   </div>
 {%- endif -%}
+{%- render 'vx-schema-org' -%}
 <header class="vx vx-header{% if overlay %} vx-header--overlay{% endif %}" data-vx-header>
   <div style="max-width: 1360px; height: 100%; margin: 0 auto; padding: 0 40px; display: flex; align-items: center; gap: 28px;" class="vx-wrap">
     <a aria-label="{{ shop.name }} home" href="{{ routes.root_url }}" style="display: flex; flex: 0 0 auto;">

@@ -77,6 +77,15 @@
     {%- endif -%}
   </div>
 </section>
+{%- liquid
+  assign parent_url = ''
+  if section.settings.parent_link != blank
+    assign parent_url = section.settings.parent_link
+  endif
+  if template.name != '404' and template.name != 'search'
+    render 'vx-schema-breadcrumb', parent: section.settings.parent, parent_url: parent_url, current: crumb
+  endif
+-%}
 {%- if section.settings.usp_1 != blank -%}
   <div class="vx" style="border-bottom: 1px solid #e2ddd5;">
     <div class="vx-wrap" style="max-width: 1360px; margin: 0 auto; padding: 18px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; font-size: 14px; font-weight: 500; color: #3d3a37;">

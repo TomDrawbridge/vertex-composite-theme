@@ -1,0 +1,21 @@
+{%- doc -%}
+  BreadcrumbList structured data matching the visible breadcrumb.
+  @param {string} [parent] - middle crumb label
+  @param {string} [parent_url] - middle crumb link (relative)
+  @param {string} current - current page label
+{%- enddoc -%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": {{ routes.root_url | prepend: request.origin | json }} },
+      {%- if parent != blank and parent_url != blank %}
+      { "@type": "ListItem", "position": 2, "name": {{ parent | json }}, "item": {{ parent_url | prepend: request.origin | json }} },
+      { "@type": "ListItem", "position": 3, "name": {{ current | json }}, "item": {{ canonical_url | json }} }
+      {%- else %}
+      { "@type": "ListItem", "position": 2, "name": {{ current | json }}, "item": {{ canonical_url | json }} }
+      {%- endif %}
+    ]
+  }
+</script>

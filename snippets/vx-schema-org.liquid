@@ -1,0 +1,47 @@
+{%- doc -%}
+  Organization structured data on every page, plus WebSite with site search on the homepage.
+  Replaces the Organization schema Horizon outputs from its own header section.
+{%- enddoc -%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    "url": {{ routes.root_url | prepend: request.origin | json }},
+    {%- if settings.vx_schema_logo != blank %}
+    "logo": {{ settings.vx_schema_logo | image_url: width: 512 | prepend: 'https:' | json }},
+    {%- endif %}
+    {%- if settings.vx_schema_email != blank %}
+    "email": {{ settings.vx_schema_email | json }},
+    {%- endif %}
+    {%- if settings.vx_schema_phone != blank %}
+    "telephone": {{ settings.vx_schema_phone | json }},
+    {%- endif %}
+    {%- if settings.vx_schema_company_no != blank %}
+    "identifier": {{ settings.vx_schema_company_no | json }},
+    {%- endif %}
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": {{ settings.vx_schema_street | json }},
+      "addressLocality": {{ settings.vx_schema_town | json }},
+      "postalCode": {{ settings.vx_schema_postcode | json }},
+      "addressCountry": "GB"
+    }
+  }
+</script>
+{%- if request.page_type == 'index' -%}
+  {%- assign search_target = routes.search_url | prepend: request.origin | append: '?q={search_term_string}' -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": {{ shop.name | json }},
+      "url": {{ routes.root_url | prepend: request.origin | json }},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {{ search_target | json }},
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
+{%- endif -%}
