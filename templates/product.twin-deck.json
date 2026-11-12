@@ -1,0 +1,174 @@
+{
+  "sections": {
+    "main": {
+      "type": "vx-product-main",
+      "settings": {
+        "sample_link": "shopify://pages/samples",
+        "warranty_link": "shopify://pages/warranty",
+        "compare_link": "shopify://pages/samples",
+        "kicker": "Composite decking",
+        "reversible": true
+      }
+    },
+    "band": {
+      "type": "vx-product-band",
+      "blocks": {
+        "colour_1": {
+          "type": "colour",
+          "settings": {
+            "name": "Eclipse",
+            "hex": "#232324",
+            "image": "shopify://shop_images/vertex-twin-deck-eclipse-lit-terrace.jpg",
+            "kicker": "Twin Deck · Eclipse side",
+            "title": "Bold, deep and dramatic."
+          }
+        },
+        "colour_2": {
+          "type": "colour",
+          "settings": {
+            "name": "Storm",
+            "hex": "#4A4B4C",
+            "image": "shopify://shop_images/vertex-twin-deck-eclipse-storm-pool-terrace.jpg",
+            "kicker": "Twin Deck · Storm side",
+            "title": "Crisp, modern and understated."
+          }
+        },
+        "colour_3": {
+          "type": "colour",
+          "settings": {
+            "name": "Chestnut",
+            "hex": "#6B4A36",
+            "image": "shopify://shop_images/vertex-slatted-cladding-garden-room-chestnut-deck.jpg",
+            "kicker": "Twin Deck · Chestnut side",
+            "title": "Warm, natural and timeless."
+          }
+        },
+        "colour_4": {
+          "type": "colour",
+          "settings": {
+            "name": "Silver Oak",
+            "hex": "#A9A59D",
+            "image": "shopify://shop_images/vertex-twin-deck-silver-oak-garden.jpg",
+            "kicker": "Twin Deck · Silver Oak side",
+            "title": "Light, calm and easy on the eye."
+          }
+        }
+      },
+      "block_order": [
+        "colour_2",
+        "colour_1",
+        "colour_3",
+        "colour_4"
+      ]
+    },
+    "features": {
+      "type": "vx-product-features",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/vertex-twin-deck-storm-silver-oak-sunken-seating.jpg",
+            "title": "Two looks, one board",
+            "text": "Each board has a different colour on each face, so one board gives you two looks: Eclipse or Storm, Chestnut or Silver Oak."
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/vertex-twin-deck-silver-oak-garden.jpg",
+            "title": "Designed for low upkeep",
+            "text": "No yearly sanding, staining or sealing. An occasional wash keeps it looking its best."
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/vertex-l-corner-trim-storm-dark-grey.webp",
+            "cutout": true,
+            "title": "Matched finishing",
+            "text": "S-MF07 L-corner trims come in all four deck colours, plus Dark grey, for a clean edge on every side."
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3"
+      ],
+      "settings": {
+        "kicker": "Why Twin Deck",
+        "title": "The look of timber, without the upkeep."
+      }
+    },
+    "specs": {
+      "type": "vx-product-specs",
+      "blocks": {
+        "download_1": {
+          "type": "download",
+          "settings": {
+            "title": "Technical data sheet",
+            "source": "data_sheet"
+          }
+        },
+        "download_2": {
+          "type": "download",
+          "settings": {
+            "title": "Installation guide",
+            "source": "page",
+            "link": "shopify://pages/installation-guide"
+          }
+        },
+        "download_3": {
+          "type": "download",
+          "settings": {
+            "title": "Warranty terms",
+            "source": "page",
+            "link": "shopify://pages/warranty"
+          }
+        },
+        "download_4": {
+          "type": "download",
+          "settings": {
+            "title": "Safety data sheet",
+            "source": "safety_data_sheet"
+          }
+        }
+      },
+      "block_order": [
+        "download_1",
+        "download_2",
+        "download_3",
+        "download_4"
+      ],
+      "settings": {
+        "trade_link": "shopify://pages/trade-accounts"
+      }
+    },
+    "calc": {
+      "type": "vx-product-calc",
+      "settings": {}
+    },
+    "related": {
+      "type": "vx-product-related",
+      "settings": {
+        "title": "Complete the build",
+        "link_label": "Shop all products",
+        "link": "shopify://collections/all",
+        "products": [
+          "l-corner-trim",
+          "ssl-starter",
+          "fasteners-and-screws",
+          "flush-cladding"
+        ]
+      }
+    }
+  },
+  "order": [
+    "main",
+    "band",
+    "features",
+    "specs",
+    "calc",
+    "related"
+  ]
+}

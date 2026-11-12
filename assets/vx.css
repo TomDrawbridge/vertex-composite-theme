@@ -111,6 +111,14 @@
 .vx-faq[open] .vx-faq__icon { transform: rotate(45deg); }
 .vx-rte p { margin: 0; }
 .vx-rte a, .vx-faq a { color: #8a5e3b; }
+/* Product page option cards */
+.vx-opt { background: #fff; border: 1px solid #e2ddd5; transition: border-color .2s ease, background-color .2s ease; }
+.vx-opt:hover { border-color: #cfc7bc; }
+.vx-opt[aria-pressed='true'] { background: #efebe5; border-color: #1d1c1c; }
+.vx-face { background: #fff; color: #1d1c1c; }
+.vx-face[aria-pressed='true'] { background: #161616; color: #fff; }
+[data-vx-add][disabled] { opacity: .5; cursor: not-allowed; }
+[data-vx-qty-input]::-webkit-inner-spin-button, [data-vx-qty-input]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 
 /* Smaller screens: tighten big fixed heights from the desktop design */
 @media (max-width: 760px) {
