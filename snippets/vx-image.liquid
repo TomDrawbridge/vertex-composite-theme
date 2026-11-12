@@ -1,0 +1,20 @@
+{%- doc -%}
+  Image from an image_picker setting, or a theme asset as fallback.
+  @param {object} image - image_picker value (may be blank)
+  @param {string} [fallback] - theme asset filename
+  @param {string} [alt]
+  @param {string} [style]
+  @param {string} [class]
+  @param {string} [sizes]
+  @param {number} [width] - max width to request
+  @param {string} [loading]
+{%- enddoc -%}
+{%- liquid
+  assign w = width | default: 2000
+  assign l = loading | default: 'lazy'
+-%}
+{%- if image != blank -%}
+  {{ image | image_url: width: w | image_tag: alt: alt, style: style, class: class, sizes: sizes, loading: l, widths: '400, 800, 1200, 1600, 2000' }}
+{%- elsif fallback != blank -%}
+  <img src="{{ fallback | asset_url }}" alt="{{ alt | escape }}" style="{{ style }}" class="{{ class }}" loading="{{ l }}">
+{%- endif -%}

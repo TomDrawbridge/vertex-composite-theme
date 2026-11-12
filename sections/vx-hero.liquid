@@ -1,0 +1,79 @@
+{%- assign n = section.blocks.size -%}
+<section class="vx vx-hero" data-vx-hero data-autoplay="{{ section.settings.autoplay }}" data-seconds="{{ section.settings.seconds }}" style="--vx-slide-secs: {{ section.settings.seconds }}s; position: relative; min-height: 880px; display: flex; flex-direction: column; color: #fff; background: #161616; overflow: hidden;">
+  <div style="position: absolute; inset: 0; overflow: hidden;">
+    <div class="vx-hero__track" data-vx-track style="width: {{ n | times: 100 }}%;">
+      {%- for block in section.blocks -%}
+        <div class="vx-hero__cell{% if forloop.first %} is-active{% endif %}" data-vx-cell style="position: relative; flex: 0 0 {{ 100.0 | divided_by: n }}%; height: 100%; overflow: hidden;" {{ block.shopify_attributes }}>
+          {%- capture fb -%}{%- if forloop.index == 1 -%}vx-tex-dark.webp{%- endif -%}{%- endcapture -%}
+          {%- if forloop.first -%}{%- assign ld = 'eager' -%}{%- else -%}{%- assign ld = 'lazy' -%}{%- endif -%}
+          {%- render 'vx-image', image: block.settings.image, fallback: fb, alt: block.settings.image.alt, style: 'position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;', sizes: '100vw', loading: ld -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+  <div aria-hidden="true" style="position: absolute; inset: 0; background: radial-gradient(100% 100% at 100% 100%, rgba(10,10,10,0) 0%, rgba(10,10,10,{{ section.settings.overlay | divided_by: 100.0 }}) 100%);"></div>
+  <div class="vx-wrap" style="position: relative; flex: 1 1 0%; display: flex; flex-direction: column; justify-content: flex-end; max-width: 1360px; width: 100%; margin: 0 auto; padding: 0 40px 40px;">
+    <div style="display: grid; max-width: 860px; padding-bottom: 64px;">
+      {%- for block in section.blocks -%}
+        <div class="vx-hero__copy{% if forloop.first %} is-active{% endif %}" data-vx-copy aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}">
+          {%- render 'vx-kicker', text: block.settings.kicker, color: '#ffffff' -%}
+          {%- capture hstyle -%}margin: 0; font-size: clamp(48px, 7vw, 108px); line-height: 0.98; font-weight: 600; letter-spacing: -0.035em; text-shadow: rgba(0,0,0,0.3) 0 2px 30px;{%- endcapture -%}
+          {%- if forloop.first -%}
+            <h1 style="{{ hstyle }}">{{ block.settings.title }}</h1>
+          {%- else -%}
+            <h2 style="{{ hstyle }}">{{ block.settings.title }}</h2>
+          {%- endif -%}
+          <p style="margin: 0; font-size: 20px; line-height: 1.5; color: #f2efea; max-width: 560px; font-weight: 400; text-shadow: rgba(0,0,0,0.35) 0 1px 16px;">{{ block.settings.text }}</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 6px;">
+            {%- if block.settings.cta != blank -%}
+              <a href="{{ block.settings.cta_link }}" style="background: #fff; color: #161616; text-decoration: none; font-weight: 600; font-size: 16px; padding: 18px 30px; min-height: 56px; display: flex; align-items: center; gap: 12px;">{{ block.settings.cta }}{% render 'vx-arrow' %}</a>
+            {%- endif -%}
+            {%- if section.settings.cta2 != blank -%}
+              <a href="{{ section.settings.cta2_link }}" style="background: rgba(22,22,22,0.35); border: 1px solid rgba(255,255,255,0.6); color: #fff; text-decoration: none; font-weight: 600; font-size: 16px; padding: 18px 30px; min-height: 56px; display: flex; align-items: center;">{{ section.settings.cta2 }}</a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if n > 1 -%}
+      <div aria-label="Featured" role="tablist" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px;">
+        {%- for block in section.blocks -%}
+          <button class="vx-hero__tab" data-vx-tab role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" style="background: transparent; border: 0; padding: 0; text-align: left; cursor: pointer; color: #fff; display: flex; flex-direction: column; gap: 12px; min-height: 44px;">
+            <span style="display: block; position: relative; height: 2px; width: 100%; background: rgba(255,255,255,0.3); overflow: hidden;"><span class="vx-hero__fill"></span></span>
+            <span style="display: flex; gap: 12px; font-size: 14px; font-weight: 600;"><span style="color: #b6855f;">0{{ forloop.index }}</span><span class="vx-hero__label" style="color: rgba(255,255,255,0.72);">{{ block.settings.label }}</span></span>
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Vertex hero slider",
+  "max_blocks": 5,
+  "settings": [
+    { "type": "checkbox", "id": "autoplay", "label": "Autoplay", "default": true },
+    { "type": "range", "id": "seconds", "label": "Seconds per slide", "min": 4, "max": 12, "step": 1, "default": 7 },
+    { "type": "range", "id": "overlay", "label": "Overlay strength", "min": 20, "max": 95, "step": 5, "unit": "%", "default": 80 },
+    { "type": "text", "id": "cta2", "label": "Second button label", "default": "Order free samples" },
+    { "type": "url", "id": "cta2_link", "label": "Second button link" }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "label", "label": "Tab label" },
+        { "type": "text", "id": "kicker", "label": "Kicker" },
+        { "type": "text", "id": "title", "label": "Heading" },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "text", "id": "cta", "label": "Button label" },
+        { "type": "url", "id": "cta_link", "label": "Button link" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Vertex hero slider" }]
+}
+{% endschema %}

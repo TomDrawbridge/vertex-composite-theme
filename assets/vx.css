@@ -1,84 +1,125 @@
-/* Vertex Composite: Direction B layer on top of Horizon.
-   Keep this file small. Colours, fonts and radii live in theme settings;
-   this only covers what settings can't express. */
+/* Vertex Composite, Direction B. Ported from design/pages/*.dc.html.
+   Section markup keeps the design's inline styles; this file holds the
+   hover, state and responsive rules from the design's <helmet> styles. */
 
 :root {
   --vx-ink: #1d1c1c;
   --vx-near-black: #161616;
   --vx-sand: #efebe5;
-  --vx-light-sand: #f6f4f1;
   --vx-line: #e2ddd5;
-  --vx-line-strong: #cfc7bc;
   --vx-muted: #5b554f;
   --vx-bronze: #b6855f;
-  --vx-bronze-text: #8a5e3b; /* small accent text on light backgrounds (contrast) */
-  --vx-stock: #2f6b3a;
-  --vx-hex: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+  --vx-bronze-text: #8a5e3b;
   --vx-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Kicker: h6 preset is used as the small uppercase label above headings */
-.h6,
-h6 {
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-weight: 600;
+.vx { font-family: 'DM Sans', system-ui, sans-serif; color: #1d1c1c; -webkit-font-smoothing: antialiased; }
+.vx *, .vx *::before, .vx *::after { box-sizing: border-box; }
+.vx h1, .vx h2, .vx h3, .vx p, .vx figure { font-family: inherit; text-transform: none; }
+.vx img { max-width: none; }
+.vx button { font-family: inherit; }
+.vx a { color: inherit; }
+.vx-wrap { max-width: 1360px; margin: 0 auto; padding-left: 40px; padding-right: 40px; }
+.vx-link { color: #8a5e3b; }
+.vx-link:hover { color: #5e3f26; }
+
+/* Header: sticky, transparent over the homepage hero, blurred once scrolled */
+#header-group, #header-group > .shopify-section { display: contents; }
+.vx-header { position: sticky; top: 0; z-index: 60; height: 76px; color: #fff; background-color: #161616;
+  border-bottom: 1px solid rgba(255,255,255,0.08); transition: background-color .35s ease, border-color .35s ease; }
+.vx-header--overlay { margin-bottom: -76px; background-color: rgba(18,18,18,0); border-bottom-color: rgba(255,255,255,0.18); }
+.vx-header--overlay.is-scrolled { background-color: rgba(18,18,18,0.72); -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%); border-bottom-color: rgba(255,255,255,0.08); }
+.vx-header a, .vx-header button { color: #fff; }
+.vx-nav a { position: relative; text-decoration: none; }
+.vx-nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .4s var(--vx-ease); }
+.vx-nav a:hover::after, .vx-nav a[aria-current]::after { transform: scaleX(1); }
+.vx-cart-count { position: absolute; top: 6px; right: 4px; min-width: 18px; height: 18px; border-radius: 9px; background: #b6855f; color: #161616; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; padding: 0 4px; }
+.vx-drawer { position: fixed; inset: 0; z-index: 200; background: #161616; color: #fff; padding: 24px 20px 40px; display: flex; flex-direction: column; gap: 8px; transform: translateX(100%); transition: transform .5s var(--vx-ease); visibility: hidden; }
+.vx-drawer.is-open { transform: none; visibility: visible; }
+.vx-drawer a { color: #fff; text-decoration: none; font-size: 28px; font-weight: 600; letter-spacing: -0.02em; padding: 10px 0; border-bottom: 1px solid #333131; }
+@media (max-width: 1180px) { .vx-nav { display: none !important; } .vx-burger { display: flex !important; } }
+@media (max-width: 640px) {
+  .vx-hide-sm { display: none !important; }
+  .vx-wrap, .vx [style*="max-width: 1360px"] { padding-left: 20px !important; padding-right: 20px !important; }
 }
 
-/* Hexagon colour swatches (product page and filters) */
-.variant-option__swatch,
-.swatch {
-  clip-path: var(--vx-hex);
-  border-radius: 0;
+/* Cards (design: .vx-card family) */
+.vx-card .vx-media { transition: transform 1.2s cubic-bezier(.16,1,.3,1); }
+.vx-card:hover .vx-media, .vx-card:focus-visible .vx-media { transform: scale(1.07); }
+.vx-card .vx-shade { opacity: 0; transition: opacity .6s ease; }
+.vx-card:hover .vx-shade, .vx-card:focus-visible .vx-shade { opacity: 1; }
+.vx-card .vx-lift { transition: transform .6s cubic-bezier(.16,1,.3,1); }
+.vx-card:hover .vx-lift, .vx-card:focus-visible .vx-lift { transform: translateY(-6px); }
+.vx-card .vx-arrow { transition: transform .5s cubic-bezier(.16,1,.3,1); }
+.vx-card:hover .vx-arrow, .vx-card:focus-visible .vx-arrow { transform: translateX(6px); }
+.vx-card .vx-cut { transition: transform .9s cubic-bezier(.16,1,.3,1); }
+.vx-card:hover .vx-cut, .vx-card:focus-visible .vx-cut { transform: translateY(-8px) scale(1.06) rotate(-2deg); }
+.vx-card .vx-reveal { opacity: 0; transform: translateX(10px); transition: opacity .4s ease, transform .6s cubic-bezier(.16,1,.3,1); }
+.vx-card:hover .vx-reveal, .vx-card:focus-visible .vx-reveal { opacity: 1; transform: none; }
+@media (hover: none) { .vx-card .vx-reveal { opacity: 1; transform: none; } }
+@media (max-width: 560px) { .vx-card .vx-reveal { display: none; } }
+.vx-hex { opacity: .5; transition: opacity .45s ease; }
+.vx-hex polygon { fill: rgba(255,255,255,0); transition: fill .45s ease; }
+.vx-hex path { stroke: #161616; opacity: 0; transition: opacity .35s ease; }
+.vx-card:hover .vx-hex, .vx-card:focus-visible .vx-hex { opacity: 1; }
+.vx-card:hover .vx-hex polygon, .vx-card:focus-visible .vx-hex polygon { fill: #fff; }
+.vx-card:hover .vx-hex path, .vx-card:focus-visible .vx-hex path { opacity: 1; }
+.vx-hex-dark path { stroke: #fff; }
+.vx-card:hover .vx-hex-dark polygon, .vx-card:focus-visible .vx-hex-dark polygon { fill: #1d1c1c; }
+
+/* Hero slider */
+.vx-hero__track { display: flex; height: 100%; transition: transform 1.25s cubic-bezier(.77,0,.18,1); will-change: transform; }
+.vx-hero__cell img { transition: transform 1.7s cubic-bezier(.16,1,.3,1); transform: translate3d(-9%,0,0) scale(1.12); }
+.vx-hero__cell.is-before img { transform: translate3d(9%,0,0) scale(1.12); }
+.vx-hero__cell.is-active img { transform: translate3d(0,0,0) scale(1); }
+.vx-hero__copy { grid-area: 1 / 1; align-self: end; display: flex; flex-direction: column; gap: 26px; opacity: 0; transform: translate3d(0,28px,0); visibility: hidden;
+  transition: opacity .4s ease, transform .5s ease, visibility 0s linear .5s; }
+.vx-hero__copy.is-active { opacity: 1; transform: none; visibility: visible; transition: opacity .8s ease .45s, transform 1s cubic-bezier(.16,1,.3,1) .45s, visibility 0s linear 0s; }
+.vx-hero__fill { position: absolute; left: 0; top: 0; bottom: 0; background: #fff; width: 0; transition: none; }
+.vx-hero__tab[aria-selected='true'] .vx-hero__fill { width: 100%; transition: width var(--vx-slide-secs, 7s) linear; }
+.vx-hero__tab[aria-selected='true'] .vx-hero__label { color: #fff !important; }
+
+/* Colour picker */
+.vx-colour__btn { box-shadow: transparent 3px 0 0 inset; padding-left: 0 !important; transition: padding .4s var(--vx-ease), box-shadow .4s ease; }
+.vx-colour__btn[aria-pressed='true'] { box-shadow: #b6855f 3px 0 0 inset; padding-left: 20px !important; }
+.vx-colour__btn .vx-colour__go { color: transparent; transition: color .3s ease; }
+.vx-colour__btn[aria-pressed='true'] .vx-colour__go, .vx-colour__btn:hover .vx-colour__go { color: #1d1c1c; }
+.vx-colour__photo { transition: opacity .6s ease; }
+
+/* Inspiration bento */
+@media (max-width: 760px) {
+  .vx-bento { grid-template-columns: repeat(2, minmax(0,1fr)) !important; grid-template-rows: none !important; grid-auto-flow: row !important; grid-auto-rows: 240px; height: auto !important; }
+  .vx-bento > figure { grid-row: auto !important; }
 }
 
-.variant-option--swatches .variant-option__button-label--has-swatch {
-  border-radius: 0;
-}
+/* Deck planner */
+.vx-range { width: 100%; accent-color: #b6855f; height: 28px; margin: 0; cursor: pointer; }
+.vx-plan__deck { transition: left .6s cubic-bezier(.16,1,.3,1), top .6s cubic-bezier(.16,1,.3,1), width .6s cubic-bezier(.16,1,.3,1), height .6s cubic-bezier(.16,1,.3,1); }
+.vx-plan__chip { opacity: .5; transform: scale(1); transition: transform .3s ease, opacity .3s ease; }
+.vx-plan__chip[aria-pressed='true'] { opacity: 1; transform: scale(1.1); }
+.vx-plan__dir[aria-pressed='true'] { background: #fff !important; color: #161616 !important; }
 
-/* Square corners everywhere */
-.button,
-.button-secondary,
-input,
-select,
-textarea,
-.card,
-.product-card,
-dialog,
-.popover {
-  border-radius: 0;
-}
-
-/* Slower, softer image zoom on cards */
-.card-hover-effect-subtle-zoom img,
-[data-card-hover-effect='subtle-zoom'] img {
-  transition-duration: 1.2s;
-  transition-timing-function: var(--vx-ease);
-}
-
-/* Spec tables in product descriptions */
-.rte table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.rte table th,
-.rte table td {
-  text-align: left;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--vx-line);
-  vertical-align: top;
-}
-
-.rte table th {
-  width: 40%;
-  font-weight: 600;
-  color: var(--vx-muted);
+/* Smaller screens: tighten big fixed heights from the desktop design */
+@media (max-width: 760px) {
+  .vx-hero { min-height: 640px !important; }
+  .vx-hero > .vx-wrap { padding-top: 140px !important; }
+  .vx-range__big { height: 460px !important; }
+  .vx-range__small { height: 260px !important; }
+  .vx-colour__media { min-height: 460px !important; }
+  .vx-system__media { min-height: 420px !important; }
+  .vx-pad-lg { padding-top: 80px !important; padding-bottom: 80px !important; }
+  .vx-system__body { padding: 64px 20px !important; }
+  .vx-plan__stats { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-  }
+  .vx *, .vx-header { transition: none !important; animation: none !important; }
 }
+
+/* Horizon product pages (until those are ported): hexagon swatches, square corners */
+.variant-option__swatch, .swatch { clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%); border-radius: 0; }
+.button, .button-secondary, input, select, textarea { border-radius: 0; }
+.rte table { width: 100%; border-collapse: collapse; }
+.rte table th, .rte table td { text-align: left; padding: 10px 0; border-bottom: 1px solid var(--vx-line); vertical-align: top; }
+.rte table th { width: 40%; font-weight: 600; color: var(--vx-muted); }

@@ -1,0 +1,6 @@
+{%- doc -%}
+  Small uppercase label with the outlined hexagon, used above section headings.
+  @param {string} text
+  @param {string} [color] - text colour, default bronze text #8a5e3b
+{%- enddoc -%}
+<div style="display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: {{ color | default: '#8a5e3b' }};"><svg aria-hidden="true" height="14" viewBox="0 0 16 14" width="16"><polygon fill="none" points="4,1 12,1 15,7 12,13 4,13 1,7" stroke="#b6855f" stroke-width="1.6"></polygon></svg>{{ text }}</div>

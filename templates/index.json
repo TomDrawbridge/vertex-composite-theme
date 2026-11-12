@@ -1,743 +1,437 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "hero_jVaWmY": {
-      "type": "hero",
+    "hero": {
+      "type": "vx-hero",
       "blocks": {
-        "kicker": {
-          "type": "text",
+        "slide_1": {
+          "type": "slide",
           "settings": {
-            "text": "<p>Composite decking &amp; cladding</p>",
-            "type_preset": "h6",
-            "text_color": "#efebe5"
-          },
-          "blocks": {}
+            "image": "shopify://shop_images/vertex-flush-cladding-garden-office.jpg",
+            "label": "Outdoor living",
+            "kicker": "Composite decking & cladding",
+            "title": "Outside, finished properly.",
+            "text": "Composite decking and cladding in four considered colours. Backed by a 10-year fade warranty (terms apply).",
+            "cta": "Shop the range",
+            "cta_link": "shopify://collections/all"
+          }
         },
-        "heading": {
-          "type": "text",
+        "slide_2": {
+          "type": "slide",
           "settings": {
-            "text": "<h1>Outside, finished properly.</h1>",
-            "type_preset": "h1",
-            "text_color": "#ffffff",
-            "max_width": "narrow"
-          },
-          "blocks": {}
+            "image": "shopify://shop_images/vertex-twin-deck-storm-silver-oak-sunken-seating.jpg",
+            "label": "Decking",
+            "kicker": "Twin Deck composite boards",
+            "title": "Decking made for long summers.",
+            "text": "Reversible 4 m boards in Eclipse and Storm, or Chestnut and Silver Oak. £29.99 a board.",
+            "cta": "Shop decking",
+            "cta_link": "shopify://collections/decking"
+          }
         },
-        "body": {
-          "type": "text",
+        "slide_3": {
+          "type": "slide",
           "settings": {
-            "text": "<p>Composite decking and cladding in four considered colours. Backed by a 10-year fade warranty (terms apply).</p>",
-            "type_preset": "rte",
-            "text_color": "#ffffff",
-            "max_width": "narrow"
-          },
-          "blocks": {}
-        },
-        "cta": {
-          "type": "button",
-          "settings": {
-            "label": "Shop decking",
-            "link": "shopify://collections/decking",
-            "style_class": "button"
-          },
-          "blocks": {}
-        },
-        "cta2": {
-          "type": "button",
-          "settings": {
-            "label": "Order samples",
-            "link": "shopify://pages/samples",
-            "style_class": "button-custom",
-            "custom_button_background": "rgba(0, 0, 0, 0)",
-            "custom_button_text": "#ffffff",
-            "custom_button_border": "#ffffff"
-          },
-          "blocks": {}
+            "image": "shopify://shop_images/vertex-slatted-cladding-house-extension.jpg",
+            "label": "Cladding",
+            "kicker": "Flush & slatted profiles",
+            "title": "Give your home a sharper outline.",
+            "text": "Flush and slatted cladding in Storm, in 4 m lengths. From £18.99 a board.",
+            "cta": "Shop cladding",
+            "cta_link": "shopify://collections/cladding"
+          }
         }
       },
       "block_order": [
-        "kicker",
-        "heading",
-        "body",
-        "cta",
-        "cta2"
+        "slide_1",
+        "slide_2",
+        "slide_3"
       ],
-      "name": "t:names.hero",
       "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "link": "",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 16,
-        "section_width": "full-width",
-        "section_height": "large",
-        "section_height_custom": 50,
-        "toggle_overlay": true,
-        "overlay_color": "#0a0a0acc",
-        "overlay_style": "gradient",
-        "gradient_direction": "to top",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 96,
-        "image_1": "shopify://shop_images/vertex-twin-deck-storm-silver-oak-sunken-seating.jpg"
+        "autoplay": true,
+        "seconds": 7,
+        "overlay": 80,
+        "cta2": "Order free samples",
+        "cta2_link": "shopify://pages/samples"
       }
     },
-    "vx_range": {
-      "type": "collection-list",
-      "settings": {
-        "collection_list": [
-          "decking",
-          "cladding",
-          "trims-and-fixings"
-        ],
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "columns": 3,
-        "mobile_columns": "2",
-        "columns_gap": 8,
-        "rows_gap": 8,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "gap": 12,
-        "padding-block-start": 96,
-        "padding-block-end": 48,
-        "max_collections": 3
-      },
+    "range": {
+      "type": "vx-range",
       "blocks": {
-        "group_Lg9LkF": {
-          "type": "group",
-          "name": "t:names.header",
+        "photo_1": {
+          "type": "photo",
           "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "kicker": {
-              "type": "text",
-              "settings": {
-                "text": "<p>01 / The range</p>",
-                "type_preset": "h6",
-                "text_color": "#8a5e3b"
-              },
-              "blocks": {}
-            },
-            "heading": {
-              "type": "text",
-              "settings": {
-                "text": "<h2>Every surface, outside.</h2>",
-                "type_preset": "h2"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "kicker",
-            "heading"
-          ]
+            "image": "shopify://shop_images/vertex-twin-deck-silver-oak-garden.jpg",
+            "eyebrow": "Twin Deck · from £29.99",
+            "title": "Decking",
+            "cta": "Shop decking",
+            "link": "shopify://collections/decking"
+          }
         },
-        "static-collection-card": {
-          "type": "_collection-card",
-          "name": "t:names.collection_card",
-          "static": true,
+        "photo_2": {
+          "type": "photo",
           "settings": {
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "placement": "on_image",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0
-          },
-          "blocks": {
-            "collection-card-image": {
-              "type": "_collection-card-image",
-              "name": "t:names.collection_card_image",
-              "static": true,
-              "settings": {
-                "image_ratio": "adapt"
-              },
-              "blocks": {}
-            },
-            "collection-title": {
-              "type": "collection-title",
-              "name": "t:names.collection_title",
-              "settings": {
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "background": true,
-                "background_color": "#ffffff",
-                "padding-block-start": 4,
-                "padding-block-end": 4,
-                "padding-inline-start": 8,
-                "padding-inline-end": 8
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "collection-title"
-          ]
+            "image": "shopify://shop_images/vertex-slatted-cladding-garden-office.jpg",
+            "eyebrow": "Flush & slatted · from £18.99",
+            "title": "Cladding",
+            "cta": "Shop cladding",
+            "link": "shopify://collections/cladding"
+          }
+        },
+        "photo_3": {
+          "type": "photo",
+          "settings": {
+            "fallback": "vx-fencing.webp",
+            "eyebrow": "Coming soon",
+            "title": "Fencing",
+            "cta": "Find out more",
+            "link": "shopify://pages/contact"
+          }
+        },
+        "sand_4": {
+          "type": "sand",
+          "settings": {
+            "image": "shopify://shop_images/vertex-l-corner-trim-chestnut.webp",
+            "eyebrow": "Finishing",
+            "title": "Trims",
+            "text": "S-MF07 L-corners in five colours · £14.00",
+            "link": "shopify://products/l-corner-trim"
+          }
+        },
+        "sand_5": {
+          "type": "sand",
+          "settings": {
+            "placeholder": "[Fixings photo to come]",
+            "eyebrow": "Fixings",
+            "title": "Fixings",
+            "text": "SSL starters and MC03 fasteners · £16.99 a box",
+            "link": "shopify://collections/fixings"
+          }
+        },
+        "dark_6": {
+          "type": "dark",
+          "settings": {
+            "image": "shopify://shop_images/vertex-twin-deck-chestnut.webp",
+            "eyebrow": "Not sure yet?",
+            "title": "Order samples and see them in your own light",
+            "cta": "Order samples",
+            "link": "shopify://pages/samples"
+          }
         }
       },
       "block_order": [
-        "group_Lg9LkF"
-      ]
-    },
-    "vx_colour": {
-      "type": "media-with-content",
+        "photo_1",
+        "photo_2",
+        "photo_3",
+        "sand_4",
+        "sand_5",
+        "dark_6"
+      ],
       "settings": {
-        "media_width": "medium",
-        "media_height": "70svh",
-        "media_position": "left",
-        "background_color": "#efebe5"
-      },
+        "kicker": "01 / The range",
+        "title": "Every surface, outside.",
+        "link_label": "Shop all products",
+        "link": "shopify://collections/all"
+      }
+    },
+    "colour": {
+      "type": "vx-colour",
       "blocks": {
-        "media": {
-          "type": "_media-without-appearance",
-          "static": true,
+        "colour_1": {
+          "type": "colour",
           "settings": {
-            "image": "shopify://shop_images/vertex-twin-deck-eclipse-storm-pool-terrace.jpg"
-          },
-          "blocks": {}
+            "name": "Silver Oak",
+            "hex": "#A9A59D",
+            "short": "Pale, weathered grey. Flip side: Chestnut.",
+            "photo": "shopify://shop_images/vertex-twin-deck-silver-oak-garden.jpg",
+            "board": "shopify://shop_images/vertex-twin-deck-silver-oak.webp",
+            "cta": "Shop Silver Oak decking",
+            "link": "shopify://products/twin-deck"
+          }
         },
-        "content": {
-          "type": "_content-without-appearance",
-          "static": true,
+        "colour_2": {
+          "type": "colour",
           "settings": {
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "space-between"
-          },
-          "blocks": {
-            "caption": {
-              "type": "text",
-              "name": "t:names.caption",
-              "settings": {
-                "text": "<p>02 / Colour</p>",
-                "type_preset": "h6",
-                "text_color": "#8a5e3b"
-              },
-              "blocks": {}
-            },
-            "group": {
-              "type": "group",
-              "settings": {
-                "height": "fit"
-              },
-              "blocks": {
-                "heading": {
-                  "type": "text",
-                  "name": "t:names.heading",
-                  "settings": {
-                    "text": "<h2>Four colours. Two reversible boards.</h2>",
-                    "type_preset": "h2"
-                  },
-                  "blocks": {}
-                },
-                "text": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>Each Twin Deck board has a different colour on each face: Eclipse with Storm, Chestnut with Silver Oak. Choose your pair, then decide which side faces up as you lay it. £29.99 a 4 m board.</p>",
-                    "max_width": "narrow",
-                    "type_preset": "rte"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "heading",
-                "text"
-              ]
-            },
-            "button": {
-              "type": "button",
-              "settings": {
-                "label": "Shop Twin Deck",
-                "link": "shopify://products/twin-deck",
-                "style_class": "button-unstyled"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "caption",
-            "group",
-            "button"
-          ]
+            "name": "Chestnut",
+            "hex": "#6B4A36",
+            "short": "Warm mid-brown. Flip side: Silver Oak.",
+            "photo": "shopify://shop_images/vertex-slatted-cladding-garden-room-chestnut-deck.jpg",
+            "board": "shopify://shop_images/vertex-twin-deck-chestnut.webp",
+            "cta": "Shop Chestnut decking",
+            "link": "shopify://products/twin-deck"
+          }
+        },
+        "colour_3": {
+          "type": "colour",
+          "settings": {
+            "name": "Storm",
+            "hex": "#4A4B4C",
+            "short": "Slate grey, for modern homes. Flip side: Eclipse.",
+            "photo": "shopify://shop_images/vertex-flush-cladding-garden-office.jpg",
+            "board": "shopify://shop_images/vertex-twin-deck-storm.webp",
+            "cta": "Shop Storm decking",
+            "link": "shopify://products/twin-deck"
+          }
+        },
+        "colour_4": {
+          "type": "colour",
+          "settings": {
+            "name": "Eclipse",
+            "hex": "#232324",
+            "short": "Near-black with a subtle grain. Flip side: Storm.",
+            "photo": "shopify://shop_images/vertex-twin-deck-eclipse-lit-terrace.jpg",
+            "board": "shopify://shop_images/vertex-twin-deck-eclipse.webp",
+            "cta": "Shop Eclipse decking",
+            "link": "shopify://products/twin-deck"
+          }
         }
       },
       "block_order": [
-        "media",
-        "content"
-      ]
-    },
-    "vx_shop": {
-      "type": "product-list",
+        "colour_1",
+        "colour_2",
+        "colour_3",
+        "colour_4"
+      ],
       "settings": {
-        "collection": "all",
-        "max_products": 8,
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "columns": 4,
-        "mobile_columns": "2",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "gap": 28,
-        "padding-block-start": 48,
-        "padding-block-end": 96
-      },
-      "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_list_text": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<h2>Shop the range</h2>",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_list_button": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
-              "settings": {
-                "label": "Shop all products",
-                "open_in_new_tab": false,
-                "style_class": "button-unstyled",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_list_text",
-            "product_list_button"
-          ]
-        },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
-          "settings": {
-            "product_card_gap": 4,
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product-card-gallery": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product-card-gallery",
-            "product_title",
-            "price"
-          ]
-        }
-      },
-      "block_order": []
+        "kicker": "02 / Colour",
+        "title": "Four colours. Two reversible boards.",
+        "text": "Each Twin Deck board has a different colour on each face: Eclipse with Storm, Chestnut with Silver Oak. Choose one and see how it sits in a real garden.",
+        "card_label": "Twin Deck · £29.99",
+        "start": 3
+      }
     },
-    "vx_system": {
-      "type": "media-with-content",
-      "settings": {
-        "media_width": "medium",
-        "media_height": "70svh",
-        "media_position": "right"
-      },
+    "system": {
+      "type": "vx-system",
       "blocks": {
-        "media": {
-          "type": "_media-without-appearance",
-          "static": true,
+        "step_1": {
+          "type": "step",
           "settings": {
-            "image": "shopify://shop_images/vertex-twin-deck-eclipse-lit-terrace.jpg"
-          },
-          "blocks": {}
+            "image": "shopify://shop_images/vertex-twin-deck-storm.webp",
+            "title": "Twin Deck boards",
+            "text": "Reversible 4 m boards, 11.6 kg each. £29.99 a board."
+          }
         },
-        "content": {
-          "type": "_content-without-appearance",
-          "static": true,
+        "step_2": {
+          "type": "step",
           "settings": {
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "space-between"
-          },
-          "blocks": {
-            "caption": {
-              "type": "text",
-              "name": "t:names.caption",
-              "settings": {
-                "text": "<p>03 / The system</p>",
-                "type_preset": "h6",
-                "text_color": "#8a5e3b"
-              },
-              "blocks": {}
-            },
-            "group": {
-              "type": "group",
-              "settings": {
-                "height": "fit"
-              },
-              "blocks": {
-                "heading": {
-                  "type": "text",
-                  "name": "t:names.heading",
-                  "settings": {
-                    "text": "<h2>Built from the ground up.</h2>",
-                    "type_preset": "h2"
-                  },
-                  "blocks": {}
-                },
-                "text": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>Boards, fixings and trims designed to work together. One order, one delivery, one finish. S-MF07 L-corner trims come in all four deck colours, plus Dark grey, for a clean edge on every side.</p>",
-                    "max_width": "narrow",
-                    "type_preset": "rte"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "heading",
-                "text"
-              ]
-            },
-            "button": {
-              "type": "button",
-              "settings": {
-                "label": "Read the installation guide",
-                "link": "shopify://pages/installation-guide",
-                "style_class": "button-unstyled"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "caption",
-            "group",
-            "button"
-          ]
+            "title": "Starters and fasteners",
+            "text": "SSL starters and MC03 fasteners in boxes of 100. £16.99 a box."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/vertex-l-corner-trim-chestnut.webp",
+            "title": "L-corner trims",
+            "text": "4 m lengths in five colours to finish every edge. £14.00 each."
+          }
         }
       },
       "block_order": [
-        "media",
-        "content"
-      ]
-    },
-    "vx_cladding": {
-      "type": "media-with-content",
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
       "settings": {
-        "media_width": "medium",
-        "media_height": "70svh",
-        "media_position": "left"
-      },
+        "kicker": "03 / The system",
+        "title": "Built from the ground up.",
+        "text": "Boards, fixings and trims designed to work together. One order, one delivery, one finish."
+      }
+    },
+    "cladding": {
+      "type": "vx-cladding-band",
       "blocks": {
-        "media": {
-          "type": "_media-without-appearance",
-          "static": true,
+        "product_1": {
+          "type": "product",
           "settings": {
-            "image": "shopify://shop_images/vertex-slatted-cladding-house-extension.jpg"
-          },
-          "blocks": {}
+            "product": "flush-cladding",
+            "image": "shopify://shop_images/vertex-flush-cladding-storm.webp",
+            "title": "Flush cladding"
+          }
         },
-        "content": {
-          "type": "_content-without-appearance",
-          "static": true,
+        "product_2": {
+          "type": "product",
           "settings": {
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "space-between"
-          },
-          "blocks": {
-            "caption": {
-              "type": "text",
-              "name": "t:names.caption",
-              "settings": {
-                "text": "<p>04 / Cladding</p>",
-                "type_preset": "h6",
-                "text_color": "#8a5e3b"
-              },
-              "blocks": {}
-            },
-            "group": {
-              "type": "group",
-              "settings": {
-                "height": "fit"
-              },
-              "blocks": {
-                "heading": {
-                  "type": "text",
-                  "name": "t:names.heading",
-                  "settings": {
-                    "text": "<h2>Change the character of a building.</h2>",
-                    "type_preset": "h2"
-                  },
-                  "blocks": {}
-                },
-                "text": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>Flush boards for a smooth, modern face. Slatted profiles for depth and shadow. Both in Storm and 4 m lengths, with a matching slatted corner. From £18.99 a board.</p>",
-                    "max_width": "narrow",
-                    "type_preset": "rte"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "heading",
-                "text"
-              ]
-            },
-            "button": {
-              "type": "button",
-              "settings": {
-                "label": "Shop cladding",
-                "link": "shopify://collections/cladding",
-                "style_class": "button-unstyled"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "caption",
-            "group",
-            "button"
-          ]
+            "product": "slatted-cladding",
+            "image": "shopify://shop_images/vertex-slatted-cladding-storm.webp",
+            "title": "Slatted cladding"
+          }
+        },
+        "product_3": {
+          "type": "product",
+          "settings": {
+            "product": "slatted-corner",
+            "image": "shopify://shop_images/vertex-slatted-corner-storm.webp",
+            "title": "Slatted corner"
+          }
         }
       },
       "block_order": [
-        "media",
-        "content"
-      ]
-    },
-    "vx_samples": {
-      "type": "section",
+        "product_1",
+        "product_2",
+        "product_3"
+      ],
       "settings": {
-        "background_color": "#161616",
-        "section_width": "page-width",
-        "section_height": "",
-        "horizontal_alignment_flex_direction_column": "center",
-        "gap": 16,
-        "padding-block-start": 100,
-        "padding-block-end": 100
-      },
+        "kicker": "04 / Cladding",
+        "title": "Change the character of a building.",
+        "text": "Flush boards for a smooth, modern face. Slatted profiles for depth and shadow. Both in Storm and 4 m lengths, with a matching slatted corner.",
+        "link_label": "Shop cladding",
+        "link": "shopify://collections/cladding"
+      }
+    },
+    "inspiration": {
+      "type": "vx-inspiration",
       "blocks": {
-        "kicker": {
-          "type": "text",
+        "photo_1": {
+          "type": "photo",
           "settings": {
-            "text": "<p>Samples</p>",
-            "type_preset": "h6",
-            "alignment": "center",
-            "text_color": "#efebe5"
-          },
-          "blocks": {}
+            "image": "shopify://shop_images/vertex-flush-cladding-garden-wall.jpg",
+            "label": "Courtyard seating",
+            "span": "3"
+          }
         },
-        "heading": {
-          "type": "text",
+        "photo_2": {
+          "type": "photo",
           "settings": {
-            "text": "<h2>Hold the colours in your hand.</h2>",
-            "type_preset": "h2",
-            "alignment": "center",
-            "text_color": "#ffffff"
-          },
-          "blocks": {}
+            "image": "shopify://shop_images/vertex-twin-deck-eclipse-lit-terrace.jpg",
+            "label": "Low-level terrace",
+            "span": "2"
+          }
         },
-        "body": {
-          "type": "text",
+        "photo_3": {
+          "type": "photo",
           "settings": {
-            "text": "<p>Order samples of up to [NUMBER] colours, sent [SAMPLE DELIVERY TERMS]. Compare them against your brickwork, paving and planting before you commit.</p>",
-            "type_preset": "rte",
-            "alignment": "center",
-            "text_color": "#ffffff",
-            "max_width": "narrow"
-          },
-          "blocks": {}
+            "image": "shopify://shop_images/vertex-twin-deck-eclipse-storm-pool-terrace.jpg",
+            "label": "Pattern laying",
+            "span": "2"
+          }
         },
-        "cta": {
-          "type": "button",
+        "photo_4": {
+          "type": "photo",
           "settings": {
-            "label": "Order samples",
-            "link": "shopify://pages/samples",
-            "style_class": "button"
-          },
-          "blocks": {}
+            "image": "shopify://shop_images/vertex-slatted-cladding-garden-room-silver-oak-deck.jpg",
+            "label": "Garden room wall",
+            "span": "3"
+          }
+        },
+        "photo_5": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/vertex-twin-deck-storm-silver-oak-sunken-seating.jpg",
+            "label": "Sunken seating",
+            "span": "3"
+          }
+        },
+        "photo_6": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/vertex-twin-deck-silver-oak-garden.jpg",
+            "label": "Family garden",
+            "span": "2"
+          }
         }
       },
       "block_order": [
-        "kicker",
-        "heading",
-        "body",
-        "cta"
-      ]
+        "photo_1",
+        "photo_2",
+        "photo_3",
+        "photo_4",
+        "photo_5",
+        "photo_6"
+      ],
+      "settings": {
+        "kicker": "05 / Inspiration",
+        "title": "Ideas for your space.",
+        "link_label": "View the gallery",
+        "link": "shopify://collections/all"
+      }
+    },
+    "plan": {
+      "type": "vx-plan",
+      "blocks": {
+        "guide_1": {
+          "type": "guide",
+          "settings": {
+            "image": "shopify://shop_images/vertex-twin-deck-chestnut-installed-balcony.jpg",
+            "title": "Installation guides",
+            "text": "Step-by-step help for laying decking on pedestals.",
+            "link": "shopify://pages/installation-guide"
+          }
+        },
+        "guide_2": {
+          "type": "guide",
+          "settings": {
+            "image": "shopify://shop_images/vertex-flush-cladding-garden-office-silver-oak-deck.jpg",
+            "title": "Care & cleaning",
+            "text": "Simple routines to keep boards looking their best.",
+            "link": "shopify://pages/faqs"
+          }
+        },
+        "guide_3": {
+          "type": "guide",
+          "settings": {
+            "image": "shopify://shop_images/vertex-slatted-cladding-installed-garden-wall.jpg",
+            "title": "Warranty & registration",
+            "text": "What’s covered, and how to register with your install photos.",
+            "link": "shopify://pages/warranty"
+          }
+        }
+      },
+      "block_order": [
+        "guide_1",
+        "guide_2",
+        "guide_3"
+      ],
+      "settings": {
+        "button_link": "shopify://pages/contact"
+      }
+    },
+    "samples": {
+      "type": "vx-samples",
+      "blocks": {
+        "board_1": {
+          "type": "board",
+          "settings": {
+            "image": "shopify://shop_images/vertex-twin-deck-silver-oak.webp"
+          }
+        },
+        "board_2": {
+          "type": "board",
+          "settings": {
+            "image": "shopify://shop_images/vertex-twin-deck-chestnut.webp"
+          }
+        },
+        "board_3": {
+          "type": "board",
+          "settings": {
+            "image": "shopify://shop_images/vertex-twin-deck-storm.webp"
+          }
+        },
+        "board_4": {
+          "type": "board",
+          "settings": {
+            "image": "shopify://shop_images/vertex-twin-deck-eclipse.webp"
+          }
+        }
+      },
+      "block_order": [
+        "board_1",
+        "board_2",
+        "board_3",
+        "board_4"
+      ],
+      "settings": {
+        "cta_link": "shopify://pages/samples",
+        "cta2_link": "shopify://pages/contact"
+      }
     }
   },
   "order": [
-    "hero_jVaWmY",
-    "vx_range",
-    "vx_colour",
-    "vx_shop",
-    "vx_system",
-    "vx_cladding",
-    "vx_samples"
+    "hero",
+    "range",
+    "colour",
+    "system",
+    "cladding",
+    "inspiration",
+    "plan",
+    "samples"
   ]
 }
