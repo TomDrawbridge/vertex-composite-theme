@@ -49,7 +49,7 @@
           "type": "step",
           "settings": {
             "title": "Register online",
-            "text": "Add your details, your order number and the products you used, then upload your photos."
+            "text": "Add your details, your order number and the products you used, then email us your photos."
           }
         },
         "step_3": {
@@ -108,7 +108,7 @@
         "kicker": "Required photos",
         "title": "The photos you’ll need",
         "text": "We can’t register a warranty without them. Take them as you go: once the boards are down, nobody can see the frame underneath.",
-        "note": "Can’t upload them? Email your photos to <strong>[WARRANTY EMAIL]</strong> with your name, order number and installation address."
+        "note": "Email your photos to <strong>[WARRANTY EMAIL]</strong> with your name, order number and installation address."
       }
     },
     "register": {
