@@ -30,6 +30,7 @@
   }
 </script>
 {%- if request.page_type == 'index' -%}
+  {%- assign search_target = routes.search_url | prepend: request.origin | append: '?q={search_term_string}' -%}
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -38,7 +39,7 @@
       "url": {{ routes.root_url | prepend: request.origin | json }},
       "potentialAction": {
         "@type": "SearchAction",
-        "target": {{ routes.search_url | prepend: request.origin | append: '?q={search_term_string}' | json }},
+        "target": {{ search_target | json }},
         "query-input": "required name=search_term_string"
       }
     }
