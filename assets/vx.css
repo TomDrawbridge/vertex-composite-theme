@@ -1,0 +1,84 @@
+/* Vertex Composite: Direction B layer on top of Horizon.
+   Keep this file small. Colours, fonts and radii live in theme settings;
+   this only covers what settings can't express. */
+
+:root {
+  --vx-ink: #1d1c1c;
+  --vx-near-black: #161616;
+  --vx-sand: #efebe5;
+  --vx-light-sand: #f6f4f1;
+  --vx-line: #e2ddd5;
+  --vx-line-strong: #cfc7bc;
+  --vx-muted: #5b554f;
+  --vx-bronze: #b6855f;
+  --vx-bronze-text: #8a5e3b; /* small accent text on light backgrounds (contrast) */
+  --vx-stock: #2f6b3a;
+  --vx-hex: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+  --vx-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Kicker: h6 preset is used as the small uppercase label above headings */
+.h6,
+h6 {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+}
+
+/* Hexagon colour swatches (product page and filters) */
+.variant-option__swatch,
+.swatch {
+  clip-path: var(--vx-hex);
+  border-radius: 0;
+}
+
+.variant-option--swatches .variant-option__button-label--has-swatch {
+  border-radius: 0;
+}
+
+/* Square corners everywhere */
+.button,
+.button-secondary,
+input,
+select,
+textarea,
+.card,
+.product-card,
+dialog,
+.popover {
+  border-radius: 0;
+}
+
+/* Slower, softer image zoom on cards */
+.card-hover-effect-subtle-zoom img,
+[data-card-hover-effect='subtle-zoom'] img {
+  transition-duration: 1.2s;
+  transition-timing-function: var(--vx-ease);
+}
+
+/* Spec tables in product descriptions */
+.rte table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.rte table th,
+.rte table td {
+  text-align: left;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--vx-line);
+  vertical-align: top;
+}
+
+.rte table th {
+  width: 40%;
+  font-weight: 600;
+  color: var(--vx-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

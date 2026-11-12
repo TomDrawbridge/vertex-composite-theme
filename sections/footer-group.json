@@ -55,7 +55,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h2>Join our email list</h2>",
+                "text": "<h2>Ideas, new colours and project guides, now and then.</h2>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -80,7 +80,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>Get exclusive deals and early access to new products.</p>",
+                "text": "<p>Join the Vertex list. Unsubscribe at any time.</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -112,11 +112,11 @@
                 "border_style": "all",
                 "input_style": "custom",
                 "border_width": 1,
-                "border_radius": 100,
-                "input_background_color": "{{ settings.color_palette.color1 }}",
+                "border_radius": 0,
+                "input_background_color": "#ffffff00",
                 "input_border_color": "",
                 "input_type_preset": "paragraph",
-                "style_class": "button-secondary",
+                "style_class": "button",
                 "custom_button_background": "{{ settings.color_palette.foreground }}",
                 "custom_button_text": "{{ settings.color_palette.background }}",
                 "custom_button_border": "{{ settings.color_palette.background }}",
@@ -142,7 +142,7 @@
           "type": "menu",
           "settings": {
             "menu": "footer",
-            "heading": "",
+            "heading": "Shop",
             "menu_spacing": 12,
             "show_as_accordion": false,
             "accordion_icon": "plus",
@@ -158,8 +158,25 @@
         "menu_main": {
           "type": "menu",
           "settings": {
-            "menu": "main-menu",
-            "heading": "",
+            "menu": "footer-help",
+            "heading": "Help",
+            "menu_spacing": 12,
+            "show_as_accordion": false,
+            "accordion_icon": "plus",
+            "accordion_dividers": false,
+            "heading_preset": "paragraph",
+            "link_preset": "paragraph",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        },
+        "menu_company": {
+          "type": "menu",
+          "settings": {
+            "menu": "footer-company",
+            "heading": "Company",
             "menu_spacing": 12,
             "show_as_accordion": false,
             "accordion_icon": "plus",
@@ -176,13 +193,14 @@
       "block_order": [
         "group_wErUQf",
         "menu_footer",
-        "menu_main"
+        "menu_main",
+        "menu_company"
       ],
       "name": "t:names.footer",
       "settings": {
         "section_width": "page-width",
         "gap": 40,
-        "background_color": "{{ settings.color_palette.color1 }}",
+        "background_color": "#161616",
         "padding-block-start": 36,
         "padding-block-end": 36
       }
@@ -193,7 +211,7 @@
         "copyright": {
           "type": "footer-copyright",
           "settings": {
-            "show_powered_by": true,
+            "show_powered_by": false,
             "font_size": "0.75rem",
             "case": "none"
           }
@@ -204,27 +222,16 @@
             "font_size": "0.75rem",
             "case": "none"
           }
-        },
-        "social_icons": {
-          "type": "social-links",
-          "settings": {
-            "facebook_url": "https://www.facebook.com",
-            "instagram_url": "https://www.instagram.com",
-            "youtube_url": "https://www.youtube.com",
-            "tiktok_url": "https://www.tiktok.com",
-            "twitter_url": "https://www.twitter.com"
-          }
         }
       },
       "block_order": [
         "copyright",
-        "policy_list",
-        "social_icons"
+        "policy_list"
       ],
       "settings": {
         "section_width": "page-width",
         "gap": 24,
-        "background_color": "{{ settings.color_palette.color1 }}",
+        "background_color": "#161616",
         "divider_thickness": 1,
         "padding-block-start": 12,
         "padding-block-end": 16

@@ -133,7 +133,7 @@
                   "settings": {
                     "show_sale_price_first": true,
                     "show_installments": true,
-                    "show_tax_info": true,
+                    "show_tax_info": false,
                     "type_preset": "paragraph",
                     "width": "100%",
                     "alignment": "left",
@@ -148,11 +148,31 @@
                     "padding-inline-end": 0
                   },
                   "blocks": {}
+                },
+                "vx_kicker": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Model {{ closest.product.metafields.vertex.model.value }}</p>",
+                    "type_preset": "h6",
+                    "text_color": "#8a5e3b"
+                  },
+                  "blocks": {}
+                },
+                "vx_unit": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>{{ closest.product.metafields.vertex.unit_label.value }}</p>",
+                    "type_preset": "rte",
+                    "text_color": "#5b554f"
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
+                "vx_kicker",
                 "text_xpVMaM",
-                "price_tVjtKg"
+                "price_tVjtKg",
+                "vx_unit"
               ]
             },
             "divider_VJhene": {
@@ -172,7 +192,7 @@
               "type": "variant-picker",
               "settings": {
                 "variant_style": "buttons",
-                "show_swatches": false,
+                "show_swatches": true,
                 "alignment": "left",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
@@ -240,6 +260,14 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "vx_facts": {
+              "type": "text",
+              "settings": {
+                "text": "<p><strong>Size:</strong> {{ closest.product.metafields.vertex.dimensions.value }}<br><strong>Weight:</strong> {{ closest.product.metafields.vertex.weight_label.value }}<br><strong>Warranty:</strong> {{ closest.product.metafields.vertex.warranty_summary.value }}, <a href=\"/pages/warranty\">register and terms</a><br><strong>Delivery:</strong> calculated at checkout. <a href=\"/pages/delivery\">Delivery information</a><br><strong>Questions?</strong> <a href=\"mailto:sales@vertexcomposite.co.uk\">sales@vertexcomposite.co.uk</a></p>",
+                "type_preset": "rte"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -247,6 +275,7 @@
             "divider_VJhene",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
+            "vx_facts",
             "text_aEtTtq"
           ]
         },
