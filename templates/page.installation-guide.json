@@ -94,7 +94,7 @@
           "type": "layer",
           "settings": {
             "title": "Composite decking boards",
-            "text": "Twin Deck boards, 4 m long, fixed to the joists with starter clips and hidden fasteners. [CONFIRM: board thickness]",
+            "text": "Twin Deck boards, 4 m long, fixed to the joists with starter clips and hidden fasteners. Each board is 22 mm thick.",
             "link_label": "Shop Twin Deck",
             "link": "shopify://products/twin-deck"
           }
@@ -144,10 +144,10 @@
         "kicker": "The system",
         "title": "What goes into a pedestal deck",
         "text": "A pedestal deck is built in layers. The boards never touch the pedestals: they’re fixed to a frame of joists, and the frame sits on the pedestals.",
-        "diagram_label": "Section through a pedestal deck. From the top: decking boards 25 mm, a 50 mm joist, adjustable pedestals 75 mm tall, protection pads, and the existing base.",
-        "dim_board": "25",
+        "diagram_label": "Section through a pedestal deck. From the top: decking boards 22 mm, a 50 mm joist, adjustable pedestals 78 mm tall, protection pads, and the existing base.",
+        "dim_board": "22",
         "dim_joist": "50",
-        "dim_pedestal": "75",
+        "dim_pedestal": "78",
         "layer_1_name": "Decking boards",
         "layer_1_spec": "Twin Deck, 4 m lengths",
         "layer_2_name": "Joist",
@@ -171,8 +171,8 @@
         "total_label": "Total height available",
         "total_default": 150,
         "board_label": "Board thickness",
-        "board_default": 25,
-        "board_note": "25 mm used as an example [CONFIRM: Twin Deck]",
+        "board_default": 22,
+        "board_note": "Twin Deck boards are 22 mm thick",
         "joist_label": "Joist depth",
         "joist_default": 50,
         "joist_note": "Check the joists you’re using",
@@ -183,8 +183,8 @@
         "bar_pedestal": "Pedestal",
         "result_label": "Pedestal height needed",
         "min_pedestal": 20,
-        "note_ok": "Choose pedestals that adjust to around this height. [CONFIRM: Vertex pedestal height range]",
-        "note_low": "Very low. Check the minimum height of your pedestals, or use a slimmer joist. [CONFIRM: Vertex pedestal height range]",
+        "note_ok": "Choose pedestals that adjust to around this height. Vertex pedestal sizes listed so far: 38 to 65 mm, 60 to 87 mm and 83 to 133 mm [CONFIRM].",
+        "note_low": "Very low. The smallest Vertex pedestal listed so far starts at 38 mm [CONFIRM], so check your pedestals or use a slimmer joist.",
         "note_none": "There isn’t enough height. The board and joist alone are deeper than the space you have.",
         "too_low": "Too low",
         "count_label": "Pedestals, as a first guide",
@@ -218,7 +218,7 @@
             "label": "Measure",
             "title": "Work out the finished height",
             "points": "Measure from the base to where you want the top of the deck.\nTake away the board thickness and the joist depth. What’s left is the height your pedestals need to reach.",
-            "table": "Total height available | 150 mm\nComposite board | 25 mm\nJoist | 50 mm\nPedestal height needed | 75 mm",
+            "table": "Total height available | 150 mm\nComposite board | 22 mm\nJoist | 50 mm\nPedestal height needed | 78 mm",
             "note": "Example only. Allow for clips, brackets and any other parts in your system, or try the height calculator above."
           }
         },
