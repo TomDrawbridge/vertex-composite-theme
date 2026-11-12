@@ -19,6 +19,8 @@
   assign colours = s.colours | newline_to_br | split: '<br />'
   assign need = s.need_items | newline_to_br | split: '<br />'
   assign coll = s.collection | default: collections.all
+  assign thanks_title = s.thanks_title | replace: ', {name}', '' | replace: '{name}', ''
+  assign thanks_text = s.thanks_text | replace: ' to {email}', '' | replace: '{email}', ''
 -%}
 {%- capture product_options -%}
   {%- if section.blocks.size > 0 -%}
@@ -65,8 +67,8 @@
           {%- if form.posted_successfully? -%}
             <div class="vx-wthanks" role="status" style="padding: 64px 40px; display: flex; flex-direction: column; gap: 20px; align-items: flex-start;">
               <svg aria-hidden="true" height="57" viewBox="0 0 52 46" width="64"><polygon fill="#b6855f" points="13,1.5 39,1.5 50.5,23 39,44.5 13,44.5 1.5,23"></polygon><path d="M17 23.5l6 6 12-12" fill="none" stroke="#161616" stroke-width="3"></path></svg>
-              <h3 data-vx-thanks-title data-template="{{ s.thanks_title | escape }}" style="margin: 0; font-size: 36px; line-height: 1.05; font-weight: 600; letter-spacing: -0.025em;">{{ s.thanks_title | replace: ', {name}', '' | replace: '{name}', '' }}</h3>
-              <p data-vx-thanks-text data-template="{{ s.thanks_text | escape }}" style="margin: 0; font-size: 17px; line-height: 1.6; color: #4d4a47; max-width: 560px;">{{ s.thanks_text | replace: ' to {email}', '' | replace: '{email}', '' }}</p>
+              <h3 data-vx-thanks-title data-template="{{ s.thanks_title | escape }}" style="margin: 0; font-size: 36px; line-height: 1.05; font-weight: 600; letter-spacing: -0.025em;">{{ thanks_title }}</h3>
+              <p data-vx-thanks-text data-template="{{ s.thanks_text | escape }}" style="margin: 0; font-size: 17px; line-height: 1.6; color: #4d4a47; max-width: 560px;">{{ thanks_text }}</p>
               {%- if s.ref_value != blank -%}
                 <div style="display: flex; flex-direction: column; gap: 4px; background: #efebe5; padding: 18px 22px;"><span style="font-size: 13px; color: #6b655e;">{{ s.ref_label }}</span><span style="font-size: 18px; font-weight: 600;">{{ s.ref_value }}</span></div>
               {%- endif -%}
