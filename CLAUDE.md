@@ -8,7 +8,9 @@ Store: `vertex-composite-ihcbegr8.myshopify.com` (storefront `vertex-composite.m
 
 - This repo is connected to Shopify through the GitHub integration. **`main` is the live theme.** Shopify commits theme-editor changes back to `main`, so pull before you push.
 - Work on a branch and open a PR. Merge to publish.
-- `.vertex/build_theme.py` applies the Direction B settings (colours, fonts, homepage, header, footer, product page) to the JSON files. It is idempotent. Run it after merging a Horizon update: `python3 .vertex/build_theme.py`.
+- Every page is built from custom `vx-` sections ported from the approved designs. The JSON templates hold the content; Horizon's own sections are only used for search results and the cart drawer.
+- A page's template is set by its template suffix in Shopify admin: `page.faqs`, `page.policy` (delivery, returns, terms, privacy), `page.contact`, `page.warranty`, `page.installation-guide`. Other pages use `page.json`. Page hero photo and intro come from the page metafields `vertex.hero_image` and `vertex.intro`.
+- Shopify's Liquid parser ends `{{ }}` at the first `}`, so never put `{` or `}` inside a string in an output tag (Theme Check won't catch it). Do it in an `assign` instead. Upload JSON templates as TEXT through the Admin API to see validation errors; URL uploads fail silently.
 - Every edit to a Horizon core file is listed in `CHANGES.md`.
 
 ## Writing rules (all copy, comments shown to the client, commit messages)
@@ -43,6 +45,6 @@ Store: `vertex-composite-ihcbegr8.myshopify.com` (storefront `vertex-composite.m
 
 ## Still to build
 
-- Twin Deck face flip and colour-pair picker, deck planner, height calculator, warranty registration form with photo upload (app proxy or forms app: decision open), cladding video band, inspiration gallery.
+- Warranty registration photo upload (app proxy or forms app: decision open). Until then the form sends through Shopify's contact form and asks for photos by email.
 - Delivery profiles and rates (waiting on Scott).
 - Data sheet PDFs into `vertex.data_sheet` metafields when supplied.
