@@ -241,7 +241,7 @@ save('templates/index.json', head, idx)
 head, pr = load('templates/product.json')
 pd = pr['sections']['main']['blocks']['product-details']
 hdrg = pd['blocks']['group_icgrde']
-hdrg['blocks']['vx_kicker'] = text('<p>{{ closest.product.type }} · {{ closest.product.metafields.vertex.model.value }}</p>', 'h6', text_color=BRONZE_TEXT)
+hdrg['blocks']['vx_kicker'] = text('<p>Model {{ closest.product.metafields.vertex.model.value }}</p>', 'h6', text_color=BRONZE_TEXT)
 price_key = [k for k, b in hdrg['blocks'].items() if b['type'] == 'price'][0]
 hdrg['blocks'][price_key]['settings']['show_tax_info'] = False
 hdrg['blocks']['vx_unit'] = text('<p>{{ closest.product.metafields.vertex.unit_label.value }}</p>', 'rte',

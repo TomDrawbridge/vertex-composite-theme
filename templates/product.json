@@ -152,7 +152,7 @@
                 "vx_kicker": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>{{ closest.product.type }} · {{ closest.product.metafields.vertex.model.value }}</p>",
+                    "text": "<p>Model {{ closest.product.metafields.vertex.model.value }}</p>",
                     "type_preset": "h6",
                     "text_color": "#8a5e3b"
                   },
