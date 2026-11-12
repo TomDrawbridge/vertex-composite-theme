@@ -103,6 +103,7 @@
 /* Smaller screens: tighten big fixed heights from the desktop design */
 @media (max-width: 760px) {
   .vx-hero { min-height: 640px !important; }
+  .vx-hero > .vx-wrap { padding-top: 140px !important; }
   .vx-range__big { height: 460px !important; }
   .vx-range__small { height: 260px !important; }
   .vx-colour__media { min-height: 460px !important; }
