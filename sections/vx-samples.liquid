@@ -1,0 +1,41 @@
+<section class="vx" id="samples" style="position: relative; overflow: hidden; background: #111; color: #fff;">
+  {%- render 'vx-image', image: section.settings.background, fallback: 'vx-tex-dark.webp', alt: '', style: 'position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.9;', sizes: '100vw' -%}
+  <div class="vx-wrap vx-pad-lg" style="position: relative; max-width: 1360px; margin: 0 auto; padding: 120px 40px; display: flex; flex-wrap: wrap; gap: 56px; align-items: center;">
+    <div style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 24px;">
+      {%- render 'vx-kicker', text: section.settings.kicker, color: '#b6855f' -%}
+      <h2 style="margin: 0; font-size: clamp(40px, 5vw, 72px); line-height: 0.98; font-weight: 600; letter-spacing: -0.035em;">{{ section.settings.title }}</h2>
+      <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #d4cfc8; max-width: 480px;">{{ section.settings.text }}</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+        {%- if section.settings.cta != blank -%}<a href="{{ section.settings.cta_link }}" style="background: #b6855f; color: #161616; text-decoration: none; font-weight: 600; font-size: 16px; padding: 18px 30px; min-height: 56px; display: flex; align-items: center;">{{ section.settings.cta }}</a>{%- endif -%}
+        {%- if section.settings.cta2 != blank -%}<a href="{{ section.settings.cta2_link }}" style="border: 1px solid rgba(255,255,255,0.6); color: #fff; text-decoration: none; font-weight: 600; font-size: 16px; padding: 18px 30px; min-height: 56px; display: flex; align-items: center;">{{ section.settings.cta2 }}</a>{%- endif -%}
+      </div>
+    </div>
+    <div style="flex: 1 1 520px; min-width: 0; position: relative; height: 460px;">
+      {%- for block in section.blocks -%}
+        {%- assign i = forloop.index0 -%}
+        {%- capture st -%}position: absolute; width: 74%; left: {{ i | times: 8 }}%; top: {{ i | times: 22 }}%; filter: drop-shadow(rgba(0,0,0,0.45) 0 18px 24px);{%- endcapture -%}
+        {%- render 'vx-image', image: block.settings.image, alt: block.settings.image.alt, style: st, width: 1000 -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Vertex samples band",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "image_picker", "id": "background", "label": "Background" },
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Samples" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Hold the colours in your hand." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Order samples of up to [NUMBER] colours, sent [SAMPLE DELIVERY TERMS]. Compare them against your brickwork, paving and planting before you commit." },
+    { "type": "text", "id": "cta", "label": "Button label", "default": "Order samples" },
+    { "type": "url", "id": "cta_link", "label": "Button link" },
+    { "type": "text", "id": "cta2", "label": "Second button label", "default": "Talk to our team" },
+    { "type": "url", "id": "cta2_link", "label": "Second button link" }
+  ],
+  "blocks": [
+    { "type": "board", "name": "Board", "settings": [ { "type": "image_picker", "id": "image", "label": "Board cut-out" } ] }
+  ],
+  "presets": [{ "name": "Vertex samples band" }]
+}
+{% endschema %}

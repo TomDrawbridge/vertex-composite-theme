@@ -1,0 +1,9 @@
+{%- doc -%}
+  Outlined hexagon with an arrow that appears on card hover.
+  @param {boolean} [dark] - dark variant for light backgrounds
+{%- enddoc -%}
+{%- if dark -%}
+<svg aria-hidden="true" class="vx-hex vx-hex-dark" height="39" width="44" style="display: block; flex: 0 0 auto; overflow: visible;" viewBox="0 0 52 46"><polygon points="13,1.5 39,1.5 50.5,23 39,44.5 13,44.5 1.5,23" stroke="#1d1c1c" stroke-width="1.5"></polygon><path d="M18 23h15M27 17l6 6-6 6" fill="none" stroke-width="2"></path></svg>
+{%- else -%}
+<svg aria-hidden="true" class="vx-hex" height="46" width="52" style="display: block; overflow: visible;" viewBox="0 0 52 46"><polygon points="13,1.5 39,1.5 50.5,23 39,44.5 13,44.5 1.5,23" stroke="#ffffff" stroke-width="1.5"></polygon><path d="M18 23h15M27 17l6 6-6 6" fill="none" stroke-width="2"></path></svg>
+{%- endif -%}

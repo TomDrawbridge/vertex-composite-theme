@@ -1,0 +1,91 @@
+{%- liquid
+  assign photos = section.blocks | where: 'type', 'photo'
+  assign sands = section.blocks | where: 'type', 'sand'
+  assign darks = section.blocks | where: 'type', 'dark'
+  assign tile_count = sands.size | plus: darks.size
+-%}
+<section class="vx vx-wrap" id="range" style="max-width: 1360px; margin: 0 auto; padding: 120px 40px 0;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 48px;">
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      {%- render 'vx-kicker', text: section.settings.kicker -%}
+      <h2 style="margin: 0; font-size: clamp(36px, 4.2vw, 60px); line-height: 1; font-weight: 600; letter-spacing: -0.03em;">{{ section.settings.title }}</h2>
+    </div>
+    {%- if section.settings.link_label != blank -%}<a href="{{ section.settings.link }}" style="font-weight: 600; font-size: 15px; color: #1d1c1c;">{{ section.settings.link_label }}</a>{%- endif -%}
+  </div>
+  <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+    {%- for block in photos -%}
+      {%- if forloop.index == 2 -%}<div style="flex: 1 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 16px;">{%- endif -%}
+      {%- capture fb -%}{%- if block.settings.fallback != blank -%}{{ block.settings.fallback }}{%- endif -%}{%- endcapture -%}
+      <a class="vx-card {% if forloop.first %}vx-range__big{% else %}vx-range__small{% endif %}" href="{{ block.settings.link }}" {{ block.shopify_attributes }} style="{% if forloop.first %}flex: 1.45 1 560px; min-width: 0; height: 700px;{% else %}height: 342px;{% endif %} position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; text-decoration: none; color: #fff; background: #2a2a2a;">
+        {%- render 'vx-image', image: block.settings.image, fallback: fb, alt: block.settings.title, class: 'vx-media', style: 'position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;', sizes: '(min-width: 990px) 50vw, 100vw' -%}
+        <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(rgba(10,10,10,0) 35%, rgba(10,10,10,0.7) 100%);"></div>
+        <div aria-hidden="true" class="vx-shade" style="position: absolute; inset: 0; background: linear-gradient(rgba(10,10,10,0) 20%, rgba(10,10,10,0.35) 100%);"></div>
+        <div style="position: relative; padding: 28px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px;">
+          <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0;"><span style="font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #e9dccf;">{{ block.settings.eyebrow }}</span><span style="font-size: 34px; font-weight: 600; letter-spacing: -0.02em;">{{ block.settings.title }}</span></div>
+          <span style="display: flex; align-items: center; gap: 14px; flex: 0 0 auto; padding-bottom: 2px;"><span class="vx-reveal" style="font-size: 15px; font-weight: 600; white-space: nowrap;">{{ block.settings.cta }}</span>{% render 'vx-hex-arrow' %}</span>
+        </div>
+      </a>
+      {%- if forloop.last and forloop.index > 1 -%}</div>{%- endif -%}
+    {%- endfor -%}
+  </div>
+  {%- if tile_count > 0 -%}
+    <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px;">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'sand' -%}
+          <a class="vx-card" href="{{ block.settings.link }}" {{ block.shopify_attributes }} style="flex: 1 1 360px; min-width: 0; height: 300px; background: #efebe5; display: flex; text-decoration: none; color: #1d1c1c; overflow: hidden;">
+            <div style="flex: 1 1 0%; padding: 28px; display: flex; flex-direction: column; justify-content: space-between;"><span style="font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8a5e3b;">{{ block.settings.eyebrow }}</span><span style="display: flex; flex-direction: column; gap: 4px;"><span style="display: flex; align-items: center; gap: 12px; font-size: 34px; font-weight: 600; letter-spacing: -0.02em;">{{ block.settings.title }}{% render 'vx-arrow', size: 22, class: 'vx-arrow' %}</span><span style="font-size: 15px; color: #5b554f;">{{ block.settings.text }}</span></span></div>
+            {%- if block.settings.image != blank -%}
+              <div style="flex: 1.1 1 0%; display: flex; align-items: center; justify-content: center; padding: 20px;">{%- render 'vx-image', image: block.settings.image, alt: '', class: 'vx-cut', style: 'width: 100%; height: auto;', width: 800 -%}</div>
+            {%- else -%}
+              <div style="flex: 1 1 0%; display: flex; align-items: center; justify-content: center; padding: 28px; text-align: center; font-size: 14px; color: #8a847d;">{{ block.settings.placeholder }}</div>
+            {%- endif -%}
+          </a>
+        {%- elsif block.type == 'dark' -%}
+          <a class="vx-card" href="{{ block.settings.link }}" {{ block.shopify_attributes }} style="flex: 1 1 300px; min-width: 0; height: 300px; background: #161616; color: #fff; text-decoration: none; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden;">
+            {%- render 'vx-image', image: block.settings.image, alt: '', class: 'vx-cut', style: 'position: absolute; width: 58%; right: -12%; top: -9%; opacity: 0.9;', width: 800 -%}
+            <span style="position: relative; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #b6855f;">{{ block.settings.eyebrow }}</span>
+            <span style="position: relative; display: flex; flex-direction: column; gap: 14px;"><span style="font-size: 28px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1;">{{ block.settings.title }}</span><span style="font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 10px;">{{ block.settings.cta }}{% render 'vx-arrow', class: 'vx-arrow' %}</span></span>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Vertex the range",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "01 / The range" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Every surface, outside." },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Shop all products" },
+    { "type": "url", "id": "link", "label": "Link" }
+  ],
+  "blocks": [
+    { "type": "photo", "name": "Photo card", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "text", "id": "fallback", "label": "Fallback theme image", "info": "Theme asset filename, used when no image is chosen." },
+      { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+      { "type": "text", "id": "title", "label": "Title" },
+      { "type": "text", "id": "cta", "label": "Hover label" },
+      { "type": "url", "id": "link", "label": "Link" }
+    ]},
+    { "type": "sand", "name": "Sand card", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Cut-out image" },
+      { "type": "text", "id": "placeholder", "label": "Text when no image", "default": "[Photo to come]" },
+      { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+      { "type": "text", "id": "title", "label": "Title" },
+      { "type": "text", "id": "text", "label": "Text" },
+      { "type": "url", "id": "link", "label": "Link" }
+    ]},
+    { "type": "dark", "name": "Dark card", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Cut-out image" },
+      { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+      { "type": "text", "id": "title", "label": "Title" },
+      { "type": "text", "id": "cta", "label": "Link label" },
+      { "type": "url", "id": "link", "label": "Link" }
+    ]}
+  ],
+  "presets": [{ "name": "Vertex the range" }]
+}
+{% endschema %}
