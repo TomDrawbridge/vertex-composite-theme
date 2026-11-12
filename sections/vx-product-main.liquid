@@ -1,0 +1,213 @@
+{%- comment -%}
+  Product page, ported from Product-B.dc.html (Twin Deck) and Product-*-B.dc.html.
+  Product facts come from the product, its variants and vertex.* metafields.
+{%- endcomment -%}
+{%- liquid
+  assign current = product.selected_or_first_available_variant
+  assign reversible = section.settings.reversible
+  assign mf = product.metafields.vertex
+  assign colour_option = product.options_with_values | where: 'name', 'Colour' | first
+  assign intro = product.description | split: '<h3>Specifications</h3>' | first | split: '</p>' | first | strip_html | strip
+  assign coll_handle = product.type | handleize
+  assign coll = collections[coll_handle]
+  assign colours = shop.metaobjects['shopify--color-pattern']
+
+  comment
+    Lifestyle tiles: media that is not a variant's image and not a board face cut-out
+  endcomment
+  assign variant_media_ids = product.variants | map: 'featured_media' | map: 'id' | join: ','
+  assign tiles = ''
+  for m in product.media
+    assign mid = m.id | append: ''
+    if variant_media_ids contains mid
+      continue
+    endif
+    if m.alt contains ' side'
+      continue
+    endif
+    if m.alt contains 'Vertex '
+      continue
+    endif
+    assign tiles = tiles | append: m.id | append: ','
+  endfor
+  assign tile_ids = tiles | split: ','
+-%}
+<div class="vx vx-wrap" style="max-width: 1360px; margin: 0 auto; padding: 22px 40px 0; font-size: 14px; color: #6b655e;">
+  <nav aria-label="Breadcrumb" style="display: flex; flex-wrap: wrap; gap: 8px;">
+    <a href="{{ routes.root_url }}" style="color: #6b655e;">Home</a><span aria-hidden="true">/</span>
+    {%- if coll -%}<a href="{{ coll.url }}" style="color: #6b655e;">{{ product.type }}</a><span aria-hidden="true">/</span>{%- endif -%}
+    <span style="color: #1d1c1c;">{{ product.title | split: ' (' | first }}</span>
+  </nav>
+</div>
+
+<section class="vx vx-wrap" data-vx-product data-reversible="{{ reversible }}" style="max-width: 1360px; margin: 0 auto; padding: 24px 40px 96px; display: flex; flex-wrap: wrap; gap: 56px; align-items: flex-start;">
+  <script type="application/json" data-vx-product-json>
+    {
+      "variants": [
+        {%- for v in product.variants -%}
+          {%- liquid
+            assign faces = v.option1 | split: ' / '
+            assign face_imgs = ''
+            for f in faces
+              assign want = f | append: ' side'
+              assign hit = product.media | where: 'alt', want | first
+              for m in product.media
+                if m.alt contains want
+                  assign hit = m
+                  break
+                endif
+              endfor
+              if hit
+                assign u = hit | image_url: width: 1400
+              else
+                assign u = v.featured_media | image_url: width: 1400
+              endif
+              assign face_imgs = face_imgs | append: u | append: '|'
+            endfor
+          -%}
+          {"id": {{ v.id }}, "title": {{ v.option1 | json }}, "price": {{ v.price | money | json }}, "available": {{ v.available | json }},
+           "image": {{ v.featured_media | image_url: width: 1400 | json }}, "faces": {{ faces | json }}, "faceImages": {{ face_imgs | split: '|' | json }}}{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+
+  <div style="flex: 1.35 1 600px; min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
+    <div style="grid-column: span 2; background: #efebe5; aspect-ratio: 16 / 10; display: flex; align-items: center; justify-content: center; padding: 56px; position: relative;">
+      {%- if current.featured_media -%}
+        {{ current.featured_media | image_url: width: 1400 | image_tag: data-vx-main-img: '', alt: current.featured_media.alt, style: 'width: 100%; height: 100%; object-fit: contain; display: block;', loading: 'eager', sizes: '(min-width: 990px) 55vw, 100vw' }}
+      {%- else -%}
+        <span data-vx-main-img style="font-size: 14px; color: #8a847d;">[Product photo to come]</span>
+      {%- endif -%}
+      <span data-vx-main-tag style="position: absolute; left: 20px; top: 20px; background: #fff; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 8px 12px;">{{ current.option1 }}</span>
+    </div>
+    {%- liquid
+      assign max_tiles = 2
+      if reversible
+        assign max_tiles = 3
+      endif
+      assign shown = 0
+    -%}
+    {%- for tid in tile_ids -%}
+      {%- if shown >= max_tiles -%}{%- break -%}{%- endif -%}
+      {%- assign tid_num = tid | plus: 0 -%}
+      {%- assign m = product.media | where: 'id', tid_num | first -%}
+      {%- if m -%}
+        {%- assign shown = shown | plus: 1 -%}
+        {%- if shown < 3 -%}{%- assign ar = '4 / 5' -%}{%- else -%}{%- assign ar = '4 / 3' -%}{%- endif -%}
+        <div style="aspect-ratio: {{ ar }}; position: relative; overflow: hidden; background: #2a2a2a;">{{ m | image_url: width: 900 | image_tag: alt: m.alt, style: 'position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;', sizes: '(min-width: 990px) 28vw, 50vw' }}</div>
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if shown == 0 -%}
+      <div style="aspect-ratio: 4 / 5; background: #efebe5; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #8a847d;">[Close-up photo to come]</div>
+      <div style="aspect-ratio: 4 / 5; background: #efebe5; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #8a847d;">[In-use photo to come]</div>
+    {%- endif -%}
+    {%- if reversible -%}
+      <button type="button" data-vx-flip style="aspect-ratio: 4 / 3; background: #efebe5; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 24px; border: 0; cursor: pointer;">
+        <img alt="" data-vx-flip-img src="" style="width: 100%; height: 70%; object-fit: contain;">
+        <span data-vx-flip-label style="font-size: 13px; font-weight: 600; color: #1d1c1c;"></span>
+      </button>
+    {%- endif -%}
+  </div>
+
+  <div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 28px; padding-top: 8px;">
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+      {%- assign kk = section.settings.kicker | default: product.type -%}{%- render 'vx-kicker', text: kk -%}
+      <h1 style="margin: 0; font-size: clamp(40px, 5vw, 64px); line-height: 0.95; font-weight: 600; letter-spacing: -0.035em;">{{ product.title | split: ' (' | first }}</h1>
+      <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #5b554f;">{{ intro }}</p>
+    </div>
+    <div style="display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid #e2ddd5;">
+      <span style="font-size: 34px; font-weight: 700; letter-spacing: -0.02em;" data-vx-price>{{ current.price | money }}</span>
+      <span style="font-size: 15px; color: #6b655e;">{{ mf.unit_label.value }}</span>
+      <span data-vx-stock style="margin-left: auto; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: {% if current.available %}#2f6b3a{% else %}#8a5e3b{% endif %};"><span style="width: 8px; height: 8px; border-radius: 4px; background: currentColor; display: block;"></span><span data-vx-stock-text>{% if current.available %}In stock{% else %}Out of stock{% endif %}</span></span>
+    </div>
+
+    {%- if colour_option -%}
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: flex; justify-content: space-between; font-size: 15px;"><span><span style="font-weight: 600;">{% if reversible %}Colour pair{% else %}Colour{% endif %}</span> · <span data-vx-variant-name>{{ current.option1 }}</span></span>{%- if section.settings.compare_link != blank -%}<a href="{{ section.settings.compare_link }}" class="vx-link" style="font-weight: 600; font-size: 14px;">Compare colours</a>{%- endif -%}</div>
+        {%- assign cols = colour_option.values.size | at_most: 5 -%}
+        {%- if reversible -%}{%- assign cols = 2 -%}{%- endif -%}
+        <div aria-label="{{ colour_option.name }}" role="group" style="display: grid; grid-template-columns: repeat({{ cols }}, minmax(0, 1fr)); gap: 10px;">
+          {%- for v in product.variants -%}
+            <button type="button" class="vx-opt" data-vx-variant="{{ forloop.index0 }}" aria-pressed="{% if v.id == current.id %}true{% else %}false{% endif %}" style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 16px 8px 14px; cursor: pointer; min-height: 44px;">
+              <span style="display: flex; gap: 4px;">
+                {%- assign names = v.option1 | split: ' / ' -%}
+                {%- for nm in names -%}
+                  {%- assign nh = nm | handleize -%}{%- assign mo = colours[nh] -%}
+                  <span style="width: 40px; height: 35px; display: block; background: {{ mo.color | default: '#cfc7bc' }}; clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);"></span>
+                {%- endfor -%}
+              </span>
+              <span style="font-size: 14px; font-weight: 600; color: #1d1c1c; text-align: center;">{{ v.option1 }}</span>
+            </button>
+          {%- endfor -%}
+        </div>
+        {%- if reversible -%}
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; font-size: 14px; color: #5b554f;">
+            <span>Showing</span>
+            <div aria-label="Board face" role="group" style="display: flex; border: 1px solid #cfc7bc;">
+              <button type="button" class="vx-face" data-vx-face="0" aria-pressed="false" style="min-height: 40px; padding: 0 14px; border: 0; font-size: 13px; font-weight: 600; cursor: pointer;"></button>
+              <button type="button" class="vx-face" data-vx-face="1" aria-pressed="true" style="min-height: 40px; padding: 0 14px; border: 0; font-size: 13px; font-weight: 600; cursor: pointer;"></button>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid #e2ddd5; border-bottom: 1px solid #e2ddd5;">
+      {%- if mf.length.value != blank -%}
+        {%- capture f1k -%}Length{%- endcapture -%}{%- assign f1v = mf.length.value -%}
+        {%- capture f2k -%}Weight{%- endcapture -%}{%- capture f2v -%}{{ mf.weight_label.value }} per {{ mf.unit_label.value | remove: 'per ' | split: ' ' | last }}{%- endcapture -%}
+      {%- else -%}
+        {%- capture f1k -%}Pack{%- endcapture -%}{%- assign f1v = mf.profile.value -%}
+        {%- capture f2k -%}Finish{%- endcapture -%}{%- assign f2v = current.option1 -%}
+      {%- endif -%}
+      <div style="padding: 14px 12px 14px 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 13px; color: #6b655e;">{{ f1k }}</span><span style="font-size: 16px; font-weight: 600;">{{ f1v }}</span></div>
+      <div style="padding: 14px 12px; display: flex; flex-direction: column; gap: 2px; border-left: 1px solid #e2ddd5;"><span style="font-size: 13px; color: #6b655e;">{{ f2k }}</span><span style="font-size: 16px; font-weight: 600;">{{ f2v }}</span></div>
+      <div style="padding: 14px 12px; display: flex; flex-direction: column; gap: 2px; border-left: 1px solid #e2ddd5;"><span style="font-size: 13px; color: #6b655e;">Model</span><span style="font-size: 16px; font-weight: 600;">{{ mf.model.value }}</span></div>
+    </div>
+
+    {%- form 'product', product, data-vx-form: '', style: 'display: flex; flex-direction: column; gap: 24px;' -%}
+      <input type="hidden" name="id" value="{{ current.id }}" data-vx-variant-id>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <div style="display: flex; align-items: center; border: 1px solid #cfc7bc;">
+          <button type="button" aria-label="Decrease quantity" data-vx-qty="-1" style="width: 50px; height: 58px; border: 0; background: transparent; font-size: 22px; cursor: pointer; color: #1d1c1c;">−</button>
+          <label for="vx-qty-{{ section.id }}" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%);">Quantity</label>
+          <input id="vx-qty-{{ section.id }}" name="quantity" type="number" min="1" value="1" data-vx-qty-input style="width: 56px; height: 58px; border: 0; text-align: center; font-size: 17px; font-weight: 600; color: #1d1c1c; background: transparent; -moz-appearance: textfield;">
+          <button type="button" aria-label="Increase quantity" data-vx-qty="1" style="width: 50px; height: 58px; border: 0; background: transparent; font-size: 22px; cursor: pointer; color: #1d1c1c;">+</button>
+        </div>
+        <button type="submit" name="add" data-vx-add {% unless current.available %}disabled{% endunless %} style="flex: 1 1 220px; min-height: 60px; background: #161616; color: #fff; border: 0; font-size: 16px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px;">{% if current.available %}Add to basket{% else %}Out of stock{% endif %}</button>
+      </div>
+    {%- endform -%}
+    {%- if section.settings.show_sample -%}
+      <a href="{{ section.settings.sample_link }}" style="min-height: 56px; border: 1px solid #1d1c1c; color: #1d1c1c; text-decoration: none; font-weight: 600; font-size: 16px; display: flex; align-items: center; justify-content: center; margin-top: -14px;">Order a sample · <span data-vx-variant-name style="margin-left: 4px;">{{ current.option1 }}</span></a>
+    {%- endif -%}
+
+    <div style="display: flex; flex-direction: column; border-top: 1px solid #e2ddd5;">
+      {%- if section.settings.delivery != blank -%}
+        <div style="display: flex; gap: 14px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid #e2ddd5; font-size: 15px; line-height: 1.5;"><svg aria-hidden="true" fill="none" height="22" stroke="#8a5e3b" stroke-width="1.7" style="flex: 0 0 auto;" viewBox="0 0 24 24" width="22"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"></path><circle cx="7" cy="17.5" r="1.6"></circle><circle cx="17" cy="17.5" r="1.6"></circle></svg><span><span style="font-weight: 600;">Delivery</span> · {{ section.settings.delivery }}</span></div>
+      {%- endif -%}
+      {%- if mf.warranty_summary.value != blank -%}
+        <div style="display: flex; gap: 14px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid #e2ddd5; font-size: 15px; line-height: 1.5;"><svg aria-hidden="true" fill="none" height="22" stroke="#8a5e3b" stroke-width="1.7" style="flex: 0 0 auto;" viewBox="0 0 24 24" width="22"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg><span><span style="font-weight: 600;">{{ mf.warranty_summary.value | split: ' (' | first | capitalize }}</span> · <a class="vx-link" href="{{ section.settings.warranty_link }}">register and terms</a></span></div>
+      {%- endif -%}
+      {%- if section.settings.email != blank -%}
+        <div style="display: flex; gap: 14px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid #e2ddd5; font-size: 15px; line-height: 1.5;"><svg aria-hidden="true" fill="none" height="22" stroke="#8a5e3b" stroke-width="1.7" style="flex: 0 0 auto;" viewBox="0 0 24 24" width="22"><path d="M4 6h16v12H4z"></path><path d="M4 7l8 6 8-6"></path></svg><span><span style="font-weight: 600;">Questions?</span> · <a class="vx-link" href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></span></div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Vertex product",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "info": "Leave blank to use the product type." },
+    { "type": "checkbox", "id": "reversible", "label": "Reversible board (show face flip)", "default": false },
+    { "type": "url", "id": "compare_link", "label": "Compare colours link" },
+    { "type": "checkbox", "id": "show_sample", "label": "Show Order a sample", "default": true },
+    { "type": "url", "id": "sample_link", "label": "Sample link" },
+    { "type": "text", "id": "delivery", "label": "Delivery line", "default": "[DELIVERY METHOD AND LEAD TIME]" },
+    { "type": "url", "id": "warranty_link", "label": "Warranty link" },
+    { "type": "text", "id": "email", "label": "Questions email", "default": "sales@vertexcomposite.co.uk" }
+  ]
+}
+{% endschema %}

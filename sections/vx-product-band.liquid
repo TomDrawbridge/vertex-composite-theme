@@ -1,0 +1,38 @@
+<section class="vx" data-vx-band style="position: relative; min-height: 680px; display: flex; align-items: flex-end; overflow: hidden; background: #2a2a2a; color: #fff;">
+  {%- for block in section.blocks -%}
+    {%- if forloop.first -%}{%- assign op = 1 -%}{%- else -%}{%- assign op = 0 -%}{%- endif -%}
+    {%- capture st -%}position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: {{ op }}; transition: opacity .6s ease;{%- endcapture -%}
+    <span data-vx-band-img style="display: contents;">{%- render 'vx-image', image: block.settings.image, alt: block.settings.image.alt, style: st, sizes: '100vw' -%}</span>
+  {%- endfor -%}
+  <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(rgba(10,10,10,0) 40%, rgba(10,10,10,0.75) 100%);"></div>
+  <div class="vx-wrap" style="position: relative; max-width: 1360px; width: 100%; margin: 0 auto; padding: 64px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 32px;">
+    {%- for block in section.blocks -%}
+      <div data-vx-band-cap {% unless forloop.first %}hidden{% endunless %} {{ block.shopify_attributes }} style="flex-direction: column; gap: 14px; max-width: 640px;">
+        <div style="font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #e9dccf; margin-bottom: 14px;">{{ block.settings.kicker }}</div>
+        <h2 style="margin: 0; font-size: clamp(40px, 5vw, 72px); line-height: 0.98; font-weight: 600; letter-spacing: -0.035em;">{{ block.settings.title }}</h2>
+      </div>
+    {%- endfor -%}
+    {%- if section.blocks.size > 1 -%}
+      <div aria-label="View colour" role="group" style="display: flex; gap: 8px; background: rgba(22,22,22,0.55); padding: 8px;">
+        {%- for block in section.blocks -%}
+          <button type="button" class="vx-band-dot" data-vx-band-dot aria-label="{{ block.settings.name }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}" style="width: 48px; height: 48px; padding: 0; border: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;"><span style="width: 32px; height: 28px; display: block; background: {{ block.settings.hex }}; clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);"></span></button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Vertex photo band",
+  "blocks": [
+    { "type": "colour", "name": "Colour", "settings": [
+      { "type": "text", "id": "name", "label": "Colour name" },
+      { "type": "color", "id": "hex", "label": "Swatch" },
+      { "type": "image_picker", "id": "image", "label": "Photo" },
+      { "type": "text", "id": "kicker", "label": "Kicker" },
+      { "type": "text", "id": "title", "label": "Heading" }
+    ]}
+  ],
+  "presets": [{ "name": "Vertex photo band" }]
+}
+{% endschema %}
