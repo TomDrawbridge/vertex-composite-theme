@@ -31,6 +31,8 @@
 #header-group, #header-group > .shopify-section { display: contents; }
 .vx-header { position: sticky; top: 0; z-index: 60; height: 76px; color: #fff; background-color: #161616;
   border-bottom: 1px solid rgba(255,255,255,0.08); transition: background-color .35s ease, border-color .35s ease; }
+.vx-header, .vx-announce { flex-shrink: 0; }
+.page-wrapper > main { flex-shrink: 0; }
 .vx-header--overlay { margin-bottom: -76px; background-color: rgba(18,18,18,0); border-bottom-color: rgba(255,255,255,0.18); }
 .vx-header--overlay.is-scrolled { background-color: rgba(18,18,18,0.72); -webkit-backdrop-filter: blur(14px) saturate(140%);
   backdrop-filter: blur(14px) saturate(140%); border-bottom-color: rgba(255,255,255,0.08); }

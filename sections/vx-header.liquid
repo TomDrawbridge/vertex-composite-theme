@@ -6,7 +6,7 @@
   assign menu = linklists[section.settings.menu]
 -%}
 {%- if section.settings.announcement != blank -%}
-  <div class="vx" style="background: #0f0f0f; color: #d9d6d1; font-size: 13px; letter-spacing: 0.04em; text-align: center; padding: 9px 16px;">
+  <div class="vx vx-announce" style="background: #0f0f0f; color: #d9d6d1; font-size: 13px; letter-spacing: 0.04em; text-align: center; padding: 9px 16px;">
     {%- if section.settings.announcement_link != blank -%}<a href="{{ section.settings.announcement_link }}" style="color: inherit; text-decoration: none;">{{ section.settings.announcement }}</a>{%- else -%}{{ section.settings.announcement }}{%- endif -%}
   </div>
 {%- endif -%}
