@@ -2117,5 +2117,76 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "Vertex SEO and business",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Used when the homepage title and description are blank in Online Store > Preferences, and for search engines' business details."
+      },
+      {
+        "type": "text",
+        "id": "vx_home_title",
+        "label": "Homepage title",
+        "default": "Composite decking, cladding and trims | Vertex Composite"
+      },
+      {
+        "type": "textarea",
+        "id": "vx_home_description",
+        "label": "Homepage meta description",
+        "default": "Reversible composite decking, cladding and trims in four colours, chosen to work together. Backed by a 10-year fade warranty (terms apply)."
+      },
+      {
+        "type": "image_picker",
+        "id": "vx_share_image",
+        "label": "Social sharing image",
+        "info": "Shown when a page with no image of its own is shared. 1200 x 628 px works best."
+      },
+      {
+        "type": "header",
+        "content": "Business details for search engines"
+      },
+      {
+        "type": "image_picker",
+        "id": "vx_schema_logo",
+        "label": "Square logo (PNG)"
+      },
+      {
+        "type": "text",
+        "id": "vx_schema_email",
+        "label": "Email",
+        "default": "sales@vertexcomposite.co.uk"
+      },
+      {
+        "type": "text",
+        "id": "vx_schema_phone",
+        "label": "Telephone"
+      },
+      {
+        "type": "text",
+        "id": "vx_schema_company_no",
+        "label": "Company number",
+        "default": "17264888"
+      },
+      {
+        "type": "text",
+        "id": "vx_schema_street",
+        "label": "Street address",
+        "default": "Unit 2 Mill Pool, Nash Lane, Belbroughton"
+      },
+      {
+        "type": "text",
+        "id": "vx_schema_town",
+        "label": "Town",
+        "default": "Stourbridge"
+      },
+      {
+        "type": "text",
+        "id": "vx_schema_postcode",
+        "label": "Postcode",
+        "default": "DY9 9AF"
+      }
+    ]
   }
 ]

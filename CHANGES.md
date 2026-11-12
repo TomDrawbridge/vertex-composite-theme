@@ -5,6 +5,8 @@ Keep this list current so Horizon updates can be merged. Baseline: Horizon 4.5.0
 | File | Change | Why |
 |---|---|---|
 | `layout/theme.liquid` | Added DM Sans from Google Fonts and `{{ 'vx.css' \| asset_url \| stylesheet_tag }}` after `render 'color-palette'` | Loads the Vertex font and CSS layer |
+| `snippets/meta-tags.liquid` | Homepage title and description fall back to the "Vertex SEO and business" theme settings when blank in Preferences; `og:image` falls back to the theme's sharing image; `theme-color` set to `#161616` | Homepage had no meta description or share image |
+| `config/settings_schema.json` | Added the "Vertex SEO and business" settings group | Holds the fallbacks above and the business details for structured data |
 | `templates/*.json` (index, product, collection, page, page.contact, cart, search, 404) and `sections/header-group.json`, `sections/footer-group.json` | Replaced Horizon's sections with `vx-` sections | Faithful port of the Direction B designs. Search keeps Horizon's `search-results` section |
 
 ## Files added (not part of Horizon)

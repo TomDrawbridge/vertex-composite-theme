@@ -27,6 +27,13 @@
     </div>
   </div>
 </section>
+{%- liquid
+  if collection.handle == 'all'
+    render 'vx-schema-breadcrumb', current: 'Shop'
+  else
+    render 'vx-schema-breadcrumb', current: collection.title
+  endif
+-%}
 {%- if section.settings.usp_1 != blank -%}
   <div class="vx" style="border-bottom: 1px solid #e2ddd5;">
     <div class="vx-wrap" style="max-width: 1360px; margin: 0 auto; padding: 18px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; font-size: 14px; font-weight: 500; color: #3d3a37;">
