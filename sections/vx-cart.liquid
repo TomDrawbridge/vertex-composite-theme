@@ -1,0 +1,125 @@
+{%- comment -%}
+  Basket page in the Direction B style. Uses Shopify's standard cart form (updates[] and checkout),
+  so it works without JavaScript; vx.js only adds the quantity steppers and auto-update.
+  The cart drawer from Horizon is unchanged.
+{%- endcomment -%}
+<section class="vx" style="background: #f6f4f1;">
+  <div class="vx-wrap vx-pad-lg" style="max-width: 1360px; margin: 0 auto; padding: 80px 40px 112px;">
+    {%- if cart.item_count == 0 -%}
+      <div style="background: #fff; padding: 56px 40px; display: flex; flex-direction: column; align-items: flex-start; gap: 20px; max-width: 760px;">
+        {%- render 'vx-kicker', text: section.settings.empty_kicker -%}
+        <h2 style="margin: 0; font-size: clamp(32px, 3.6vw, 48px); line-height: 1.02; font-weight: 600; letter-spacing: -0.03em;">{{ section.settings.empty_title }}</h2>
+        <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #5b554f; max-width: 520px;">{{ section.settings.empty_text }}</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 6px;">
+          {%- for block in section.blocks -%}
+            <a href="{{ block.settings.link }}" {{ block.shopify_attributes }} style="{% if forloop.first %}background: #161616; color: #fff;{% else %}border: 1px solid #1d1c1c; color: #1d1c1c;{% endif %} text-decoration: none; font-weight: 600; font-size: 16px; padding: 0 26px; min-height: 56px; display: flex; align-items: center;">{{ block.settings.label }}</a>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- else -%}
+      <form action="{{ routes.cart_url }}" method="post" id="vx-cart-form" data-vx-cart style="display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start;">
+        <div style="flex: 1.7 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap;">
+            {%- render 'vx-kicker', text: section.settings.kicker -%}
+            <span style="font-size: 15px; color: #5b554f;">{{ cart.item_count }} {% if cart.item_count == 1 %}item{% else %}items{% endif %}</span>
+          </div>
+          <div style="background: #fff; display: flex; flex-direction: column;">
+            {%- for item in cart.items -%}
+              {%- liquid
+                assign mf = item.product.metafields.vertex
+                assign unit = mf.unit_label.value
+              -%}
+              <div class="vx-cart-line" style="display: flex; gap: 24px; padding: 28px; {% unless forloop.first %}border-top: 1px solid #e2ddd5;{% endunless %} align-items: flex-start;">
+                <a href="{{ item.url }}" style="flex: 0 0 auto; width: 132px; aspect-ratio: 1; background: #f6f4f1; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                  {%- if item.image -%}{{ item.image | image_url: width: 400 | image_tag: alt: item.product.title, style: 'width: 100%; height: 100%; object-fit: contain; display: block;', loading: 'lazy' }}{%- endif -%}
+                </a>
+                <div style="flex: 1 1 auto; min-width: 0; display: flex; flex-wrap: wrap; gap: 16px 24px; justify-content: space-between;">
+                  <div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 6px;">
+                    <a href="{{ item.url }}" style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em; color: #1d1c1c; text-decoration: none;">{{ item.product.title }}</a>
+                    {%- unless item.product.has_only_default_variant -%}
+                      <span style="font-size: 15px; color: #3d3a37;">{% for o in item.options_with_values %}{{ o.value }}{% unless forloop.last %} · {% endunless %}{% endfor %}</span>
+                    {%- endunless -%}
+                    <span style="font-size: 13px; color: #6b655e;">{% if item.sku != blank %}{{ item.sku }}{% endif %}{% if mf.length.value != blank %} · {{ mf.length.value }}{% endif %}</span>
+                    <span style="font-size: 15px; color: #1d1c1c; margin-top: 4px;">{{ item.final_price | money }} {% if unit != blank %}<span style="color: #6b655e;">{{ unit }}</span>{% endif %}</span>
+                    {%- for d in item.line_level_discount_allocations -%}<span style="font-size: 13px; color: #2f6b3a;">{{ d.discount_application.title }} (−{{ d.amount | money }})</span>{%- endfor -%}
+                  </div>
+                  <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 14px;">
+                    <div style="display: flex; align-items: center; border: 1px solid #cfc7bc; height: 48px;">
+                      <button type="button" data-vx-step="-1" aria-label="Reduce quantity of {{ item.product.title | escape }}" style="width: 44px; height: 100%; border: 0; background: transparent; font-size: 20px; cursor: pointer; color: #1d1c1c;">−</button>
+                      <label class="visually-hidden" for="vx-qty-{{ forloop.index }}">Quantity</label>
+                      <input id="vx-qty-{{ forloop.index }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0" inputmode="numeric" data-vx-qty style="width: 56px; height: 100%; border: 0; border-left: 1px solid #e2ddd5; border-right: 1px solid #e2ddd5; text-align: center; font-family: inherit; font-size: 16px; font-weight: 600; color: #1d1c1c; -moz-appearance: textfield;">
+                      <button type="button" data-vx-step="1" aria-label="Increase quantity of {{ item.product.title | escape }}" style="width: 44px; height: 100%; border: 0; background: transparent; font-size: 20px; cursor: pointer; color: #1d1c1c;">+</button>
+                    </div>
+                    <span style="font-size: 18px; font-weight: 600;">{{ item.final_line_price | money }}</span>
+                    <a href="{{ item.url_to_remove }}" style="font-size: 14px; color: #5b554f;">Remove</a>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+          <noscript><button type="submit" name="update" style="align-self: flex-start; min-height: 48px; padding: 0 22px; border: 1px solid #1d1c1c; background: transparent; font-family: inherit; font-weight: 600;">Update basket</button></noscript>
+          {%- if section.settings.note_text != blank -%}<div class="vx-rte" style="font-size: 14px; line-height: 1.6; color: #5b554f; padding-top: 4px;">{{ section.settings.note_text }}</div>{%- endif -%}
+        </div>
+        <aside class="vx-cart-summary" style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px; padding-top: 38px;">
+          <div style="background: #fff; padding: 32px; display: flex; flex-direction: column; gap: 18px; box-shadow: rgba(29,28,28,0.08) 0 30px 60px;">
+            <h2 style="margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -0.015em;">{{ section.settings.summary_title }}</h2>
+            <div style="display: flex; flex-direction: column; border-top: 1px solid #e2ddd5;">
+              <div style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid #e2ddd5; font-size: 15px;"><span style="color: #6b655e;">Subtotal</span><span style="font-weight: 600;">{{ cart.items_subtotal_price | money }}</span></div>
+              {%- for d in cart.cart_level_discount_applications -%}
+                <div style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid #e2ddd5; font-size: 15px; color: #2f6b3a;"><span>{{ d.title }}</span><span style="font-weight: 600;">−{{ d.total_allocated_amount | money }}</span></div>
+              {%- endfor -%}
+              <div style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid #e2ddd5; font-size: 15px;"><span style="color: #6b655e;">Delivery</span><span style="font-weight: 600; text-align: right;">{{ section.settings.delivery_text }}</span></div>
+              <div style="display: flex; justify-content: space-between; gap: 16px; padding: 18px 0 4px; font-size: 18px;"><span style="font-weight: 600;">Total</span><span style="font-weight: 700;">{{ cart.total_price | money_with_currency }}</span></div>
+            </div>
+            {%- if section.settings.show_note -%}
+              <details style="border-top: 1px solid #e2ddd5; padding-top: 12px;">
+                <summary style="cursor: pointer; font-size: 15px; font-weight: 600; min-height: 32px; display: flex; align-items: center;">Add a note for delivery</summary>
+                <textarea class="vx-input" name="note" rows="3" style="margin-top: 10px; border: 1px solid #cfc7bc; padding: 12px; font-family: inherit; font-size: 15px; width: 100%; resize: vertical;">{{ cart.note }}</textarea>
+              </details>
+            {%- endif -%}
+            <button type="submit" name="checkout" style="min-height: 56px; border: 0; background: #161616; color: #fff; font-family: inherit; font-weight: 600; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">{{ section.settings.checkout_label }}<svg aria-hidden="true" fill="none" height="18" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+            {%- if additional_checkout_buttons and section.settings.express -%}<div class="vx-cart-express">{{ content_for_additional_checkout_buttons }}</div>{%- endif -%}
+            {%- if section.settings.payments != blank -%}<span style="font-size: 13px; color: #6b655e; text-align: center;">{{ section.settings.payments }}</span>{%- endif -%}
+          </div>
+          {%- if section.settings.usp_1 != blank -%}
+            <ul style="margin: 0; padding: 24px 28px; list-style: none; background: #fff; display: flex; flex-direction: column; gap: 12px;">
+              {%- for i in (1..4) -%}
+                {%- assign k = 'usp_' | append: i -%}
+                {%- if section.settings[k] != blank -%}<li style="display: flex; gap: 12px; align-items: flex-start; font-size: 15px; line-height: 1.5; color: #3d3a37;"><svg aria-hidden="true" height="14" style="flex: 0 0 auto; margin-top: 4px;" viewBox="0 0 16 14" width="16"><polygon fill="none" points="4,1 12,1 15,7 12,13 4,13 1,7" stroke="#b6855f" stroke-width="1.6"></polygon></svg>{{ section.settings[k] }}</li>{%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </aside>
+      </form>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Vertex basket",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "In your basket" },
+    { "type": "richtext", "id": "note_text", "label": "Text under the items" },
+    { "type": "text", "id": "summary_title", "label": "Summary heading", "default": "Order summary" },
+    { "type": "text", "id": "delivery_text", "label": "Delivery line", "default": "Calculated at checkout" },
+    { "type": "checkbox", "id": "show_note", "label": "Show order note", "default": true },
+    { "type": "text", "id": "checkout_label", "label": "Checkout button", "default": "Check out securely" },
+    { "type": "checkbox", "id": "express", "label": "Show express checkout buttons", "default": true },
+    { "type": "text", "id": "payments", "label": "Payments line", "default": "Visa · Mastercard · Amex · Apple Pay · Google Pay" },
+    { "type": "text", "id": "usp_1", "label": "Reassurance 1" },
+    { "type": "text", "id": "usp_2", "label": "Reassurance 2" },
+    { "type": "text", "id": "usp_3", "label": "Reassurance 3" },
+    { "type": "text", "id": "usp_4", "label": "Reassurance 4" },
+    { "type": "header", "content": "Empty basket" },
+    { "type": "text", "id": "empty_kicker", "label": "Kicker", "default": "Your basket" },
+    { "type": "text", "id": "empty_title", "label": "Heading", "default": "Your basket is empty" },
+    { "type": "textarea", "id": "empty_text", "label": "Text" }
+  ],
+  "blocks": [
+    { "type": "link", "name": "Empty basket button", "limit": 3, "settings": [
+      { "type": "text", "id": "label", "label": "Label" },
+      { "type": "url", "id": "link", "label": "Link" }
+    ]}
+  ]
+}
+{% endschema %}

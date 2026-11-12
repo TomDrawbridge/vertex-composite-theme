@@ -1,0 +1,152 @@
+{%- comment -%}
+  Pedestal height calculator from the Install-B design. The first render is worked out here in Liquid
+  (so the page reads correctly without JavaScript); assets/vx-install.js updates it as the sliders move.
+  Maths as in the design: pedestal = total height - board - joist; pedestals = area x per-m² figures, rounded up.
+{%- endcomment -%}
+{{ 'vx-install.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'vx-install.js' | asset_url }}" defer></script>
+{%- liquid
+  assign s = section.settings
+  assign total = s.total_default
+  assign board = s.board_default
+  assign joist = s.joist_default
+  assign area = s.area_default
+  assign ped = total | minus: board | minus: joist
+  assign ped_pos = ped | at_least: 0
+  assign bj = board | plus: joist
+  assign maxv = total | at_least: bj | at_least: 1
+  assign scale = 300.0 | divided_by: maxv
+  assign h_board = board | times: scale | round
+  assign h_joist = joist | times: scale | round
+  assign h_ped = ped_pos | times: scale | round
+  assign min_ped = s.min_pedestal
+  assign ped_colour = '#ffffff'
+  if ped < min_ped
+    assign ped_colour = '#e3a77a'
+  endif
+  assign ped_note = s.note_ok
+  assign ped_big = ped | append: ' mm'
+  if ped < 0
+    assign ped_note = s.note_none
+    assign ped_big = s.too_low
+  elsif ped < min_ped
+    assign ped_note = s.note_low
+  endif
+  assign per_min = s.per_m2_min | times: 1.0
+  assign per_max = s.per_m2_max | times: 1.0
+  assign c_min = area | times: per_min | ceil | append: ''
+  assign c_max = area | times: per_max | ceil | append: ''
+  assign count = s.count_format | replace: '{min}', c_min | replace: '{max}', c_max
+  assign uid = section.id
+  assign board_lc = s.board_label | downcase
+  assign joist_lc = s.joist_label | downcase
+-%}
+<section class="vx" id="{{ s.anchor | escape }}" data-vx-hcalc data-min-ped="{{ min_ped }}" data-per-min="{{ s.per_m2_min }}" data-per-max="{{ s.per_m2_max }}" data-count-format="{{ s.count_format | escape }}" data-too-low="{{ s.too_low | escape }}" data-note-ok="{{ s.note_ok | escape }}" data-note-low="{{ s.note_low | escape }}" data-note-none="{{ s.note_none | escape }}" style="background: #161616; color: #ffffff; scroll-margin-top: 96px;">
+  <div class="vx-wrap vx-pad-lg" style="max-width: 1360px; margin: 0 auto; padding: 120px 40px; display: flex; flex-wrap: wrap; gap: 64px; align-items: stretch;">
+    <div style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 28px;">
+      {%- render 'vx-kicker', text: s.kicker, color: '#b6855f' -%}
+      <h2 style="margin: 0; font-size: clamp(36px, 4.2vw, 56px); line-height: 1; font-weight: 600; letter-spacing: -0.03em;">{{ s.title }}</h2>
+      {%- if s.text != blank -%}<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #c9c4bd; max-width: 480px;">{{ s.text }}</p>{%- endif -%}
+
+      <div style="display: flex; flex-direction: column; gap: 26px; padding-top: 8px;">
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; justify-content: space-between; font-size: 15px;"><label for="h-total-{{ uid }}" style="color: #c9c4bd;">{{ s.total_label }}</label><span style="font-weight: 600;" data-vx-out="total">{{ total }} mm</span></div>
+          <input class="vx-range" id="h-total-{{ uid }}" data-vx-in="total" max="400" min="60" step="5" type="range" value="{{ total }}">
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <span style="font-size: 15px; color: #c9c4bd;">{{ s.board_label }}</span>
+            <div style="display: flex; align-items: center; border: 1px solid #3a3838;">
+              <button type="button" data-vx-step="board" data-dir="-1" aria-label="Decrease {{ board_lc | escape }}" style="width: 52px; height: 52px; border: 0; background: transparent; color: #ffffff; font-size: 22px; font-family: inherit; cursor: pointer;">−</button>
+              <span style="flex: 1 1 0%; text-align: center; font-size: 18px; font-weight: 600;" data-vx-out="board">{{ board }} mm</span>
+              <button type="button" data-vx-step="board" data-dir="1" aria-label="Increase {{ board_lc | escape }}" style="width: 52px; height: 52px; border: 0; background: transparent; color: #ffffff; font-size: 22px; font-family: inherit; cursor: pointer;">+</button>
+            </div>
+            {%- if s.board_note != blank -%}<span style="font-size: 13px; color: #a39e97;">{{ s.board_note }}</span>{%- endif -%}
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <span style="font-size: 15px; color: #c9c4bd;">{{ s.joist_label }}</span>
+            <div style="display: flex; align-items: center; border: 1px solid #3a3838;">
+              <button type="button" data-vx-step="joist" data-dir="-1" aria-label="Decrease {{ joist_lc | escape }}" style="width: 52px; height: 52px; border: 0; background: transparent; color: #ffffff; font-size: 22px; font-family: inherit; cursor: pointer;">−</button>
+              <span style="flex: 1 1 0%; text-align: center; font-size: 18px; font-weight: 600;" data-vx-out="joist">{{ joist }} mm</span>
+              <button type="button" data-vx-step="joist" data-dir="1" aria-label="Increase {{ joist_lc | escape }}" style="width: 52px; height: 52px; border: 0; background: transparent; color: #ffffff; font-size: 22px; font-family: inherit; cursor: pointer;">+</button>
+            </div>
+            {%- if s.joist_note != blank -%}<span style="font-size: 13px; color: #a39e97;">{{ s.joist_note }}</span>{%- endif -%}
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; border-top: 1px solid #333131; padding-top: 24px;">
+          <div style="display: flex; justify-content: space-between; font-size: 15px;"><label for="h-area-{{ uid }}" style="color: #c9c4bd;">{{ s.area_label }}</label><span style="font-weight: 600;" data-vx-out="area">{{ area }} m²</span></div>
+          <input class="vx-range" id="h-area-{{ uid }}" data-vx-in="area" max="60" min="2" step="1" type="range" value="{{ area }}">
+        </div>
+      </div>
+    </div>
+
+    <div style="flex: 1 1 480px; min-width: 0; background: #1f1e1e; border: 1px solid #333131; padding: 36px; display: flex; flex-wrap: wrap; gap: 36px; align-items: stretch;">
+      <div aria-hidden="true" style="flex: 0 0 200px; display: flex; flex-direction: column; justify-content: flex-end; height: 320px; position: relative;">
+        <div style="display: flex; flex-direction: column; width: 120px;">
+          <div class="vx-anim" data-vx-bar="board" style="height: {{ h_board }}px; background: #6B4A36; overflow: hidden;"></div>
+          <div class="vx-anim" data-vx-bar="joist" style="height: {{ h_joist }}px; background: #4a4b4c; overflow: hidden;"></div>
+          <div class="vx-anim" data-vx-bar="ped" style="height: {{ h_ped }}px; background: repeating-linear-gradient(180deg, #8a847d 0 3px, #6b655e 3px 6px); overflow: hidden;"></div>
+        </div>
+        <div style="position: absolute; left: 136px; bottom: 0; top: 0; display: flex; flex-direction: column; justify-content: flex-end;">
+          <div class="vx-anim" data-vx-bar="board" style="height: {{ h_board }}px; min-height: 34px; display: flex; flex-direction: column; justify-content: center; gap: 1px; white-space: nowrap; overflow: visible;"><span style="font-size: 12px; color: #a39e97;">{{ s.bar_board }}</span><span style="font-size: 14px; font-weight: 600;" data-vx-out="board">{{ board }} mm</span></div>
+          <div class="vx-anim" data-vx-bar="joist" style="height: {{ h_joist }}px; min-height: 34px; display: flex; flex-direction: column; justify-content: center; gap: 1px; white-space: nowrap; overflow: visible;"><span style="font-size: 12px; color: #a39e97;">{{ s.bar_joist }}</span><span style="font-size: 14px; font-weight: 600;" data-vx-out="joist">{{ joist }} mm</span></div>
+          <div class="vx-anim" data-vx-bar="ped" style="height: {{ h_ped }}px; min-height: 34px; display: flex; flex-direction: column; justify-content: center; gap: 1px; white-space: nowrap; overflow: visible;"><span style="font-size: 12px; color: #a39e97;">{{ s.bar_pedestal }}</span><span style="font-size: 14px; font-weight: 600;" data-vx-out="ped-small">{{ ped_pos }} mm</span></div>
+        </div>
+      </div>
+      <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 22px; justify-content: center;">
+        <div role="status" style="display: flex; flex-direction: column; gap: 6px;">
+          <span style="font-size: 14px; color: #a39e97;">{{ s.result_label }}</span>
+          <span data-vx-out="ped" style="font-size: 64px; line-height: 0.95; font-weight: 600; letter-spacing: -0.035em; color: {{ ped_colour }};">{{ ped_big }}</span>
+          <span data-vx-out="note" style="font-size: 15px; line-height: 1.55; color: #d4cfc8;">{{ ped_note }}</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px; border-top: 1px solid #333131; padding-top: 20px;">
+          <span style="font-size: 14px; color: #a39e97;">{{ s.count_label }}</span>
+          <span data-vx-out="count" style="font-size: 34px; font-weight: 600; letter-spacing: -0.02em;">{{ count }}</span>
+          {%- if s.count_note != blank -%}<span style="font-size: 13px; line-height: 1.55; color: #a39e97;">{{ s.count_note }}</span>{%- endif -%}
+        </div>
+      </div>
+      {%- if s.footnote != blank -%}<p style="flex: 1 1 100%; margin: 0; font-size: 13px; line-height: 1.55; color: #a39e97; border-top: 1px solid #333131; padding-top: 18px;">{{ s.footnote }}</p>{%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Vertex height calculator",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor", "default": "height", "info": "Used by the On this page links, without the #." },
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Height calculator" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Work out your pedestal height" },
+    { "type": "textarea", "id": "text", "label": "Intro", "default": "Measure from the base to where you want the top of the deck. Take away the board and the joist, and what’s left is the height your pedestals need to reach." },
+    { "type": "header", "content": "Inputs" },
+    { "type": "text", "id": "total_label", "label": "Total height label", "default": "Total height available" },
+    { "type": "range", "id": "total_default", "label": "Starting total height (mm)", "min": 60, "max": 400, "step": 5, "default": 150 },
+    { "type": "text", "id": "board_label", "label": "Board label", "default": "Board thickness" },
+    { "type": "range", "id": "board_default", "label": "Starting board thickness (mm)", "min": 15, "max": 40, "step": 1, "default": 22 },
+    { "type": "text", "id": "board_note", "label": "Board note", "default": "Twin Deck boards are 22 mm thick" },
+    { "type": "text", "id": "joist_label", "label": "Joist label", "default": "Joist depth" },
+    { "type": "range", "id": "joist_default", "label": "Starting joist depth (mm)", "min": 20, "max": 100, "step": 5, "default": 50 },
+    { "type": "text", "id": "joist_note", "label": "Joist note", "default": "Check the joists you’re using" },
+    { "type": "text", "id": "area_label", "label": "Area label", "default": "Deck area" },
+    { "type": "range", "id": "area_default", "label": "Starting deck area (m²)", "min": 2, "max": 60, "step": 1, "default": 12 },
+    { "type": "header", "content": "Drawing" },
+    { "type": "text", "id": "bar_board", "label": "Board label", "default": "Board" },
+    { "type": "text", "id": "bar_joist", "label": "Joist label", "default": "Joist" },
+    { "type": "text", "id": "bar_pedestal", "label": "Pedestal label", "default": "Pedestal" },
+    { "type": "header", "content": "Result" },
+    { "type": "text", "id": "result_label", "label": "Result label", "default": "Pedestal height needed" },
+    { "type": "number", "id": "min_pedestal", "label": "Lowest pedestal height (mm)", "default": 20, "info": "Below this the result turns amber and shows the low-height note." },
+    { "type": "textarea", "id": "note_ok", "label": "Note", "default": "Choose pedestals that adjust to around this height. [CONFIRM: Vertex pedestal height range]" },
+    { "type": "textarea", "id": "note_low", "label": "Note when very low", "default": "Very low. Check the minimum height of your pedestals, or use a slimmer joist. [CONFIRM: Vertex pedestal height range]" },
+    { "type": "textarea", "id": "note_none", "label": "Note when there is no room", "default": "There isn’t enough height. The board and joist alone are deeper than the space you have." },
+    { "type": "text", "id": "too_low", "label": "Result when there is no room", "default": "Too low" },
+    { "type": "header", "content": "Pedestal count" },
+    { "type": "text", "id": "count_label", "label": "Label", "default": "Pedestals, as a first guide" },
+    { "type": "number", "id": "per_m2_min", "label": "Pedestals per m² (low)", "default": 6 },
+    { "type": "number", "id": "per_m2_max", "label": "Pedestals per m² (high)", "default": 7 },
+    { "type": "text", "id": "count_format", "label": "Result wording", "default": "About {min} to {max}", "info": "{min} and {max} are replaced with the worked-out numbers." },
+    { "type": "textarea", "id": "count_note", "label": "Note", "default": "Based on around 6 to 7 per m² [CONFIRM FOR THE VERTEX SYSTEM]. The real number depends on your joists, pedestal grid, deck height and loading." },
+    { "type": "textarea", "id": "footnote", "label": "Footnote", "default": "Example only. Allow for clips, brackets and any other parts in your system, and for any fall you need for drainage." }
+  ],
+  "presets": [{ "name": "Vertex height calculator" }]
+}
+{% endschema %}

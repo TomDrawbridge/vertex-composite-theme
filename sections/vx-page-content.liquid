@@ -1,0 +1,53 @@
+{%- comment -%}
+  Page body in the Direction B type styles, with the "Need a hand?" card alongside.
+  With "Questions as an accordion" on, each H3 and the text under it becomes an open/close row (used on the FAQs page).
+{%- endcomment -%}
+{%- liquid
+  assign body = page.content
+  if section.settings.drop_first_heading
+    assign start = body | strip | slice: 0, 4
+    if start == '<h2>'
+      assign first = body | split: '</h2>' | first
+      assign body = body | remove_first: first | remove_first: '</h2>'
+    endif
+  endif
+-%}
+<section class="vx" style="background: {% if section.settings.background == 'sand' %}#f6f4f1{% else %}#fff{% endif %};">
+  <div class="vx-wrap vx-pad-lg" style="max-width: 1360px; margin: 0 auto; padding: 96px 40px 112px; display: flex; flex-wrap: wrap; gap: 72px; align-items: flex-start;">
+    <div class="vx-prose{% if section.settings.accordion %} vx-prose--faq{% endif %}" {% if section.settings.accordion %}data-vx-faq-page{% endif %} style="flex: 1 1 560px; min-width: 0; max-width: 780px;">
+      {%- if section.settings.kicker != blank -%}<div style="margin-bottom: 20px;">{%- render 'vx-kicker', text: section.settings.kicker -%}</div>{%- endif -%}
+      {%- if body != blank -%}{{ body }}{%- else -%}{{ section.settings.fallback }}{%- endif -%}
+    </div>
+    {%- if section.settings.show_card -%}
+      <aside class="vx-prose-aside" style="flex: 0 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 16px;">
+        {%- render 'vx-help-card', kicker: section.settings.card_kicker, title: section.settings.card_title, text: section.settings.card_text, email: section.settings.card_email, button_label: section.settings.card_button, button_link: section.settings.card_link -%}
+        {%- if section.settings.card_note != blank -%}<div class="vx-rte" style="font-size: 14px; line-height: 1.6; color: #5b554f;">{{ section.settings.card_note }}</div>{%- endif -%}
+      </aside>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Vertex page content",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker" },
+    { "type": "checkbox", "id": "accordion", "label": "Questions as an accordion", "info": "Turns each H3 in the page text into an open/close row. Use on the FAQs page.", "default": false },
+    { "type": "checkbox", "id": "drop_first_heading", "label": "Hide an opening H2", "info": "For pages whose text starts by repeating the page title.", "default": false },
+    { "type": "select", "id": "background", "label": "Background", "options": [
+      { "value": "white", "label": "White" },
+      { "value": "sand", "label": "Light sand" }
+    ], "default": "white" },
+    { "type": "richtext", "id": "fallback", "label": "Text when the page is empty" },
+    { "type": "header", "content": "Help card" },
+    { "type": "checkbox", "id": "show_card", "label": "Show help card", "default": true },
+    { "type": "text", "id": "card_kicker", "label": "Kicker", "default": "Need a hand?" },
+    { "type": "text", "id": "card_title", "label": "Heading", "default": "Talk to us about your project" },
+    { "type": "textarea", "id": "card_text", "label": "Text", "default": "Send us your measurements and a few photos, and we’ll help you work out what you need." },
+    { "type": "text", "id": "card_email", "label": "Email", "default": "sales@vertexcomposite.co.uk" },
+    { "type": "text", "id": "card_button", "label": "Button label", "default": "Order samples" },
+    { "type": "url", "id": "card_link", "label": "Button link" },
+    { "type": "richtext", "id": "card_note", "label": "Note under the card" }
+  ],
+  "presets": [{ "name": "Vertex page content" }]
+}
+{% endschema %}

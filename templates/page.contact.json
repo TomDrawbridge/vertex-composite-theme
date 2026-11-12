@@ -1,146 +1,71 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "main": {
-      "type": "main-page",
-      "blocks": {
-        "title": {
-          "type": "text",
-          "name": "t:names.title",
-          "settings": {
-            "text": "<h1>{{ closest.page.title }}</h1>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "center",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "content": {
-          "type": "text",
-          "name": "t:names.content",
-          "settings": {
-            "text": "{{ closest.page.content }}",
-            "width": "100%",
-            "max_width": "narrow",
-            "alignment": "center",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "title",
-        "content"
-      ],
+    "hero": {
+      "type": "vx-page-hero",
+      "blocks": {},
+      "block_order": [],
       "settings": {
-        "content_direction": "column",
-        "gap": 32,
-        "padding-block-start": 40,
-        "padding-block-end": 0
+        "size": "compact",
+        "image": "shopify://shop_images/vertex-flush-cladding-garden-office.jpg",
+        "text": "Questions about a product, an order or your project? We’re happy to help."
       }
     },
-    "form": {
-      "type": "section",
+    "contact": {
+      "type": "vx-contact",
       "blocks": {
-        "contact_form_UwiCkQ": {
-          "type": "contact-form",
+        "r1": {
+          "type": "row",
           "settings": {
-            "width": "custom",
-            "custom_width": 50,
-            "width_mobile": "custom",
-            "custom_width_mobile": 100,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "submit-button": {
-              "type": "contact-form-submit-button",
-              "static": true,
-              "settings": {
-                "label": "Submit",
-                "style_class": "button",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": []
+            "label": "Email",
+            "value": "sales@vertexcomposite.co.uk",
+            "link": "mailto:sales@vertexcomposite.co.uk"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "label": "Telephone",
+            "value": "[TELEPHONE]"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "label": "Hours",
+            "value": "[OPENING HOURS]"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "label": "Company no.",
+            "value": "17264888"
+          }
         }
       },
       "block_order": [
-        "contact_form_UwiCkQ"
+        "r1",
+        "r2",
+        "r3",
+        "r4"
       ],
-      "name": "t:names.contact_form",
       "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 32,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "padding-block-start": 32,
-        "padding-block-end": 84
+        "address": "<p>[REGISTERED COMPANY NAME] is registered in England and Wales. Registered office: Unit 2 Mill Pool, Nash Lane, Belbroughton, Stourbridge, England, DY9 9AF.</p>",
+        "card_text": "Send us your measurements and photos of the base, and we’ll help you work out what you need.",
+        "card_button": "Order samples",
+        "card_link": "shopify://pages/samples"
+      }
+    },
+    "samples": {
+      "type": "vx-samples-band",
+      "settings": {
+        "cta_link": "shopify://pages/samples"
       }
     }
   },
   "order": [
-    "main",
-    "form"
+    "hero",
+    "contact",
+    "samples"
   ]
 }

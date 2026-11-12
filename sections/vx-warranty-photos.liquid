@@ -1,0 +1,60 @@
+{%- comment -%}
+  Warranty page: "The photos you'll need", dark band with the three photo sets.
+  Ported from design/pages/Warranty-B.dc.html. Each set lists its photos one per line.
+{%- endcomment -%}
+<section class="vx vx-warranty" id="photos" style="background: #161616; color: #fff;">
+  <div class="vx-wrap vx-pad-lg" style="max-width: 1360px; margin: 0 auto; padding: 120px 40px; display: flex; flex-direction: column; gap: 56px;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px;">
+      <div style="display: flex; flex-direction: column; gap: 18px; max-width: 680px;">
+        {%- render 'vx-kicker', text: section.settings.kicker, color: '#b6855f' -%}
+        <h2 style="margin: 0; font-size: clamp(36px, 4.2vw, 60px); line-height: 1; font-weight: 600; letter-spacing: -0.03em;">{{ section.settings.title }}</h2>
+      </div>
+      {%- if section.settings.text != blank -%}
+        <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #c9c4bd; max-width: 460px;">{{ section.settings.text }}</p>
+      {%- endif -%}
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px;">
+      {%- for block in section.blocks -%}
+        {%- assign items = block.settings.items | newline_to_br | split: '<br />' -%}
+        <div {{ block.shopify_attributes }} style="background: #1f1e1e; border: 1px solid #333131; padding: 32px; display: flex; flex-direction: column; gap: 22px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+            {%- if block.settings.when != blank -%}<span style="font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #161616; background: #b6855f; padding: 7px 10px;">{{ block.settings.when }}</span>{%- endif -%}
+            <span style="font-size: 14px; color: #a39e97;">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }} / {% if forloop.length < 10 %}0{% endif %}{{ forloop.length }}</span>
+          </div>
+          <h3 style="margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -0.015em;">{{ block.settings.title }}</h3>
+          <ul style="margin: 0; padding: 20px 0 0; list-style: none; display: flex; flex-direction: column; gap: 12px; border-top: 1px solid #333131;">
+            {%- for item in items -%}
+              {%- assign item = item | strip -%}
+              {%- if item != blank -%}
+                <li style="display: flex; gap: 12px; align-items: flex-start; font-size: 16px; line-height: 1.5; color: #e6e1da;"><svg aria-hidden="true" height="14" style="flex: 0 0 auto; margin-top: 4px;" viewBox="0 0 16 14" width="16"><polygon fill="#b6855f" points="4,1 12,1 15,7 12,13 4,13 1,7"></polygon></svg>{{ item }}</li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.note != blank -%}
+      <p class="vx-wnote" style="margin: 0; font-size: 15px; line-height: 1.6; color: #a39e97;">{{ section.settings.note }}</p>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Vertex warranty photos",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Required photos" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "The photos you’ll need" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "We can’t register a warranty without them. Take them as you go: once the boards are down, nobody can see the frame underneath." },
+    { "type": "inline_richtext", "id": "note", "label": "Note under the cards", "info": "Bold text shows in white.", "default": "Can’t upload them? Email your photos to <strong>[WARRANTY EMAIL]</strong> with your name, order number and installation address." }
+  ],
+  "blocks": [
+    { "type": "set", "name": "Photo set", "settings": [
+      { "type": "text", "id": "when", "label": "Label", "info": "For example: As you build" },
+      { "type": "text", "id": "title", "label": "Heading" },
+      { "type": "textarea", "id": "items", "label": "Photos", "info": "One per line." }
+    ]}
+  ],
+  "max_blocks": 6,
+  "presets": [{ "name": "Vertex warranty photos" }]
+}
+{% endschema %}

@@ -1,0 +1,277 @@
+{%- comment -%}
+  Warranty page: five-step registration form with the "Before you start" side cards.
+  Ported from design/pages/Warranty-B.dc.html. Step logic lives in assets/vx-warranty.js.
+  Sends through Shopify's contact form, so every answer arrives in the store's contact email.
+  The contact form cannot carry files, so the Photos step asks customers to email their photos
+  (notice and checkbox are settings, to swap out once uploads are added).
+{%- endcomment -%}
+{{ 'vx-warranty.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'vx-warranty.js' | asset_url }}" defer></script>
+{%- liquid
+  assign s = section.settings
+  assign field = 'height: 52px; border: 1px solid #cfc7bc; background: #fff; padding: 0 14px; font-family: inherit; font-size: 16px; color: #1d1c1c; width: 100%;'
+  assign select = 'height: 52px; border: 1px solid #cfc7bc; background: #fff; padding: 0 12px; font-family: inherit; font-size: 16px; color: #1d1c1c; width: 100%;'
+  assign label = 'font-size: 14px; font-weight: 600;'
+  assign hint = 'font-size: 13px; color: #6b655e;'
+  assign err = 'font-size: 13px; font-weight: 600; color: #a3542b;'
+  assign hex = 'clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);'
+  assign types = s.types | newline_to_br | split: '<br />'
+  assign colours = s.colours | newline_to_br | split: '<br />'
+  assign need = s.need_items | newline_to_br | split: '<br />'
+  assign coll = s.collection | default: collections.all
+  assign thanks_title = s.thanks_title | replace: ', {name}', '' | replace: '{name}', ''
+  assign thanks_text = s.thanks_text | replace: ' to {email}', '' | replace: '{email}', ''
+-%}
+{%- capture product_options -%}
+  {%- if section.blocks.size > 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.settings.label != blank -%}<option value="{{ block.settings.label | escape }}">{{ block.settings.label }}</option>{%- endif -%}
+    {%- endfor -%}
+  {%- else -%}
+    {%- for p in coll.products limit: 50 -%}
+      {%- assign opt = p.title -%}
+      {%- if p.metafields.vertex.model != blank -%}{%- assign opt = opt | append: ' (' | append: p.metafields.vertex.model.value | append: ')' -%}{%- endif -%}
+      <option value="{{ opt | escape }}">{{ opt }}</option>
+    {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
+{%- capture row -%}
+  <div data-vx-row style="border: 1px solid #e2ddd5; padding: 24px; display: flex; flex-direction: column; gap: 18px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px;"><span data-vx-row-title style="font-size: 16px; font-weight: 600;">Product __N__</span><button type="button" class="vx-wtextbtn" data-vx-row-remove hidden aria-label="Remove product __N__" style="min-height: 44px; padding: 0 12px; border: 0; background: transparent; font-family: inherit; font-size: 14px; font-weight: 600; color: #8a5e3b; cursor: pointer; text-decoration: underline;">Remove</button></div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 18px 20px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;"><label for="w-p__N__-range" style="{{ label }}">Product range</label>
+        <select class="vx-input" id="w-p__N__-range" name="contact[Product __N__ range]" data-vx-key="range" required data-error="Choose a product" aria-describedby="w-p__N__-range-error" style="{{ select }}">
+          <option value="">Choose a product</option>
+          {{ product_options }}
+        </select>
+        <span class="vx-werror" id="w-p__N__-range-error" hidden style="{{ err }}"></span></div>
+      <div style="display: flex; flex-direction: column; gap: 8px;"><label for="w-p__N__-colour" style="{{ label }}">Colour</label>
+        <select class="vx-input" id="w-p__N__-colour" name="contact[Product __N__ colour]" data-vx-key="colour" style="{{ select }}">
+          <option value="">Choose a colour</option>
+          {%- for c in colours -%}{%- assign c = c | strip -%}{%- if c != blank -%}<option value="{{ c | escape }}">{{ c }}</option>{%- endif -%}{%- endfor -%}
+        </select></div>
+      <div style="display: flex; flex-direction: column; gap: 8px;"><label for="w-p__N__-qty" style="{{ label }}">Quantity</label><input class="vx-input" id="w-p__N__-qty" name="contact[Product __N__ quantity]" data-vx-key="qty" type="number" min="1" step="1" inputmode="numeric" data-error="Enter a quantity of 1 or more" aria-describedby="w-p__N__-qty-error" style="{{ field }}"><span class="vx-werror" id="w-p__N__-qty-error" hidden style="{{ err }}"></span></div>
+      <div style="display: flex; flex-direction: column; gap: 8px;"><label for="w-p__N__-batch" style="{{ label }}">Batch or product reference</label><input class="vx-input" id="w-p__N__-batch" name="contact[Product __N__ batch or product reference]" data-vx-key="batch" type="text" aria-describedby="w-p__N__-batch-hint" style="{{ field }}">{%- if s.batch_hint != blank -%}<span id="w-p__N__-batch-hint" style="{{ hint }}">{{ s.batch_hint }}</span>{%- endif -%}</div>
+    </div>
+  </div>
+{%- endcapture -%}
+<section class="vx vx-warranty" id="register" style="background: #efebe5;">
+  <div class="vx-wrap vx-pad-lg" style="max-width: 1360px; margin: 0 auto; padding: 120px 40px; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start;">
+    <div style="flex: 1.7 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 28px;">
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        {%- render 'vx-kicker', text: s.kicker -%}
+        <h2 style="margin: 0; font-size: clamp(36px, 4.2vw, 60px); line-height: 1; font-weight: 600; letter-spacing: -0.03em;">{{ s.title }}</h2>
+      </div>
+      <div class="vx-wform" style="background: #fff; box-shadow: rgba(29,28,28,0.08) 0 30px 60px;">
+        {%- form 'contact', id: 'vx-warranty-form' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="vx-wthanks" role="status" style="padding: 64px 40px; display: flex; flex-direction: column; gap: 20px; align-items: flex-start;">
+              <svg aria-hidden="true" height="57" viewBox="0 0 52 46" width="64"><polygon fill="#b6855f" points="13,1.5 39,1.5 50.5,23 39,44.5 13,44.5 1.5,23"></polygon><path d="M17 23.5l6 6 12-12" fill="none" stroke="#161616" stroke-width="3"></path></svg>
+              <h3 data-vx-thanks-title data-template="{{ s.thanks_title | escape }}" style="margin: 0; font-size: 36px; line-height: 1.05; font-weight: 600; letter-spacing: -0.025em;">{{ thanks_title }}</h3>
+              <p data-vx-thanks-text data-template="{{ s.thanks_text | escape }}" style="margin: 0; font-size: 17px; line-height: 1.6; color: #4d4a47; max-width: 560px;">{{ thanks_text }}</p>
+              {%- if s.ref_value != blank -%}
+                <div style="display: flex; flex-direction: column; gap: 4px; background: #efebe5; padding: 18px 22px;"><span style="font-size: 13px; color: #6b655e;">{{ s.ref_label }}</span><span style="font-size: 18px; font-weight: 600;">{{ s.ref_value }}</span></div>
+              {%- endif -%}
+              <a class="vx-wbtn-line" href="{{ request.path }}#register" style="min-height: 52px; padding: 0 22px; border: 1px solid #1d1c1c; background: transparent; font-size: 15px; font-weight: 600; color: #1d1c1c; text-decoration: none; display: flex; align-items: center;">{{ s.again }}</a>
+            </div>
+          {%- else -%}
+            <input type="hidden" name="contact[Form]" value="Warranty registration">
+            <nav aria-label="Registration steps" class="vx-wform__tabs" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-bottom: 1px solid #e2ddd5;">
+              {%- for i in (1..5) -%}
+                {%- assign k = 'step_' | append: i -%}
+                <button type="button" class="vx-wtab" data-vx-tab="{{ forloop.index0 }}" data-label="{{ s[k] | escape }}" aria-label="{{ s[k] | escape }}" {% if forloop.first %}aria-current="step"{% else %}aria-current="false"{% endif %} style="display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 68px; padding: 12px 8px; border: 0; font-family: inherit; cursor: pointer;">
+                  <span class="vx-wtab__mark" aria-hidden="true" style="width: 30px; height: 26px; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; {{ hex }}">{{ i }}</span>
+                  <span class="vx-hide-sm" style="font-size: 14px; font-weight: 600;">{{ s[k] }}</span>
+                </button>
+              {%- endfor -%}
+            </nav>
+            <div class="vx-form-body" style="padding: 40px; display: flex; flex-direction: column; gap: 28px;">
+              {%- if form.errors -%}
+                <div role="alert" style="background: #f6efe6; border: 1px solid #e3cdb4; padding: 18px 20px; font-size: 15px; line-height: 1.5; color: #5e3f26;">{{ form.errors | default_errors }}</div>
+              {%- endif -%}
+
+              <div data-vx-step="0" style="display: flex; flex-direction: column; gap: 28px;">
+                <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 14px; color: #6b655e;">Step 1 of 5</span><h3 data-vx-step-title tabindex="-1" style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.02em;">{{ s.step_1 }}</h3></div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 20px 24px;">
+                  <div style="display: flex; flex-direction: column; gap: 8px;"><label for="w-name" style="{{ label }}">Full name</label><input autocomplete="name" class="vx-input" id="w-name" name="contact[name]" type="text" required data-error="Enter your full name" aria-describedby="w-name-error" value="{{ form.name }}" style="{{ field }}"><span class="vx-werror" id="w-name-error" hidden style="{{ err }}"></span></div>
+                  <div style="display: flex; flex-direction: column; gap: 8px;"><label for="w-email" style="{{ label }}">Email address</label><input autocomplete="email" class="vx-input" id="w-email" name="contact[email]" type="email" required data-error="Enter your email address" data-error-format="Enter an email address in the right format, like name@example.co.uk" aria-describedby="w-email-error" value="{{ form.email }}" style="{{ field }}"><span class="vx-werror" id="w-email-error" hidden style="{{ err }}"></span></div>
+                  <div style="display: flex; flex-direction: column; gap: 8px;"><label for="w-phone" style="{{ label }}">Telephone</label><input autocomplete="tel" class="vx-input" id="w-phone" name="contact[phone]" type="tel" value="{{ form.phone }}" style="{{ field }}"></div>
+                  <div style="display: flex; flex-direction: column; gap: 8px;"><label for="w-postcode" style="{{ label }}">Postcode</label><input autocomplete="postal-code" class="vx-input" id="w-postcode" name="contact[Postcode]" type="text" required data-error="Enter your postcode" aria-describedby="w-postcode-error" style="{{ field }}"><span class="vx-werror" id="w-postcode-error" hidden style="{{ err }}"></span></div>
+                  <div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 8px;"><label for="w-address" style="{{ label }}">Installation address</label><textarea autocomplete="street-address" class="vx-input" id="w-address" name="contact[Installation address]" rows="3" required data-error="Enter the installation address" aria-describedby="w-address-hint w-address-error" style="border: 1px solid #cfc7bc; background: #fff; padding: 14px; font-family: inherit; font-size: 16px; line-height: 1.5; color: #1d1c1c; width: 100%; resize: vertical;"></textarea>{%- if s.address_hint != blank -%}<span id="w-address-hint" style="{{ hint }}">{{ s.address_hint }}</span>{%- endif -%}<span class="vx-werror" id="w-address-error" hidden style="{{ err }}"></span></div>
+                </div>
+              </div>
+
+              <div data-vx-step="1" hidden style="display: flex; flex-direction: column; gap: 28px;">
+                <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 14px; color: #6b655e;">Step 2 of 5</span><h3 data-vx-step-title tabindex="-1" style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.02em;">{{ s.step_2 }}</h3></div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 20px 24px;">
+                  <div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 8px;"><label for="w-order" style="{{ label }}">Order or invoice number</label><input class="vx-input" id="w-order" name="contact[Order or invoice number]" type="text" required data-error="Enter your order or invoice number" aria-describedby="w-order-hint w-order-error" style="{{ field }}">{%- if s.order_hint != blank -%}<span id="w-order-hint" style="{{ hint }}">{{ s.order_hint }}</span>{%- endif -%}<span class="vx-werror" id="w-order-error" hidden style="{{ err }}"></span></div>
+                  <div style="display: flex; flex-direction: column; gap: 8px;"><label for="w-bought" style="{{ label }}">Date of purchase</label><input class="vx-input" id="w-bought" name="contact[Date of purchase]" type="date" style="{{ field }}"></div>
+                  <div style="display: flex; flex-direction: column; gap: 8px;"><label for="w-delivered" style="{{ label }}">Date of delivery</label><input class="vx-input" id="w-delivered" name="contact[Date of delivery]" type="date" style="{{ field }}"></div>
+                </div>
+              </div>
+
+              <div data-vx-step="2" hidden style="display: flex; flex-direction: column; gap: 28px;">
+                <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 14px; color: #6b655e;">Step 3 of 5</span><h3 data-vx-step-title tabindex="-1" style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.02em;">{{ s.step_3 }}</h3></div>
+                <div style="display: flex; flex-direction: column; gap: 28px;">
+                  {%- if types.size > 0 and s.types != blank -%}
+                    <fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; min-width: 0;">
+                      <legend style="font-size: 14px; font-weight: 600; padding: 0; margin-bottom: 12px;">{{ s.types_legend }}</legend>
+                      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr)); gap: 10px;">
+                        {%- for t in types -%}
+                          {%- assign t = t | strip -%}
+                          {%- if t != blank -%}
+                            <label class="vx-wtype" style="display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 14px; font-size: 15px; font-weight: 600; cursor: pointer;"><input class="vx-check" type="checkbox" name="contact[Product type: {{ t | escape }}]" value="Yes">{{ t }}</label>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </div>
+                    </fieldset>
+                  {%- endif -%}
+                  <div data-vx-rows style="display: flex; flex-direction: column; gap: 28px;">
+                    {{ row | replace: '__N__', '1' }}
+                  </div>
+                  <template data-vx-row-template>{{ row }}</template>
+                  <button type="button" class="vx-wadd" data-vx-row-add style="align-self: flex-start; min-height: 48px; padding: 0 18px; border: 1px dashed #8a847d; background: transparent; font-family: inherit; font-size: 15px; font-weight: 600; color: #1d1c1c; cursor: pointer; display: flex; align-items: center; gap: 10px;"><svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="16"><path d="M12 5v14M5 12h14"></path></svg>{{ s.add_row }}</button>
+                </div>
+              </div>
+
+              <div data-vx-step="3" hidden style="display: flex; flex-direction: column; gap: 28px;">
+                <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 14px; color: #6b655e;">Step 4 of 5</span><h3 data-vx-step-title tabindex="-1" style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.02em;">{{ s.step_4 }}</h3></div>
+                <div style="display: flex; flex-direction: column; gap: 14px;">
+                  {%- if s.photos_intro != blank -%}<p style="margin: 0 0 6px; font-size: 16px; line-height: 1.6; color: #4d4a47;">{{ s.photos_intro }}</p>{%- endif -%}
+                  {%- if s.photos_notice != blank -%}
+                    <div class="vx-wnotice" role="note" style="background: #f6efe6; border: 1px solid #e3cdb4; padding: 18px 20px; font-size: 15px; line-height: 1.5; color: #5e3f26;">{{ s.photos_notice }}</div>
+                  {%- endif -%}
+                  {%- for i in (1..3) -%}
+                    {%- assign zt = 'zone_' | append: i | append: '_title' -%}
+                    {%- assign zh = 'zone_' | append: i | append: '_hint' -%}
+                    {%- if s[zt] != blank -%}
+                      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 22px; border: 1px dashed #b9b1a6; background: #fff;">
+                        <div style="display: flex; gap: 16px; align-items: flex-start; flex: 1 1 300px; min-width: 0;">
+                          <span aria-hidden="true" style="width: 40px; height: 35px; flex: none; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; {{ hex }} background: #efebe5; color: #6b655e;">{{ i }}</span>
+                          <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0;"><span style="font-size: 17px; font-weight: 600;">{{ s[zt] }}</span>{%- if s[zh] != blank -%}<span style="font-size: 14px; line-height: 1.5; color: #6b655e;">{{ s[zh] }}</span>{%- endif -%}</div>
+                        </div>
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                  <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 10px;">
+                    <label style="display: flex; gap: 14px; align-items: flex-start; font-size: 15px; line-height: 1.55; color: #3d3a37; cursor: pointer;"><input class="vx-check" id="w-photos" type="checkbox" name="contact[Photos]" value="{{ s.summary_photos | escape }}" required data-error="Confirm that you’ll email your photos" aria-describedby="w-photos-error" style="margin-top: 2px;">{{ s.photos_confirm }}</label>
+                    <span class="vx-werror" id="w-photos-error" hidden style="{{ err }}"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div data-vx-step="4" hidden style="display: flex; flex-direction: column; gap: 28px;">
+                <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 14px; color: #6b655e;">Step 5 of 5</span><h3 data-vx-step-title tabindex="-1" style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.02em;">{{ s.step_5 }}</h3></div>
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+                  <div data-vx-summary data-missing="Not added" data-none="None added" data-not-confirmed="Not confirmed" style="display: flex; flex-direction: column; border-top: 1px solid #e2ddd5;">
+                    {%- assign sum_keys = 'name,email,postcode,order,products,photos' | split: ',' -%}
+                    {%- assign sum_labels = 'Name,Email,Installation postcode,Order number,Products,Photos' | split: ',' -%}
+                    {%- for key in sum_keys -%}
+                      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding: 14px 0; border-bottom: 1px solid #e2ddd5; font-size: 15px;"><span style="color: #6b655e;">{{ sum_labels[forloop.index0] }}</span><span class="vx-wsum" data-vx-sum="{{ key }}" style="font-weight: 600; overflow-wrap: anywhere;"></span></div>
+                    {%- endfor -%}
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <label style="display: flex; gap: 14px; align-items: flex-start; font-size: 15px; line-height: 1.55; color: #3d3a37; cursor: pointer;"><input class="vx-check" id="w-ack" type="checkbox" name="contact[Customer acknowledgement]" value="Confirmed" required data-error="Confirm that the details are correct" aria-describedby="w-ack-error" style="margin-top: 2px;">{{ s.ack }}</label>
+                    <span class="vx-werror" id="w-ack-error" hidden style="{{ err }}"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid #e2ddd5;">
+                <button type="button" class="vx-wbtn-light" data-vx-back hidden style="min-height: 52px; padding: 0 20px; border: 1px solid #cfc7bc; background: #fff; font-family: inherit; font-size: 15px; font-weight: 600; color: #1d1c1c; cursor: pointer;">Back</button>
+                {%- if s.time_note != blank -%}<span data-vx-time style="font-size: 14px; color: #6b655e;">{{ s.time_note }}</span>{%- endif -%}
+                <button type="button" class="vx-wbtn-dark" data-vx-next data-prefix="Next: " style="min-height: 52px; padding: 0 26px; border: 0; background: #161616; font-family: inherit; font-size: 15px; font-weight: 600; color: #fff; cursor: pointer; display: flex; align-items: center; gap: 10px;"><span data-vx-next-label>Next: {{ s.step_2 | downcase }}</span>{%- render 'vx-arrow', size: 18 -%}</button>
+                <button type="submit" class="vx-wsend" data-vx-send hidden style="min-height: 52px; padding: 0 26px; border: 0; background: #b6855f; font-family: inherit; font-size: 15px; font-weight: 600; color: #161616; cursor: pointer;">{{ s.send }}</button>
+              </div>
+            </div>
+            <noscript><style>.vx-wform [data-vx-step][hidden], .vx-wform [data-vx-send][hidden] { display: flex !important; } .vx-wform [data-vx-next], .vx-wform .vx-wform__tabs, .vx-wform [data-vx-row-add] { display: none !important; }</style></noscript>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+    </div>
+    <aside class="vx-waside" style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px; padding-top: 96px;">
+      <div style="background: #fff; padding: 32px; display: flex; flex-direction: column; gap: 18px;">
+        <h3 style="margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.01em;">{{ s.need_title }}</h3>
+        <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px;">
+          {%- for item in need -%}
+            {%- assign item = item | strip -%}
+            {%- if item != blank -%}
+              <li style="display: flex; gap: 12px; align-items: flex-start; font-size: 15px; line-height: 1.5; color: #3d3a37;"><svg aria-hidden="true" height="14" style="flex: 0 0 auto; margin-top: 4px;" viewBox="0 0 16 14" width="16"><polygon fill="none" points="4,1 12,1 15,7 12,13 4,13 1,7" stroke="#b6855f" stroke-width="1.6"></polygon></svg>{{ item }}</li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+      {%- if s.paper_title != blank -%}
+        <div style="background: #161616; color: #fff; padding: 32px; display: flex; flex-direction: column; gap: 14px;">
+          <h3 style="margin: 0; font-size: 20px; font-weight: 600;">{{ s.paper_title }}</h3>
+          {%- if s.paper_text != blank -%}<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #c9c4bd;">{{ s.paper_text }}</p>{%- endif -%}
+          {%- if s.paper_label != blank -%}<a class="vx-wline-light" href="{{ s.paper_link | default: '#' }}" style="align-self: flex-start; color: #fff; font-weight: 600; font-size: 15px; border-bottom: 1px solid #b6855f; padding-bottom: 3px; text-decoration: none;">{{ s.paper_label }}</a>{%- endif -%}
+        </div>
+      {%- endif -%}
+      {%- if s.help != blank -%}
+        <p class="vx-whelp" style="margin: 0; font-size: 15px; line-height: 1.6; color: #5b554f; padding: 0 4px;">{{ s.help }}</p>
+      {%- endif -%}
+    </aside>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Vertex warranty form",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Registration" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Register your warranty" },
+    { "type": "header", "content": "Steps" },
+    { "type": "text", "id": "step_1", "label": "Step 1", "default": "Your details" },
+    { "type": "text", "id": "step_2", "label": "Step 2", "default": "Your order" },
+    { "type": "text", "id": "step_3", "label": "Step 3", "default": "Products" },
+    { "type": "text", "id": "step_4", "label": "Step 4", "default": "Photos" },
+    { "type": "text", "id": "step_5", "label": "Step 5", "default": "Check and send" },
+    { "type": "text", "id": "time_note", "label": "Note on step 1", "default": "Takes about [X] minutes" },
+    { "type": "header", "content": "Your details and order" },
+    { "type": "text", "id": "address_hint", "label": "Installation address hint", "default": "Where the decking or cladding is installed, if different from your home address." },
+    { "type": "text", "id": "order_hint", "label": "Order number hint", "default": "You’ll find it on your order confirmation email or invoice." },
+    { "type": "header", "content": "Products" },
+    { "type": "text", "id": "types_legend", "label": "Product type heading", "default": "Product type (tick all that apply)" },
+    { "type": "textarea", "id": "types", "label": "Product types", "info": "One per line.", "default": "Composite decking\nComposite cladding\nFencing\nFascia and trims\nAccessories" },
+    { "type": "collection", "id": "collection", "label": "Product list", "info": "Used for the product range list when no Product option blocks are added. Defaults to all products." },
+    { "type": "textarea", "id": "colours", "label": "Colours", "info": "One per line.", "default": "Eclipse / Storm (Twin Deck)\nChestnut / Silver Oak (Twin Deck)\nEclipse\nStorm\nChestnut\nSilver Oak\nDark grey\nBlack\nSilver" },
+    { "type": "text", "id": "batch_hint", "label": "Batch reference hint", "default": "[WHERE THE BATCH REFERENCE IS PRINTED]" },
+    { "type": "text", "id": "add_row", "label": "Add product button", "default": "Add another product" },
+    { "type": "header", "content": "Photos" },
+    { "type": "textarea", "id": "photos_intro", "label": "Intro", "info": "Design copy for when uploads are added: Add clear photos for all three sets. JPG, PNG or HEIC, up to [MAX FILE SIZE] each." },
+    { "type": "inline_richtext", "id": "photos_notice", "label": "How to send photos", "info": "Shown while the form cannot take uploads.", "default": "Photos can’t be added to this form yet. After you send it, email all three sets of photos to <strong>[WARRANTY EMAIL]</strong>, quoting your order number. We can’t complete your registration without them." },
+    { "type": "text", "id": "zone_1_title", "label": "Set 1 heading", "default": "During installation" },
+    { "type": "text", "id": "zone_1_hint", "label": "Set 1 text", "default": "Subframe, joist spacing, supports, fixings and boards being fitted." },
+    { "type": "text", "id": "zone_2_title", "label": "Set 2 heading", "default": "Supporting structure" },
+    { "type": "text", "id": "zone_2_hint", "label": "Set 2 text", "default": "The frame and pedestals, taken before the boards go on." },
+    { "type": "text", "id": "zone_3_title", "label": "Set 3 heading", "default": "After installation" },
+    { "type": "text", "id": "zone_3_hint", "label": "Set 3 text", "default": "The whole finished area, plus close-ups of boards and trims." },
+    { "type": "text", "id": "photos_confirm", "label": "Photos checkbox", "default": "I’ll email all three sets of photos to [WARRANTY EMAIL], quoting my order number." },
+    { "type": "text", "id": "summary_photos", "label": "Photos answer", "info": "Shown on the check step and in the email.", "default": "By email, quoting the order number" },
+    { "type": "header", "content": "Check and send" },
+    { "type": "textarea", "id": "ack", "label": "Confirmation", "default": "I confirm the details above are correct. I understand that photos taken during and after installation are part of the warranty registration." },
+    { "type": "text", "id": "send", "label": "Send button", "default": "Send registration" },
+    { "type": "header", "content": "After sending" },
+    { "type": "text", "id": "thanks_title", "label": "Heading", "info": "{name} is replaced with the customer's first name.", "default": "Thanks, {name}. We’ve got your registration." },
+    { "type": "textarea", "id": "thanks_text", "label": "Text", "info": "{email} is replaced with the customer's email address.", "default": "We’ll check your details and photos, then email your warranty reference to {email} within [TIMEFRAME]. Keep your invoice and photos somewhere safe in case you ever need to make a claim." },
+    { "type": "text", "id": "ref_label", "label": "Reference label", "default": "Warranty reference" },
+    { "type": "text", "id": "ref_value", "label": "Reference", "default": "[ISSUED BY VERTEX AFTER CHECKS]" },
+    { "type": "text", "id": "again", "label": "Button", "default": "Register another installation" },
+    { "type": "header", "content": "Side cards" },
+    { "type": "text", "id": "need_title", "label": "Checklist heading", "default": "Before you start" },
+    { "type": "textarea", "id": "need_items", "label": "Checklist", "info": "One per line.", "default": "Your order or invoice number\nPurchase and delivery dates\nProduct names, colours and quantities\nBatch or product references, if you have them\nYour installation photos" },
+    { "type": "text", "id": "paper_title", "label": "Paper form heading", "default": "Prefer a paper form?" },
+    { "type": "textarea", "id": "paper_text", "label": "Paper form text", "default": "Download the registration form, fill it in and email it back with your photos." },
+    { "type": "text", "id": "paper_label", "label": "Paper form link label", "default": "Download the form (PDF)" },
+    { "type": "url", "id": "paper_link", "label": "Paper form link", "info": "Upload the PDF under Content > Files and paste its link here." },
+    { "type": "inline_richtext", "id": "help", "label": "Help line", "default": "Stuck? Call [WARRANTY TELEPHONE] or email <a href=\"mailto:sales@vertexcomposite.co.uk\">sales@vertexcomposite.co.uk</a>" }
+  ],
+  "blocks": [
+    { "type": "product", "name": "Product option", "settings": [
+      { "type": "text", "id": "label", "label": "Product", "info": "Shown in the product range list. Without these blocks, the list comes from the product list collection." }
+    ]}
+  ],
+  "max_blocks": 30,
+  "presets": [{ "name": "Vertex warranty form" }]
+}
+{% endschema %}

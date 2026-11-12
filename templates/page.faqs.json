@@ -1,0 +1,43 @@
+{
+  "sections": {
+    "hero": {
+      "type": "vx-page-hero",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "size": "tall",
+        "parent": "Help",
+        "image": "shopify://shop_images/vertex-slatted-cladding-garden-room-silver-oak-deck.jpg",
+        "text": "Answers to the questions we’re asked most about the boards, fitting them, the warranty and delivery.",
+        "usp_1": "Four deck colours, two reversible boards",
+        "usp_2": "10-year fade warranty (terms apply)",
+        "usp_3": "Boards, trims and cladding in 4 m lengths",
+        "usp_4": "[DELIVERY SUMMARY]"
+      }
+    },
+    "content": {
+      "type": "vx-page-content",
+      "settings": {
+        "show_card": true,
+        "card_kicker": "Need a hand?",
+        "card_title": "Can’t find your answer?",
+        "card_text": "Send us your question, with photos if it helps, and we’ll get back to you.",
+        "card_email": "sales@vertexcomposite.co.uk",
+        "card_button": "Contact us",
+        "card_link": "shopify://pages/contact",
+        "accordion": true
+      }
+    },
+    "samples": {
+      "type": "vx-samples-band",
+      "settings": {
+        "cta_link": "shopify://pages/samples"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "content",
+    "samples"
+  ]
+}

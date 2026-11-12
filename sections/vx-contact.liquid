@@ -1,0 +1,94 @@
+{%- comment -%}
+  Contact form and contact details, built from the Warranty design's registration form card,
+  "Get in touch" details card and the "Need a hand?" card. Sends through Shopify's contact form.
+{%- endcomment -%}
+{%- capture field -%}height: 52px; border: 1px solid #cfc7bc; background: #fff; padding: 0 14px; font-family: inherit; font-size: 16px; color: #1d1c1c; width: 100%;{%- endcapture -%}
+<section class="vx" id="contact-form" style="background: #efebe5;">
+  <div class="vx-wrap vx-pad-lg" style="max-width: 1360px; margin: 0 auto; padding: 120px 40px; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start;">
+    <div style="flex: 1.7 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 28px;">
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        {%- render 'vx-kicker', text: section.settings.kicker -%}
+        <h2 style="margin: 0; font-size: clamp(36px, 4.2vw, 60px); line-height: 1; font-weight: 600; letter-spacing: -0.03em;">{{ section.settings.title }}</h2>
+      </div>
+      <div style="background: #fff; box-shadow: rgba(29,28,28,0.08) 0 30px 60px;">
+        {%- form 'contact', id: 'vx-contact-form', class: 'vx-form' -%}
+          <div style="padding: 40px; display: flex; flex-direction: column; gap: 28px;">
+            {%- if form.posted_successfully? -%}
+              <div role="status" style="display: flex; gap: 14px; align-items: flex-start; background: #f6f4f1; padding: 20px 22px; font-size: 16px; line-height: 1.55;">
+                <svg aria-hidden="true" height="26" viewBox="0 0 30 26" width="30" style="flex: 0 0 auto;"><polygon fill="#2f6b3a" points="7.5,0 22.5,0 30,13 22.5,26 7.5,26 0,13"></polygon><path d="M9.5 13.5l3.5 3.5 7.5-8" fill="none" stroke="#fff" stroke-width="2.2"></path></svg>
+                <span><strong style="display: block; font-weight: 600; color: #1d1c1c;">{{ section.settings.success_title }}</strong>{{ section.settings.success_text }}</span>
+              </div>
+            {%- endif -%}
+            {%- if form.errors -%}
+              <div role="alert" style="background: #fbeeee; color: #8c2a2a; padding: 16px 20px; font-size: 15px; line-height: 1.5;">{{ form.errors | default_errors }}</div>
+            {%- endif -%}
+            <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 14px; color: #6b655e;">{{ section.settings.form_kicker }}</span><h3 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.02em;">{{ section.settings.form_title }}</h3></div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px 24px;">
+              <div style="display: flex; flex-direction: column; gap: 8px;"><label for="c-name" style="font-size: 14px; font-weight: 600;">Full name</label><input class="vx-input" id="c-name" name="contact[name]" autocomplete="name" type="text" required value="{{ form.name }}" style="{{ field }}"></div>
+              <div style="display: flex; flex-direction: column; gap: 8px;"><label for="c-email" style="font-size: 14px; font-weight: 600;">Email address</label><input class="vx-input" id="c-email" name="contact[email]" autocomplete="email" type="email" required value="{{ form.email }}" style="{{ field }}"></div>
+              <div style="display: flex; flex-direction: column; gap: 8px;"><label for="c-phone" style="font-size: 14px; font-weight: 600;">Telephone <span style="font-weight: 400; color: #6b655e;">(optional)</span></label><input class="vx-input" id="c-phone" name="contact[phone]" autocomplete="tel" type="tel" value="{{ form.phone }}" style="{{ field }}"></div>
+              <div style="display: flex; flex-direction: column; gap: 8px;"><label for="c-topic" style="font-size: 14px; font-weight: 600;">What’s it about?</label>
+                <select class="vx-input" id="c-topic" name="contact[Topic]" style="{{ field }} appearance: none; background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%238a5e3b' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E&quot;); background-repeat: no-repeat; background-position: right 14px center;">
+                  {%- assign topics = section.settings.topics | newline_to_br | split: '<br />' -%}
+                  {%- for t in topics -%}{%- assign t = t | strip -%}{%- if t != blank -%}<option value="{{ t | escape }}">{{ t }}</option>{%- endif -%}{%- endfor -%}
+                </select>
+              </div>
+              <div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 8px;"><label for="c-body" style="font-size: 14px; font-weight: 600;">Message</label><textarea class="vx-input" id="c-body" name="contact[body]" rows="6" required style="border: 1px solid #cfc7bc; background: #fff; padding: 14px; font-family: inherit; font-size: 16px; line-height: 1.5; color: #1d1c1c; width: 100%; resize: vertical;">{{ form.body }}</textarea><span style="font-size: 13px; color: #6b655e;">{{ section.settings.message_hint }}</span></div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid #e2ddd5;">
+              <span style="font-size: 14px; color: #6b655e;">{{ section.settings.form_note }}</span>
+              <button type="submit" style="min-height: 52px; padding: 0 26px; border: 0; background: #161616; font-family: inherit; font-size: 15px; font-weight: 600; color: #fff; cursor: pointer; display: flex; align-items: center; gap: 10px;">{{ section.settings.button }}<svg aria-hidden="true" fill="none" height="18" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+            </div>
+          </div>
+        {%- endform -%}
+      </div>
+    </div>
+    <aside style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px; padding-top: 126px;" class="vx-contact-aside">
+      <div style="background: #fff; color: #1d1c1c; padding: 36px; display: flex; flex-direction: column; gap: 22px;">
+        <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #8a5e3b;">{{ section.settings.details_kicker }}</span><h3 style="margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -0.015em;">{{ section.settings.details_title }}</h3></div>
+        <div style="display: flex; flex-direction: column; border-top: 1px solid #e2ddd5;">
+          {%- for block in section.blocks -%}
+            <div {{ block.shopify_attributes }} style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid #e2ddd5; font-size: 15px;"><span style="color: #6b655e; flex: 0 0 auto;">{{ block.settings.label }}</span><span style="font-weight: 600; text-align: right;">{%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}" style="color: #1d1c1c;">{{ block.settings.value }}</a>{%- else -%}{{ block.settings.value }}{%- endif -%}</span></div>
+          {%- endfor -%}
+        </div>
+        {%- if section.settings.address != blank -%}<div class="vx-rte" style="font-size: 14px; line-height: 1.6; color: #5b554f;">{{ section.settings.address }}</div>{%- endif -%}
+      </div>
+      {%- render 'vx-help-card', kicker: section.settings.card_kicker, title: section.settings.card_title, text: section.settings.card_text, button_label: section.settings.card_button, button_link: section.settings.card_link -%}
+    </aside>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Vertex contact",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Contact" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Send us a message" },
+    { "type": "text", "id": "form_kicker", "label": "Form label", "default": "We reply by email" },
+    { "type": "text", "id": "form_title", "label": "Form heading", "default": "Your details" },
+    { "type": "textarea", "id": "topics", "label": "Topics (one per line)", "default": "A product question\nAn order I’ve placed\nPlanning a project\nSamples\nTrade account\nWarranty\nSomething else" },
+    { "type": "text", "id": "message_hint", "label": "Message hint", "default": "For a project, tell us the area, the base you’re building on and the colour you like." },
+    { "type": "text", "id": "form_note", "label": "Note by the button", "default": "We reply within [RESPONSE TIME]" },
+    { "type": "text", "id": "button", "label": "Button label", "default": "Send message" },
+    { "type": "text", "id": "success_title", "label": "Thank you heading", "default": "Thanks, your message has been sent." },
+    { "type": "text", "id": "success_text", "label": "Thank you text", "default": "We’ll be in touch by email." },
+    { "type": "header", "content": "Contact details card" },
+    { "type": "text", "id": "details_kicker", "label": "Kicker", "default": "Get in touch" },
+    { "type": "text", "id": "details_title", "label": "Heading", "default": "Vertex Composite" },
+    { "type": "richtext", "id": "address", "label": "Text under the details" },
+    { "type": "header", "content": "Dark card" },
+    { "type": "text", "id": "card_kicker", "label": "Kicker", "default": "Need a hand?" },
+    { "type": "text", "id": "card_title", "label": "Heading", "default": "Talk to us about your deck" },
+    { "type": "textarea", "id": "card_text", "label": "Text" },
+    { "type": "text", "id": "card_button", "label": "Button label" },
+    { "type": "url", "id": "card_link", "label": "Button link" }
+  ],
+  "blocks": [
+    { "type": "row", "name": "Detail row", "settings": [
+      { "type": "text", "id": "label", "label": "Label" },
+      { "type": "text", "id": "value", "label": "Value" },
+      { "type": "url", "id": "link", "label": "Link", "info": "Optional, for example mailto: or tel:" }
+    ]}
+  ],
+  "presets": [{ "name": "Vertex contact" }]
+}
+{% endschema %}

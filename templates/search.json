@@ -1,53 +1,24 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "search": {
-      "type": "search-header",
+    "hero": {
+      "type": "vx-page-hero",
       "blocks": {
-        "heading": {
-          "type": "_heading",
-          "static": true,
+        "b1": {
+          "type": "search",
           "settings": {
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "text": "",
-            "read_only": true,
-            "alignment": "left",
-            "show_alignment": true,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "search": {
-          "type": "_search-input",
-          "static": true,
-          "settings": {
-            "width": "custom",
-            "custom_width": 50
-          },
-          "blocks": {}
+            "placeholder": "Search boards, cladding, trims and fixings",
+            "button": "Search"
+          }
         }
       },
+      "block_order": [
+        "b1"
+      ],
       "settings": {
-        "alignment": "flex-start",
-        "padding-block-start": 40,
-        "padding-block-end": 0
+        "size": "compact",
+        "title": "Search",
+        "crumb": "Search",
+        "image": "shopify://shop_images/vertex-slatted-cladding-house-extension.jpg"
       }
     },
     "main": {
@@ -175,7 +146,7 @@
     }
   },
   "order": [
-    "search",
+    "hero",
     "main"
   ]
 }
