@@ -12,6 +12,9 @@
   assign colour_names = ''
   for p in collection.products
     assign total = total | plus: p.variants.size
+    if p.type == 'Fixings'
+      continue
+    endif
     for v in p.variants
       assign names = v.option1 | split: ' / '
       for nm in names
