@@ -1,0 +1,33 @@
+<section class="vx" data-vx-calc-root data-board-width="{{ section.settings.board_width }}" data-board-length="{{ section.settings.board_length }}" data-trim-length="4" data-note="{{ section.settings.note | escape }}" style="position: relative; overflow: hidden; background: #111; color: #fff;">
+  {%- render 'vx-image', image: section.settings.background, fallback: 'vx-tex-dark.webp', alt: '', style: 'position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;', sizes: '100vw' -%}
+  <div class="vx-wrap" style="position: relative; max-width: 1360px; margin: 0 auto; padding: 96px 40px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center; justify-content: space-between;">
+    <div style="flex: 1 1 380px; display: flex; flex-direction: column; gap: 14px; max-width: 480px;">
+      <div style="font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #b6855f;">{{ section.settings.kicker }}</div>
+      <h2 style="margin: 0; font-size: clamp(34px, 3.6vw, 52px); line-height: 1; font-weight: 600; letter-spacing: -0.03em;">{{ section.settings.title }}</h2>
+      <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #c9c4bd;">{{ section.settings.text }}</p>
+    </div>
+    <form style="flex: 1 1 520px; min-width: 0; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); padding: 28px; display: flex; flex-direction: column; gap: 18px;">
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;">
+        <div style="display: flex; flex-direction: column; gap: 8px; flex: 1 1 140px;"><label for="vx-calc-len-{{ section.id }}" style="font-size: 14px; color: #d4cfc8;">Length (m)</label><input id="vx-calc-len-{{ section.id }}" data-vx-calc="len" inputmode="decimal" placeholder="4.0" style="height: 54px; background: #fff; border: 0; padding: 0 14px; font-size: 17px; color: #1d1c1c;"></div>
+        <div style="display: flex; flex-direction: column; gap: 8px; flex: 1 1 140px;"><label for="vx-calc-wid-{{ section.id }}" style="font-size: 14px; color: #d4cfc8;">Width (m)</label><input id="vx-calc-wid-{{ section.id }}" data-vx-calc="wid" inputmode="decimal" placeholder="3.0" style="height: 54px; background: #fff; border: 0; padding: 0 14px; font-size: 17px; color: #1d1c1c;"></div>
+        <button type="submit" data-vx-calc-go style="height: 54px; padding: 0 26px; background: #b6855f; color: #161616; border: 0; font-size: 16px; font-weight: 600; cursor: pointer;">Calculate</button>
+      </div>
+      <div data-vx-calc-out aria-live="polite" style="font-size: 14px; line-height: 1.5; color: #a39e97;">{{ section.settings.hint }}</div>
+    </form>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Vertex boards calculator",
+  "settings": [
+    { "type": "image_picker", "id": "background", "label": "Background" },
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Decking calculator" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "How many boards do you need?" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Enter your deck size for a full list of boards, trims and fixings." },
+    { "type": "number", "id": "board_width", "label": "Board width (mm)", "default": 140 },
+    { "type": "number", "id": "board_length", "label": "Board length (m)", "default": 4 },
+    { "type": "text", "id": "hint", "label": "Hint", "default": "Each board is 4 m long and 140 mm wide." },
+    { "type": "text", "id": "note", "label": "Note after result", "default": "Add around 10% for cuts and waste. [CONFIRM: gap between boards]" }
+  ]
+}
+{% endschema %}

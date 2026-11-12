@@ -145,8 +145,109 @@
     render();
   }
 
+  /* Product page: variant cards, Twin Deck face flip, quantity */
+  function initProduct(root) {
+    var data;
+    try { data = JSON.parse(root.querySelector('[data-vx-product-json]').textContent); } catch (e) { return; }
+    var reversible = root.getAttribute('data-reversible') === 'true';
+    var idInput = root.querySelector('[data-vx-variant-id]');
+    var mainImg = root.querySelector('img[data-vx-main-img]');
+    var tag = root.querySelector('[data-vx-main-tag]');
+    var addBtn = root.querySelector('[data-vx-add]');
+    var cur = Math.max(0, data.variants.findIndex(function (v) { return String(v.id) === idInput.value; }));
+    var face = 1;
+
+    function setImg(src) { if (mainImg && src) { mainImg.removeAttribute('srcset'); mainImg.src = src; } }
+    function render() {
+      var v = data.variants[cur];
+      idInput.value = v.id;
+      root.querySelectorAll('[data-vx-variant]').forEach(function (b, i) { b.setAttribute('aria-pressed', i === cur ? 'true' : 'false'); });
+      root.querySelectorAll('[data-vx-variant-name]').forEach(function (el) { el.textContent = v.title; });
+      var price = root.querySelector('[data-vx-price]'); if (price) price.textContent = v.price;
+      var stock = root.querySelector('[data-vx-stock]'), stockText = root.querySelector('[data-vx-stock-text]');
+      if (stock) { stock.style.color = v.available ? '#2f6b3a' : '#8a5e3b'; stockText.textContent = v.available ? 'In stock' : 'Out of stock'; }
+      if (addBtn) { addBtn.disabled = !v.available; addBtn.textContent = v.available ? 'Add to basket' : 'Out of stock'; }
+      if (reversible && v.faces.length > 1) {
+        var other = 1 - face;
+        setImg(v.faceImages[face] || v.image);
+        if (tag) tag.textContent = v.faces[face] + ' side';
+        root.querySelectorAll('[data-vx-face]').forEach(function (b) {
+          var i = parseInt(b.getAttribute('data-vx-face'), 10);
+          b.textContent = v.faces[i] + ' side';
+          b.setAttribute('aria-pressed', i === face ? 'true' : 'false');
+        });
+        var fi = root.querySelector('[data-vx-flip-img]'), fl = root.querySelector('[data-vx-flip-label]'), fb = root.querySelector('[data-vx-flip]');
+        if (fi) fi.src = v.faceImages[other] || '';
+        if (fl) fl.textContent = 'Flip to ' + v.faces[other];
+        if (fb) fb.setAttribute('aria-label', 'Flip to ' + v.faces[other]);
+      } else {
+        setImg(v.image);
+        if (tag) tag.textContent = v.title;
+      }
+      if (window.history && window.history.replaceState) {
+        var url = new URL(window.location.href); url.searchParams.set('variant', v.id);
+        window.history.replaceState({}, '', url.toString());
+      }
+    }
+    root.querySelectorAll('[data-vx-variant]').forEach(function (b) {
+      b.addEventListener('click', function () { cur = parseInt(b.getAttribute('data-vx-variant'), 10); render(); });
+    });
+    root.querySelectorAll('[data-vx-face]').forEach(function (b) {
+      b.addEventListener('click', function () { face = parseInt(b.getAttribute('data-vx-face'), 10); render(); });
+    });
+    var flip = root.querySelector('[data-vx-flip]');
+    if (flip) flip.addEventListener('click', function () { face = 1 - face; render(); });
+    var q = root.querySelector('[data-vx-qty-input]');
+    root.querySelectorAll('[data-vx-qty]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        q.value = Math.max(1, (parseInt(q.value, 10) || 1) + parseInt(b.getAttribute('data-vx-qty'), 10));
+      });
+    });
+    render();
+  }
+
+  /* Photo band: colour dots swap the photo and caption */
+  function initBand(root) {
+    var dots = root.querySelectorAll('[data-vx-band-dot]');
+    var imgs = root.querySelectorAll('[data-vx-band-img] img');
+    var caps = root.querySelectorAll('[data-vx-band-cap]');
+    dots.forEach(function (d, i) {
+      d.addEventListener('click', function () {
+        dots.forEach(function (x, j) { x.setAttribute('aria-pressed', j === i ? 'true' : 'false'); });
+        imgs.forEach(function (x, j) { x.style.opacity = j === i ? '1' : '0'; });
+        caps.forEach(function (x, j) { x.hidden = j !== i; });
+      });
+    });
+  }
+
+  /* Boards calculator */
+  function initCalc(root) {
+    var btn = root.querySelector('[data-vx-calc-go]');
+    var out = root.querySelector('[data-vx-calc-out]');
+    var widthMm = parseFloat(root.getAttribute('data-board-width')) || 0;
+    var boardLen = parseFloat(root.getAttribute('data-board-length')) || 4;
+    var trimLen = parseFloat(root.getAttribute('data-trim-length')) || 4;
+    root.querySelector('form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var L = parseFloat(root.querySelector('[data-vx-calc="len"]').value);
+      var W = parseFloat(root.querySelector('[data-vx-calc="wid"]').value);
+      if (!(L > 0 && W > 0)) { out.textContent = 'Enter a length and width in metres.'; return; }
+      var area = L * W, edge = 2 * (L + W);
+      var msg = 'Deck area ' + area.toFixed(1) + ' m². Edge ' + edge.toFixed(1) + ' m, so ' + Math.ceil(edge / trimLen) + ' L-corner trims of ' + trimLen + ' m.';
+      if (widthMm > 0) {
+        var rows = Math.ceil(W / (widthMm / 1000));
+        var perRow = Math.ceil(L / boardLen);
+        msg += ' About ' + (rows * perRow) + ' boards before gaps, cuts and waste (' + rows + ' rows of ' + perRow + '). ' + root.getAttribute('data-note');
+      }
+      out.textContent = msg;
+    });
+  }
+
   function init() {
     initHeader();
+    document.querySelectorAll('[data-vx-product]').forEach(initProduct);
+    document.querySelectorAll('[data-vx-band]').forEach(initBand);
+    document.querySelectorAll('[data-vx-calc-root]').forEach(initCalc);
     document.querySelectorAll('[data-vx-hero]').forEach(initHero);
     document.querySelectorAll('[data-vx-colour]').forEach(initColour);
     document.querySelectorAll('[data-vx-plan]').forEach(initPlanner);
