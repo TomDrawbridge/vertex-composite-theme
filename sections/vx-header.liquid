@@ -4,7 +4,19 @@
     assign overlay = true
   endif
   assign menu = linklists[section.settings.menu]
+  assign show_loader = false
+  case section.settings.loader
+    when 'home'
+      if template.name == 'index'
+        assign show_loader = true
+      endif
+    when 'all'
+      assign show_loader = true
+  endcase
 -%}
+{%- if show_loader and request.design_mode == false -%}
+  {%- render 'vx-loader', once: section.settings.loader_once -%}
+{%- endif -%}
 {%- if section.settings.announcement != blank -%}
   <div class="vx vx-announce" style="background: #0f0f0f; color: #d9d6d1; font-size: 13px; letter-spacing: 0.04em; text-align: center; padding: 9px 16px;">
     {%- if section.settings.announcement_link != blank -%}<a href="{{ section.settings.announcement_link }}" style="color: inherit; text-decoration: none;">{{ section.settings.announcement }}</a>{%- else -%}{{ section.settings.announcement }}{%- endif -%}
@@ -57,7 +69,14 @@
     { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Order samples" },
     { "type": "url", "id": "button_link", "label": "Button link" },
-    { "type": "checkbox", "id": "overlay_home", "label": "Transparent over the homepage hero", "default": true }
+    { "type": "checkbox", "id": "overlay_home", "label": "Transparent over the homepage hero", "default": true },
+    { "type": "header", "content": "Intro loader" },
+    { "type": "select", "id": "loader", "label": "Show the logo intro", "options": [
+      { "value": "home", "label": "On the homepage" },
+      { "value": "all", "label": "On every page" },
+      { "value": "off", "label": "Off" }
+    ], "default": "home" },
+    { "type": "checkbox", "id": "loader_once", "label": "Only on the first page view of each visit", "default": false }
   ]
 }
 {% endschema %}

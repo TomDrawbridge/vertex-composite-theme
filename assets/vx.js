@@ -71,6 +71,10 @@
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) clearTimeout(timer); else restart();
     });
+    // Start the slide timer afresh once the intro loader has gone
+    if (document.querySelector('[data-vx-loader]') && !window.__vxLoaded) {
+      document.addEventListener('vx:loaded', function () { go(0); }, { once: true });
+    }
   }
 
   /* Colour picker: swaps the photo, board cut-out, name and button */
@@ -288,6 +292,41 @@
     });
   }
 
+
+  /* FAQs page: turn each H3 and the content under it into an accordion row */
+  function initFaqPage(root) {
+    if (root.getAttribute('data-vx-faq-ready')) return;
+    root.setAttribute('data-vx-faq-ready', '1');
+    var plus = '<span aria-hidden="true" class="vx-faq__icon" style="display: flex; color: #8a5e3b;"><svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="20"><path d="M12 5v14M5 12h14"></path></svg></span>';
+    Array.prototype.slice.call(root.querySelectorAll('h3')).forEach(function (h) {
+      var d = document.createElement('details');
+      d.className = 'vx-faq';
+      var s = document.createElement('summary');
+      s.innerHTML = '<span>' + h.innerHTML + '</span>' + plus;
+      var body = document.createElement('div');
+      body.className = 'vx-faq__body';
+      var n = h.nextElementSibling;
+      while (n && !/^H[23]$/.test(n.tagName)) { var next = n.nextElementSibling; body.appendChild(n); n = next; }
+      d.appendChild(s); d.appendChild(body);
+      h.parentNode.replaceChild(d, h);
+    });
+  }
+
+
+  /* Basket page: quantity steppers; the form posts on change (works without JS via the noscript button) */
+  function initCart(form) {
+    var t;
+    function send() { clearTimeout(t); t = setTimeout(function () { form.submit(); }, 450); }
+    form.querySelectorAll('[data-vx-step]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var input = b.parentNode.querySelector('[data-vx-qty]');
+        input.value = Math.max(0, (parseInt(input.value, 10) || 0) + parseInt(b.getAttribute('data-vx-step'), 10));
+        send();
+      });
+    });
+    form.querySelectorAll('[data-vx-qty]').forEach(function (i) { i.addEventListener('change', send); });
+  }
+
   function init() {
     initHeader();
     document.querySelectorAll('[data-vx-coll]').forEach(initCollection);
@@ -297,6 +336,8 @@
     document.querySelectorAll('[data-vx-hero]').forEach(initHero);
     document.querySelectorAll('[data-vx-colour]').forEach(initColour);
     document.querySelectorAll('[data-vx-plan]').forEach(initPlanner);
+    document.querySelectorAll('[data-vx-faq-page]').forEach(initFaqPage);
+    document.querySelectorAll('[data-vx-cart]').forEach(initCart);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
   // theme editor: re-init sections when they reload
@@ -305,6 +346,7 @@
     el.querySelectorAll('[data-vx-hero]').forEach(initHero);
     el.querySelectorAll('[data-vx-colour]').forEach(initColour);
     el.querySelectorAll('[data-vx-plan]').forEach(initPlanner);
+    el.querySelectorAll('[data-vx-faq-page]').forEach(initFaqPage);
     if (el.querySelector('[data-vx-header]')) initHeader();
   });
 })();

@@ -1,0 +1,137 @@
+{%- comment -%}
+  Photo hero for pages, cart, search and 404, ported from the Warranty and Install designs
+  (same structure as the collection hero). On a page, the heading defaults to the page title and
+  the image and intro can be set per page with the metafields vertex.hero_image and vertex.intro.
+{%- endcomment -%}
+{%- liquid
+  assign title = section.settings.title
+  assign intro = section.settings.text
+  assign img = section.settings.image
+  if page
+    if title == blank
+      assign title = page.title
+    endif
+    if page.metafields.vertex.intro != blank
+      assign intro = page.metafields.vertex.intro.value
+    endif
+    if page.metafields.vertex.hero_image != blank
+      assign img = page.metafields.vertex.hero_image.value
+    endif
+  endif
+  if template.name == 'search' and search.performed
+    assign title = section.settings.title | append: ': “' | append: search.terms | append: '”'
+  endif
+  assign crumb = section.settings.crumb | default: title
+  if page
+    assign crumb = page.title
+  endif
+  assign min_h = 600
+  assign pad_top = 150
+  assign pad_bottom = 64
+  if section.settings.size == 'compact'
+    assign min_h = 420
+    assign pad_top = 140
+    assign pad_bottom = 48
+  endif
+-%}
+<section class="vx vx-page-hero" style="position: relative; min-height: {{ min_h }}px; display: flex; flex-direction: column; justify-content: flex-end; color: #fff; background: #161616; overflow: hidden;">
+  {%- render 'vx-image', image: img, fallback: section.settings.fallback_image, alt: img.alt, style: 'position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;', sizes: '100vw', loading: 'eager' -%}
+  <div aria-hidden="true" style="position: absolute; inset: 0; background: radial-gradient(100% 100% at 100% 100%, rgba(10,10,10,0) 0%, rgba(10,10,10,0.82) 100%);"></div>
+  <div class="vx-wrap" style="position: relative; max-width: 1360px; width: 100%; margin: 0 auto; padding: {{ pad_top }}px 40px {{ pad_bottom }}px; display: flex; flex-direction: column; gap: 22px;">
+    <nav aria-label="Breadcrumb" style="display: flex; flex-wrap: wrap; gap: 8px; font-size: 14px; color: #d9d6d1;">
+      <a href="{{ routes.root_url }}" style="color: #d9d6d1;">Home</a><span aria-hidden="true">/</span>
+      {%- if section.settings.parent != blank -%}
+        {%- if section.settings.parent_link != blank -%}<a href="{{ section.settings.parent_link }}" style="color: #d9d6d1;">{{ section.settings.parent }}</a>{%- else -%}<span>{{ section.settings.parent }}</span>{%- endif -%}
+        <span aria-hidden="true">/</span>
+      {%- endif -%}
+      <span style="color: #fff;">{{ crumb }}</span>
+    </nav>
+    <h1 style="margin: 0; font-size: clamp(44px, 6vw, 88px); line-height: 0.98; font-weight: 600; letter-spacing: -0.035em; max-width: 900px; text-shadow: rgba(0,0,0,0.3) 0 2px 30px;">{{ title }}</h1>
+    {%- if intro != blank -%}
+      <p style="margin: 0; font-size: 19px; line-height: 1.55; color: #f2efea; max-width: 620px; text-shadow: rgba(0,0,0,0.35) 0 1px 16px;">{{ intro }}</p>
+    {%- endif -%}
+    {%- if section.blocks.size > 0 -%}
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 8px;">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'button' -%}
+              {%- if block.settings.style == 'solid' -%}
+                <a href="{{ block.settings.link }}" {{ block.shopify_attributes }} style="background: #b6855f; color: #161616; text-decoration: none; font-weight: 600; font-size: 16px; padding: 18px 30px; min-height: 56px; display: flex; align-items: center;">{{ block.settings.label }}</a>
+              {%- else -%}
+                <a href="{{ block.settings.link }}" {{ block.shopify_attributes }} style="border: 1px solid rgba(255,255,255,0.7); color: #fff; text-decoration: none; font-weight: 600; font-size: 16px; padding: 18px 30px; min-height: 56px; display: flex; align-items: center;">{{ block.settings.label }}</a>
+              {%- endif -%}
+            {%- when 'tag' -%}
+              <span {{ block.shopify_attributes }} style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.3); padding: 10px 14px; font-size: 14px; font-weight: 600; align-self: center;">{{ block.settings.label }}</span>
+            {%- when 'search' -%}
+              <form action="{{ routes.search_url }}" method="get" role="search" {{ block.shopify_attributes }} style="display: flex; flex: 1 1 100%; max-width: 620px; gap: 0;">
+                <label class="visually-hidden" for="vx-hero-search-{{ block.id }}">{{ block.settings.placeholder }}</label>
+                <input id="vx-hero-search-{{ block.id }}" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ block.settings.placeholder | escape }}" class="vx-input" style="flex: 1 1 auto; min-width: 0; height: 56px; border: 1px solid rgba(255,255,255,0.7); border-right: 0; background: rgba(22,22,22,0.35); color: #fff; padding: 0 18px; font-family: inherit; font-size: 16px;">
+                <input type="hidden" name="options[prefix]" value="last">
+                <button type="submit" style="flex: 0 0 auto; min-height: 56px; padding: 0 26px; border: 0; background: #b6855f; color: #161616; font-family: inherit; font-weight: 600; font-size: 16px; cursor: pointer;">{{ block.settings.button }}</button>
+              </form>
+            {%- when 'chip_link' -%}
+              <a href="{{ block.settings.link | escape }}" {{ block.shopify_attributes }} style="background: #b6855f; color: #161616; text-decoration: none; border: 1px solid #b6855f; padding: 10px 14px; font-size: 14px; font-weight: 600; align-self: center;">{{ block.settings.label }}</a>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{%- if section.settings.usp_1 != blank -%}
+  <div class="vx" style="border-bottom: 1px solid #e2ddd5;">
+    <div class="vx-wrap" style="max-width: 1360px; margin: 0 auto; padding: 18px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; font-size: 14px; font-weight: 500; color: #3d3a37;">
+      {%- for i in (1..4) -%}
+        {%- assign k = 'usp_' | append: i -%}
+        {%- if section.settings[k] != blank -%}<span style="display: flex; align-items: center; gap: 10px;"><svg aria-hidden="true" height="12" viewBox="0 0 16 14" width="14"><polygon fill="#b6855f" points="4,1 12,1 15,7 12,13 4,13 1,7"></polygon></svg>{{ section.settings[k] }}</span>{%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Vertex page hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "On pages, the page's own hero image (metafield vertex.hero_image) is used when set." },
+    { "type": "select", "id": "fallback_image", "label": "Built-in image", "info": "Shown when no image is chosen above.", "options": [
+      { "value": "vx-hero-help.webp", "label": "Help and warranty" },
+      { "value": "vx-install-hero.webp", "label": "Raised deck (installation guide)" }
+    ], "default": "vx-hero-help.webp" },
+    { "type": "text", "id": "title", "label": "Heading", "info": "Leave blank on pages to use the page title." },
+    { "type": "textarea", "id": "text", "label": "Intro", "info": "On pages, the page's intro (metafield vertex.intro) is used when set." },
+    { "type": "text", "id": "parent", "label": "Breadcrumb parent", "info": "For example Help or Guides. Leave blank for Home / page." },
+    { "type": "url", "id": "parent_link", "label": "Breadcrumb parent link" },
+    { "type": "text", "id": "crumb", "label": "Breadcrumb label", "info": "Defaults to the heading." },
+    { "type": "select", "id": "size", "label": "Height", "options": [
+      { "value": "tall", "label": "Tall" },
+      { "value": "compact", "label": "Compact" }
+    ], "default": "tall" },
+    { "type": "header", "content": "Strip under the photo" },
+    { "type": "text", "id": "usp_1", "label": "Item 1" },
+    { "type": "text", "id": "usp_2", "label": "Item 2" },
+    { "type": "text", "id": "usp_3", "label": "Item 3" },
+    { "type": "text", "id": "usp_4", "label": "Item 4" }
+  ],
+  "blocks": [
+    { "type": "button", "name": "Button", "settings": [
+      { "type": "text", "id": "label", "label": "Label" },
+      { "type": "url", "id": "link", "label": "Link" },
+      { "type": "select", "id": "style", "label": "Style", "options": [
+        { "value": "solid", "label": "Bronze" },
+        { "value": "outline", "label": "Outline" }
+      ], "default": "solid" }
+    ]},
+    { "type": "tag", "name": "Tag", "settings": [
+      { "type": "text", "id": "label", "label": "Label" }
+    ]},
+    { "type": "search", "name": "Search box", "limit": 1, "settings": [
+      { "type": "text", "id": "placeholder", "label": "Placeholder", "default": "Search boards, cladding, trims and fixings" },
+      { "type": "text", "id": "button", "label": "Button label", "default": "Search" }
+    ]},
+    { "type": "chip_link", "name": "Small bronze link", "settings": [
+      { "type": "text", "id": "label", "label": "Label" },
+      { "type": "text", "id": "link", "label": "Link", "info": "A page address, or #downloads to jump to a section on this page." }
+    ]}
+  ],
+  "presets": [{ "name": "Vertex page hero" }]
+}
+{% endschema %}

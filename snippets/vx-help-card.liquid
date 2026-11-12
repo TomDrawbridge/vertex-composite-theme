@@ -1,0 +1,17 @@
+{%- doc -%}
+  Dark "Need a hand?" card from the Install design's downloads section.
+  @param {string} kicker
+  @param {string} title
+  @param {string} text
+  @param {string} [email]
+  @param {string} [button_label]
+  @param {string} [button_link]
+  @param {string} [style] - extra styles for the wrapper
+{%- enddoc -%}
+<div style="background: #161616; color: #fff; padding: 36px; display: flex; flex-direction: column; gap: 16px; {{ style }}">
+  {%- if kicker != blank -%}<span style="font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #b6855f;">{{ kicker }}</span>{%- endif -%}
+  {%- if title != blank -%}<h3 style="margin: 0; font-size: 28px; line-height: 1.1; font-weight: 600; letter-spacing: -0.02em;">{{ title }}</h3>{%- endif -%}
+  {%- if text != blank -%}<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #c9c4bd;">{{ text }}</p>{%- endif -%}
+  {%- if email != blank -%}<a href="mailto:{{ email }}" style="color: #fff; font-weight: 600; font-size: 16px;">{{ email }}</a>{%- endif -%}
+  {%- if button_label != blank -%}<a href="{{ button_link }}" style="margin-top: 8px; min-height: 52px; background: #b6855f; color: #161616; text-decoration: none; font-weight: 600; font-size: 15px; display: flex; align-items: center; justify-content: center; padding: 0 20px; text-align: center;">{{ button_label }}</a>{%- endif -%}
+</div>
