@@ -20,6 +20,10 @@
 .vx button { font-family: inherit; }
 .vx a { color: inherit; }
 .vx-wrap { max-width: 1360px; margin: 0 auto; padding-left: 40px; padding-right: 40px; }
+/* As in the design: the 1360px container excludes its side padding (content-box),
+   except where the container is also width: 100% (border-box, to avoid overflow). */
+.vx[style*="max-width: 1360px"]:not([style*="width: 100%"]),
+.vx [style*="max-width: 1360px"]:not([style*="width: 100%"]) { box-sizing: content-box; }
 .vx-link { color: #8a5e3b; }
 .vx-link:hover { color: #5e3f26; }
 
@@ -100,6 +104,17 @@
 .vx-plan__chip[aria-pressed='true'] { opacity: 1; transform: scale(1.1); }
 .vx-plan__dir[aria-pressed='true'] { background: #fff !important; color: #161616 !important; }
 
+/* Collection */
+.vx-card .vx-swap { opacity: 0; transform: scale(1.08); transition: opacity .6s ease, transform 1.4s cubic-bezier(.16,1,.3,1); }
+.vx-card:hover .vx-swap, .vx-card:focus-visible .vx-swap { opacity: 1; transform: scale(1); }
+.vx-check { width: 18px; height: 18px; margin: 0; accent-color: #1d1c1c; cursor: pointer; flex: none; }
+[data-vx-item][hidden], [data-vx-promo][hidden] { display: none !important; }
+@media (max-width: 960px) { .vx-side { flex-basis: 100% !important; max-width: none !important; } }
+.vx-faq summary::-webkit-details-marker { display: none; }
+.vx-faq .vx-faq__icon { transition: transform .35s ease; }
+.vx-faq[open] .vx-faq__icon { transform: rotate(45deg); }
+.vx-rte p { margin: 0; }
+.vx-rte a, .vx-faq a { color: #8a5e3b; }
 /* Product page option cards */
 .vx-opt { background: #fff; border: 1px solid #e2ddd5; transition: border-color .2s ease, background-color .2s ease; }
 .vx-opt:hover { border-color: #cfc7bc; }
