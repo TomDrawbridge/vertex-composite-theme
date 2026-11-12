@@ -20,6 +20,10 @@
 .vx button { font-family: inherit; }
 .vx a { color: inherit; }
 .vx-wrap { max-width: 1360px; margin: 0 auto; padding-left: 40px; padding-right: 40px; }
+/* As in the design: the 1360px container excludes its side padding (content-box),
+   except where the container is also width: 100% (border-box, to avoid overflow). */
+.vx[style*="max-width: 1360px"]:not([style*="width: 100%"]),
+.vx [style*="max-width: 1360px"]:not([style*="width: 100%"]) { box-sizing: content-box; }
 .vx-link { color: #8a5e3b; }
 .vx-link:hover { color: #5e3f26; }
 
