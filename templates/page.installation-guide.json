@@ -1,0 +1,443 @@
+{
+  "sections": {
+    "hero": {
+      "type": "vx-page-hero",
+      "blocks": {
+        "tag_1": {
+          "type": "tag",
+          "settings": {
+            "label": "7 steps"
+          }
+        },
+        "tag_2": {
+          "type": "tag",
+          "settings": {
+            "label": "Concrete, paving and flat roofs"
+          }
+        },
+        "chip_link_3": {
+          "type": "chip_link",
+          "settings": {
+            "label": "Download as PDF",
+            "link": "#downloads"
+          }
+        }
+      },
+      "block_order": [
+        "tag_1",
+        "tag_2",
+        "chip_link_3"
+      ],
+      "settings": {
+        "fallback_image": "vx-install-hero.webp",
+        "title": "Installing decking on pedestals",
+        "text": "A level, raised deck over concrete, paving or a flat roof. Here’s how the system fits together, and how to install it step by step.",
+        "parent": "Guides",
+        "crumb": "Decking on pedestals",
+        "size": "tall"
+      }
+    },
+    "on_this_page": {
+      "type": "vx-install-nav",
+      "blocks": {
+        "link_1": {
+          "type": "link",
+          "settings": {
+            "label": "The system",
+            "target": "#system"
+          }
+        },
+        "link_2": {
+          "type": "link",
+          "settings": {
+            "label": "Height calculator",
+            "target": "#height"
+          }
+        },
+        "link_3": {
+          "type": "link",
+          "settings": {
+            "label": "Step by step",
+            "target": "#steps"
+          }
+        },
+        "link_4": {
+          "type": "link",
+          "settings": {
+            "label": "What you’ll need",
+            "target": "#parts"
+          }
+        },
+        "link_5": {
+          "type": "link",
+          "settings": {
+            "label": "Downloads",
+            "target": "#downloads"
+          }
+        }
+      },
+      "block_order": [
+        "link_1",
+        "link_2",
+        "link_3",
+        "link_4",
+        "link_5"
+      ],
+      "settings": {
+        "label": "On this page"
+      }
+    },
+    "system": {
+      "type": "vx-install-system",
+      "blocks": {
+        "layer_1": {
+          "type": "layer",
+          "settings": {
+            "title": "Composite decking boards",
+            "text": "Twin Deck boards, 4 m long, fixed to the joists with starter clips and hidden fasteners. [CONFIRM: board thickness]",
+            "link_label": "Shop Twin Deck",
+            "link": "shopify://products/twin-deck"
+          }
+        },
+        "layer_2": {
+          "type": "layer",
+          "settings": {
+            "title": "Joists or subframe",
+            "text": "Approved aluminium or composite joists, laid at right angles to the boards and joined into a rigid frame.",
+            "tag": "[CONFIRM: supplied by Vertex?]"
+          }
+        },
+        "layer_3": {
+          "type": "layer",
+          "settings": {
+            "title": "Adjustable pedestals",
+            "text": "Height-adjustable supports under each joist, set to the height you need.",
+            "tag": "Coming soon"
+          }
+        },
+        "layer_4": {
+          "type": "layer",
+          "settings": {
+            "title": "Protection layer",
+            "text": "Protective pads under each pedestal where needed, for example on a roof membrane."
+          }
+        },
+        "layer_5": {
+          "type": "layer",
+          "settings": {
+            "title": "Existing base",
+            "text": "Sound concrete, paving or a flat roof that can carry the finished deck and drain freely."
+          }
+        }
+      },
+      "block_order": [
+        "layer_1",
+        "layer_2",
+        "layer_3",
+        "layer_4",
+        "layer_5"
+      ],
+      "settings": {
+        "anchor": "system",
+        "warn_title": "Composite boards need a frame",
+        "warn_text": "Never lay composite boards straight onto pedestals unless the board maker has approved that exact set-up. Boards sit on joists, and the joists sit on the pedestals.",
+        "kicker": "The system",
+        "title": "What goes into a pedestal deck",
+        "text": "A pedestal deck is built in layers. The boards never touch the pedestals: they’re fixed to a frame of joists, and the frame sits on the pedestals.",
+        "diagram_label": "Section through a pedestal deck. From the top: decking boards 25 mm, a 50 mm joist, adjustable pedestals 75 mm tall, protection pads, and the existing base.",
+        "dim_board": "25",
+        "dim_joist": "50",
+        "dim_pedestal": "75",
+        "layer_1_name": "Decking boards",
+        "layer_1_spec": "Twin Deck, 4 m lengths",
+        "layer_2_name": "Joist",
+        "layer_2_spec": "Aluminium or composite",
+        "layer_3_name": "Adjustable pedestal",
+        "layer_3_spec": "Set to the height you need",
+        "layer_4_name": "Protection pad",
+        "layer_5_name": "Existing base",
+        "layer_5_spec": "Concrete, paving or roof",
+        "caption_left": "Section through a pedestal deck · not to scale",
+        "caption_right": "Example heights in mm"
+      }
+    },
+    "height": {
+      "type": "vx-install-calc",
+      "settings": {
+        "anchor": "height",
+        "kicker": "Height calculator",
+        "title": "Work out your pedestal height",
+        "text": "Measure from the base to where you want the top of the deck. Take away the board and the joist, and what’s left is the height your pedestals need to reach.",
+        "total_label": "Total height available",
+        "total_default": 150,
+        "board_label": "Board thickness",
+        "board_default": 25,
+        "board_note": "25 mm used as an example [CONFIRM: Twin Deck]",
+        "joist_label": "Joist depth",
+        "joist_default": 50,
+        "joist_note": "Check the joists you’re using",
+        "area_label": "Deck area",
+        "area_default": 12,
+        "bar_board": "Board",
+        "bar_joist": "Joist",
+        "bar_pedestal": "Pedestal",
+        "result_label": "Pedestal height needed",
+        "min_pedestal": 20,
+        "note_ok": "Choose pedestals that adjust to around this height. [CONFIRM: Vertex pedestal height range]",
+        "note_low": "Very low. Check the minimum height of your pedestals, or use a slimmer joist. [CONFIRM: Vertex pedestal height range]",
+        "note_none": "There isn’t enough height. The board and joist alone are deeper than the space you have.",
+        "too_low": "Too low",
+        "count_label": "Pedestals, as a first guide",
+        "per_m2_min": 6,
+        "per_m2_max": 7,
+        "count_format": "About {min} to {max}",
+        "count_note": "Based on around 6 to 7 per m² [CONFIRM FOR THE VERTEX SYSTEM]. The real number depends on your joists, pedestal grid, deck height and loading.",
+        "footnote": "Example only. Allow for clips, brackets and any other parts in your system, and for any fall you need for drainage."
+      }
+    },
+    "steps": {
+      "type": "vx-install-steps",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "builtin": "1",
+            "alt": "Installer building an aluminium deck frame on pedestals on a flat roof",
+            "position": "center 60%",
+            "label": "Before you start",
+            "title": "Check the base",
+            "points": "Make sure the concrete or existing surface is sound and strong enough to carry the finished deck.\nCheck that water can drain away, and that no drainage outlets will be blocked.\nOn a flat roof, inspect the waterproofing and check the roof structure can take the extra load.\nOn a waterproof membrane, use protective pads under every pedestal. Never pierce the membrane without an approved detail."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "builtin": "2",
+            "alt": "Tape measure showing the height of decking boards on adjustable pedestals",
+            "position": "center 45%",
+            "label": "Measure",
+            "title": "Work out the finished height",
+            "points": "Measure from the base to where you want the top of the deck.\nTake away the board thickness and the joist depth. What’s left is the height your pedestals need to reach.",
+            "table": "Total height available | 150 mm\nComposite board | 25 mm\nJoist | 50 mm\nPedestal height needed | 75 mm",
+            "note": "Example only. Allow for clips, brackets and any other parts in your system, or try the height calculator above."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "builtin": "3",
+            "alt": "Rows of adjustable pedestals under joists on a concrete base",
+            "position": "center",
+            "label": "Set out",
+            "title": "Set out the pedestals",
+            "points": "Mark the joist positions on the base.\nPlace a pedestal under each joist, at the spacing given on the Vertex data sheet.\nAdd extra supports at joist ends, frame junctions and wherever board ends meet.\nAdjust the pedestal heads to your planned height.",
+            "table": "Distance between joists | [CONFIRM: Vertex joist centres]\nMaximum gap between pedestals | [CONFIRM: by joist size]",
+            "note": "Spacings vary a lot between systems, so always use the figures for the boards and joists you’re fitting."
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "builtin": "4",
+            "alt": "Aluminium joists sitting in adjustable pedestals, with boards clipped on top",
+            "position": "center 60%",
+            "label": "Frame",
+            "title": "Fit the joists",
+            "points": "Lay approved aluminium or composite joists into the pedestal heads, at right angles to the way the boards will run.\nFix the joists into the pedestal brackets with the specified fixings.\nJoin them into a rigid frame, with support around the edge and cross-bracing where needed.\nSupport every joint in the joists.\nAvoid ordinary timber joists unless the pedestal system and site conditions allow them."
+          }
+        },
+        "step_5": {
+          "type": "step",
+          "settings": {
+            "builtin": "5",
+            "alt": "Checking a deck frame on pedestals with a long spirit level",
+            "position": "center",
+            "label": "Level",
+            "title": "Check levels and drainage",
+            "points": "Check the whole frame with a long spirit level or a laser.\nAdjust each pedestal to get the finished surface you need. The frame may need a slight fall for drainage rather than being perfectly flat.\nMake sure nothing rocks, every pedestal head is properly engaged, and there’s enough clearance at doors and thresholds.",
+            "photo_title": "Take your warranty photos now",
+            "photo_text": "Photograph the frame, joist spacing, pedestals and fixings before any boards go down. You’ll need these photos to register your warranty.",
+            "photo_link_label": "What to photograph",
+            "photo_link": "shopify://pages/warranty"
+          }
+        },
+        "step_6": {
+          "type": "step",
+          "settings": {
+            "builtin": "6",
+            "alt": "Fixing a hidden clip to an aluminium joist on a pedestal",
+            "position": "center",
+            "label": "Boards",
+            "title": "Fit the boards",
+            "points": "Fit SSL starter clips along the starting edge.\nLay the first board straight and fix it in place.\nFit the rest of the boards with the hidden clips or approved screws.\nLeave the expansion gaps given on the data sheet at board ends and edges. [CONFIRM: gap sizes]\nWhere board ends meet, use doubled joists or a separate support for each end.\nDon’t let boards overhang the frame by more than [CONFIRM: maximum overhang].",
+            "part_1_label": "SSL starter",
+            "part_1_link": "shopify://products/ssl-starter",
+            "part_2_label": "MC03 fasteners",
+            "part_2_link": "shopify://products/fasteners-and-screws",
+            "part_3_label": "Twin Deck boards",
+            "part_3_link": "shopify://products/twin-deck"
+          }
+        },
+        "step_7": {
+          "type": "step",
+          "settings": {
+            "builtin": "7",
+            "alt": "Finished grey composite deck with matching trims around the edge",
+            "position": "center 55%",
+            "label": "Finish",
+            "title": "Finish and inspect",
+            "points": "Fit fascia boards and L-corner trims without blocking ventilation or drainage.\nCheck that every pedestal base is fully supported.\nCheck the frame for movement, loose connections and uneven areas.\nMake sure roof outlets, access points and inspection covers can still be reached.\nIf the deck is raised or exposed to strong winds, make sure the design includes wind-uplift restraint.",
+            "part_1_label": "L-corner trim",
+            "part_1_link": "shopify://products/l-corner-trim",
+            "photo_title": "Photograph the finished deck",
+            "photo_text": "Take wide shots of the whole area and close-ups of the boards and trims. These complete your warranty registration.",
+            "photo_link_label": "What to photograph",
+            "photo_link": "shopify://pages/warranty"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4",
+        "step_5",
+        "step_6",
+        "step_7"
+      ],
+      "settings": {
+        "anchor": "steps",
+        "kicker": "Step by step",
+        "title": "Seven steps to a level deck",
+        "text": "Read all seven before you start. Spacings and gaps come from the Vertex data sheet for the boards and joists you’re using.",
+        "step_word": "Step",
+        "parts_label": "Parts for this step"
+      }
+    },
+    "parts": {
+      "type": "vx-install-parts",
+      "blocks": {
+        "part_1": {
+          "type": "part",
+          "settings": {
+            "product": "twin-deck",
+            "meta": "Z-BPS03 · 4 m · reversible",
+            "price_suffix": "per board",
+            "builtin": "vx-install-board.webp"
+          }
+        },
+        "part_2": {
+          "type": "part",
+          "settings": {
+            "product": "ssl-starter",
+            "meta": "Silver · box of 100",
+            "price_suffix": "per box"
+          }
+        },
+        "part_3": {
+          "type": "part",
+          "settings": {
+            "product": "fasteners-and-screws",
+            "meta": "MC03 · black · box of 100",
+            "price_suffix": "per box"
+          }
+        },
+        "part_4": {
+          "type": "part",
+          "settings": {
+            "product": "l-corner-trim",
+            "meta": "S-MF07 · 4 m · five colours",
+            "price_suffix": "per length",
+            "builtin": "vx-install-trim.webp"
+          }
+        },
+        "part_5": {
+          "type": "part",
+          "settings": {
+            "title": "Adjustable pedestals",
+            "meta": "Height-adjustable supports",
+            "status": "Coming soon",
+            "link": "shopify://collections/all",
+            "builtin": "vx-pedestal.webp"
+          }
+        },
+        "part_6": {
+          "type": "part",
+          "settings": {
+            "title": "Joists",
+            "meta": "Aluminium or composite",
+            "status": "[CONFIRM: supplied by Vertex?]",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "part_1",
+        "part_2",
+        "part_3",
+        "part_4",
+        "part_5",
+        "part_6"
+      ],
+      "settings": {
+        "anchor": "parts",
+        "title": "What you’ll need",
+        "link_label": "Plan your deck and quantities",
+        "link": "/#guides"
+      }
+    },
+    "downloads": {
+      "type": "vx-install-downloads",
+      "blocks": {
+        "file_1": {
+          "type": "file",
+          "settings": {
+            "title": "Installation guide: decking on pedestals",
+            "sub": "PDF · [SIZE]"
+          }
+        },
+        "file_2": {
+          "type": "file",
+          "settings": {
+            "title": "Technical data sheet: Twin Deck",
+            "sub": "PDF · [SIZE]",
+            "product": "twin-deck"
+          }
+        },
+        "file_3": {
+          "type": "file",
+          "settings": {
+            "title": "Warranty registration",
+            "sub": "Register online or download the form",
+            "link": "shopify://pages/warranty"
+          }
+        }
+      },
+      "block_order": [
+        "file_1",
+        "file_2",
+        "file_3"
+      ],
+      "settings": {
+        "anchor": "downloads",
+        "title": "Downloads",
+        "disclaimer": "This guide is general advice for a typical pedestal deck. Always follow the Vertex data sheet and the pedestal maker’s instructions, and get advice from a qualified professional for roofs, balconies and raised decks.",
+        "card_kicker": "Need a hand?",
+        "card_title": "Talk to us about your deck",
+        "card_text": "Send us your measurements and photos of the base, and we’ll help you work out what you need.",
+        "email": "sales@vertexcomposite.co.uk",
+        "button_label": "Register your warranty",
+        "button_link": "shopify://pages/warranty"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "on_this_page",
+    "system",
+    "height",
+    "steps",
+    "parts",
+    "downloads"
+  ]
+}

@@ -1,0 +1,27 @@
+{%- comment -%}
+  "On this page" bar under the hero, ported from the Install-B design.
+  Each link points at a section anchor further down the page, for example #steps.
+{%- endcomment -%}
+<nav class="vx" aria-label="{{ section.settings.label | escape }}" style="border-bottom: 1px solid #e2ddd5; background: #ffffff;">
+  <div class="vx-wrap" style="max-width: 1360px; margin: 0 auto; padding: 0 40px; display: flex; flex-wrap: wrap; gap: 0 32px; font-size: 15px; font-weight: 600;">
+    <span style="color: #6b655e; font-weight: 500; padding: 18px 0;">{{ section.settings.label }}</span>
+    {%- for block in section.blocks -%}
+      <a href="{{ block.settings.target | escape }}" {{ block.shopify_attributes }} style="color: #1d1c1c; text-decoration: none; padding: 18px 0;">{{ block.settings.label }}</a>
+    {%- endfor -%}
+  </div>
+</nav>
+{% schema %}
+{
+  "name": "Vertex on this page",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "On this page" }
+  ],
+  "blocks": [
+    { "type": "link", "name": "Link", "settings": [
+      { "type": "text", "id": "label", "label": "Label" },
+      { "type": "text", "id": "target", "label": "Jump to", "info": "The anchor of a section on this page, for example #steps. Each Vertex installation section has an anchor setting." }
+    ]}
+  ],
+  "presets": [{ "name": "Vertex on this page" }]
+}
+{% endschema %}

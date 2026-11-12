@@ -1,0 +1,87 @@
+{%- comment -%}
+  "What you'll need" cards from the Install-B design. A card with a product shows the product's
+  photo, title, price and link from Shopify; a card without one (pedestals, joists) shows its own
+  status line instead of a price.
+{%- endcomment -%}
+{%- assign s = section.settings -%}
+<section class="vx" id="{{ s.anchor | escape }}" style="background: #efebe5; scroll-margin-top: 96px;">
+  <div class="vx-wrap vx-pad-lg" style="max-width: 1360px; margin: 0 auto; padding: 112px 40px;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 40px;">
+      <h2 style="margin: 0; font-size: clamp(34px, 3.6vw, 52px); line-height: 1; font-weight: 600; letter-spacing: -0.03em;">{{ s.title }}</h2>
+      {%- if s.link_label != blank -%}<a href="{{ s.link }}" style="font-weight: 600; font-size: 15px; color: #1d1c1c; text-decoration: underline;">{{ s.link_label }}</a>{%- endif -%}
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px;">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign b = block.settings
+          assign p = b.product
+          assign href = b.link
+          assign title = b.title
+          assign img = b.image
+          if p != blank
+            assign href = p.url
+            if title == blank
+              assign title = p.title | split: ' (' | first
+            endif
+            if img == blank and p.featured_image
+              assign img = p.featured_image
+            endif
+          endif
+          assign fallback = ''
+          if b.builtin != 'none'
+            assign fallback = b.builtin
+          endif
+        -%}
+        <a class="vx-card" href="{{ href | default: '#' }}" {{ block.shopify_attributes }} style="text-decoration: none; color: #1d1c1c; display: flex; flex-direction: column; gap: 14px; background: #ffffff; padding: 14px 14px 18px;">
+          <div style="background: #f6f4f1; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; padding: 24px; overflow: hidden;">
+            {%- if img != blank -%}
+              {{ img | image_url: width: 600 | image_tag: alt: '', class: 'vx-cut', style: 'width: 100%; height: 100%; object-fit: contain;', sizes: '(min-width: 990px) 16vw, 50vw', widths: '300, 450, 600' }}
+            {%- elsif fallback != blank -%}
+              <img src="{{ fallback | asset_url }}" alt="" class="vx-cut" loading="lazy" width="600" height="600" style="width: 100%; height: 100%; object-fit: contain;">
+            {%- else -%}
+              <span style="font-size: 13px; color: #8a847d; text-align: center;">[Photo to come]</span>
+            {%- endif -%}
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 4px; padding: 0 4px;">
+            <span style="font-weight: 600; font-size: 16px;">{{ title }}</span>
+            {%- if b.meta != blank -%}<span style="font-size: 13px; color: #6b655e;">{{ b.meta }}</span>{%- endif -%}
+            {%- if p != blank -%}
+              <span style="font-size: 14px; font-weight: 600; color: #1d1c1c; padding-top: 4px;">{{ p.price | money }}{% if b.price_suffix != blank %} {{ b.price_suffix }}{% endif %}</span>
+            {%- elsif b.status != blank -%}
+              <span style="font-size: 14px; font-weight: 600; color: #8a5e3b; padding-top: 4px;">{{ b.status }}</span>
+            {%- endif -%}
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Vertex what you'll need",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor", "default": "parts", "info": "Used by the On this page links, without the #." },
+    { "type": "text", "id": "title", "label": "Heading", "default": "What you’ll need" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Plan your deck and quantities" },
+    { "type": "url", "id": "link", "label": "Link" }
+  ],
+  "blocks": [
+    { "type": "part", "name": "Part", "settings": [
+      { "type": "product", "id": "product", "label": "Product", "info": "Gives the card its photo, title, price and link. Leave empty for parts not sold yet." },
+      { "type": "text", "id": "title", "label": "Title", "info": "Leave blank to use the product title." },
+      { "type": "text", "id": "meta", "label": "Detail line", "info": "For example Z-BPS03 · 4 m · reversible." },
+      { "type": "text", "id": "price_suffix", "label": "After the price", "info": "For example per board." },
+      { "type": "text", "id": "status", "label": "Status", "info": "Shown instead of a price when no product is chosen, for example Coming soon." },
+      { "type": "url", "id": "link", "label": "Link", "info": "Used when no product is chosen." },
+      { "type": "image_picker", "id": "image", "label": "Photo", "info": "Optional. Replaces the product photo." },
+      { "type": "select", "id": "builtin", "label": "Built-in photo", "info": "Shown when there is no photo or product photo.", "options": [
+        { "value": "none", "label": "None" },
+        { "value": "vx-pedestal.webp", "label": "Adjustable pedestal" },
+        { "value": "vx-install-board.webp", "label": "Twin Deck board" },
+        { "value": "vx-install-trim.webp", "label": "L-corner trim" }
+      ], "default": "none" }
+    ]}
+  ],
+  "presets": [{ "name": "Vertex what you'll need" }]
+}
+{% endschema %}

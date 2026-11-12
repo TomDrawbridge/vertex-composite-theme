@@ -1,0 +1,168 @@
+{%- comment -%}
+  "The system" section of the pedestal installation guide (Install-B design): the frame warning,
+  the section drawing through a pedestal deck and the numbered list of layers.
+{%- endcomment -%}
+{{ 'vx-install.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  assign leader = '<span aria-hidden="true" style="width: 28px; flex: 0 0 auto; position: relative; align-self: center; border-top: 1px solid #1d1c1c;"><span style="position: absolute; left: -3px; top: -3.5px; width: 6px; height: 6px; border-radius: 3px; background: #1d1c1c;"></span></span>'
+-%}
+<section class="vx vx-wrap vx-pad-lg" id="{{ s.anchor | escape }}" style="max-width: 1360px; margin: 0 auto; padding: 112px 40px 120px; display: flex; flex-direction: column; gap: 56px; scroll-margin-top: 96px;">
+  {%- if s.warn_title != blank -%}
+    <div style="background: #161616; color: #ffffff; padding: 32px 36px; display: flex; flex-wrap: wrap; gap: 20px 28px; align-items: center;">
+      <svg aria-hidden="true" height="46" style="flex: 0 0 auto;" viewBox="0 0 52 46" width="52"><polygon fill="#B6855F" points="13,1.5 39,1.5 50.5,23 39,44.5 13,44.5 1.5,23"></polygon><path d="M26 12v14" stroke="#161616" stroke-linecap="round" stroke-width="3.2"></path><circle cx="26" cy="33" fill="#161616" r="2.2"></circle></svg>
+      <div style="flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: 22px; font-weight: 600; letter-spacing: -0.01em;">{{ s.warn_title }}</span>
+        <span style="font-size: 16px; line-height: 1.6; color: #c9c4bd;">{{ s.warn_text }}</span>
+      </div>
+    </div>
+  {%- endif -%}
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px;">
+    <div style="display: flex; flex-direction: column; gap: 18px; max-width: 640px;">
+      {%- render 'vx-kicker', text: s.kicker -%}
+      <h2 style="margin: 0; font-size: clamp(36px, 4.2vw, 60px); line-height: 1; font-weight: 600; letter-spacing: -0.03em;">{{ s.title }}</h2>
+    </div>
+    {%- if s.text != blank -%}<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #5b554f; max-width: 460px;">{{ s.text }}</p>{%- endif -%}
+  </div>
+  <div style="display: flex; flex-wrap: wrap; gap: 40px 56px; align-items: stretch;">
+    <figure style="flex: 1 1 540px; min-width: 0; margin: 0; background: #f6f4f1; border: 1px solid #e2ddd5; padding: 40px 32px 0; display: flex; flex-direction: column; min-height: 540px;">
+      <div aria-label="{{ s.diagram_label | escape }}" role="img" style="flex: 1 1 0%; display: flex; flex-direction: column; justify-content: center; padding-bottom: 32px;">
+        {%- comment -%} 01 Decking boards {%- endcomment -%}
+        <div style="display: flex; height: 48px;">
+          <div class="vx-sec-dim" style="width: 56px; flex: 0 0 auto; align-self: stretch; position: relative;">
+            <span style="position: absolute; right: 10px; top: 0; bottom: 0; border-left: 1px solid #1d1c1c;"></span>
+            <span style="position: absolute; right: 4px; width: 13px; top: 0; border-top: 1px solid #1d1c1c;"></span>
+            <span style="position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 12px; font-weight: 600; color: #1d1c1c;">{{ s.dim_board }}</span>
+          </div>
+          <div style="flex: 1 1 0%; min-width: 0; display: flex; gap: 3px;">
+            {%- for i in (1..7) -%}<span style="flex: 1 1 0%; display: block; border: 1.5px solid #1d1c1c; background: #e9ddd2;"></span>{%- endfor -%}
+          </div>
+          {{ leader }}
+          <div class="vx-sec-label" style="width: 168px; flex: 0 0 auto; padding-left: 10px; display: flex; flex-direction: column; gap: 1px; align-self: center;">
+            <span style="font-size: 14px; font-weight: 600; color: #1d1c1c; white-space: nowrap;"><span style="color: #8a5e3b; margin-right: 6px;">01</span><span class="vx-sec-name">{{ s.layer_1_name }}</span></span>
+            {%- if s.layer_1_spec != blank -%}<span class="vx-sec-spec" style="font-size: 12px; color: #6b655e;">{{ s.layer_1_spec }}</span>{%- endif -%}
+          </div>
+        </div>
+        {%- comment -%} 02 Joist {%- endcomment -%}
+        <div style="display: flex; height: 96px;">
+          <div class="vx-sec-dim" style="width: 56px; flex: 0 0 auto; align-self: stretch; position: relative;">
+            <span style="position: absolute; right: 10px; top: 0; bottom: 0; border-left: 1px solid #1d1c1c;"></span>
+            <span style="position: absolute; right: 4px; width: 13px; top: 0; border-top: 1px solid #1d1c1c;"></span>
+            <span style="position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 12px; font-weight: 600; color: #1d1c1c;">{{ s.dim_joist }}</span>
+          </div>
+          <div style="flex: 1 1 0%; min-width: 0; border-width: 0 1.5px 1.5px; border-style: none solid solid; border-color: #1d1c1c; background: #ffffff; padding: 10px 12px;"><span style="display: block; height: 100%; border: 1px solid #b9b1a6;"></span></div>
+          {{ leader }}
+          <div class="vx-sec-label" style="width: 168px; flex: 0 0 auto; padding-left: 10px; display: flex; flex-direction: column; gap: 1px; align-self: center;">
+            <span style="font-size: 14px; font-weight: 600; color: #1d1c1c; white-space: nowrap;"><span style="color: #8a5e3b; margin-right: 6px;">02</span><span class="vx-sec-name">{{ s.layer_2_name }}</span></span>
+            {%- if s.layer_2_spec != blank -%}<span class="vx-sec-spec" style="font-size: 12px; color: #6b655e;">{{ s.layer_2_spec }}</span>{%- endif -%}
+          </div>
+        </div>
+        {%- comment -%} 03 Adjustable pedestals {%- endcomment -%}
+        <div style="display: flex; height: 144px;">
+          <div class="vx-sec-dim" style="width: 56px; flex: 0 0 auto; align-self: stretch; position: relative;">
+            <span style="position: absolute; right: 10px; top: 0; bottom: 0; border-left: 1px solid #1d1c1c;"></span>
+            <span style="position: absolute; right: 4px; width: 13px; top: 0; border-top: 1px solid #1d1c1c;"></span>
+            <span style="position: absolute; right: 4px; width: 13px; bottom: 0; border-top: 1px solid #1d1c1c;"></span>
+            <span style="position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 12px; font-weight: 600; color: #1d1c1c;">{{ s.dim_pedestal }}</span>
+          </div>
+          <div style="flex: 1 1 0%; min-width: 0; display: flex; justify-content: space-between; padding: 0 3%;">
+            {%- for i in (1..3) -%}
+              <div style="width: 24%; max-width: 96px; height: 100%; display: flex; flex-direction: column; align-items: center;">
+                <span style="display: block; width: 78%; height: 9px; border: 1.5px solid #1d1c1c; background: #ffffff;"></span>
+                <span style="display: block; width: 20%; flex: 1 1 0%; border-left: 1.5px solid #1d1c1c; border-right: 1.5px solid #1d1c1c; background: repeating-linear-gradient(170deg, #ffffff 0px, #ffffff 5px, #8a847d 5px, #8a847d 6px);"></span>
+                <svg aria-hidden="true" preserveAspectRatio="none" style="display: block; width: 100%; height: 30px; overflow: visible;" viewBox="0 0 96 30"><path d="M30 1H66L95 29H1Z" fill="#ffffff" stroke="#1d1c1c" stroke-width="1.5" vector-effect="non-scaling-stroke"></path></svg>
+              </div>
+            {%- endfor -%}
+          </div>
+          {{ leader }}
+          <div class="vx-sec-label" style="width: 168px; flex: 0 0 auto; padding-left: 10px; display: flex; flex-direction: column; gap: 1px; align-self: center;">
+            <span style="font-size: 14px; font-weight: 600; color: #1d1c1c; white-space: nowrap;"><span style="color: #8a5e3b; margin-right: 6px;">03</span><span class="vx-sec-name">{{ s.layer_3_name }}</span></span>
+            {%- if s.layer_3_spec != blank -%}<span class="vx-sec-spec" style="font-size: 12px; color: #6b655e;">{{ s.layer_3_spec }}</span>{%- endif -%}
+          </div>
+        </div>
+        {%- comment -%} 04 Protection pads {%- endcomment -%}
+        <div style="display: flex; height: 10px;">
+          <div class="vx-sec-dim" style="width: 56px; flex: 0 0 auto;"></div>
+          <div style="flex: 1 1 0%; min-width: 0; display: flex; justify-content: space-between; padding: 0 3%;">
+            {%- for i in (1..3) -%}<span style="display: block; width: 24%; max-width: 96px; height: 100%; background: #1d1c1c;"></span>{%- endfor -%}
+          </div>
+          {{ leader }}
+          <div class="vx-sec-label" style="width: 168px; flex: 0 0 auto; padding-left: 10px; display: flex; flex-direction: column; gap: 1px; align-self: center;">
+            <span style="font-size: 14px; font-weight: 600; color: #1d1c1c; white-space: nowrap;"><span style="color: #8a5e3b; margin-right: 6px;">04</span><span class="vx-sec-name">{{ s.layer_4_name }}</span></span>
+            {%- if s.layer_4_spec != blank -%}<span class="vx-sec-spec" style="font-size: 12px; color: #6b655e;">{{ s.layer_4_spec }}</span>{%- endif -%}
+          </div>
+        </div>
+        {%- comment -%} 05 Existing base {%- endcomment -%}
+        <div style="display: flex; height: 76px;">
+          <div class="vx-sec-dim" style="width: 56px; flex: 0 0 auto;"></div>
+          <div style="flex: 1 1 0%; min-width: 0; margin: 0 -14px; border-top: 1.5px solid #1d1c1c; background: repeating-linear-gradient(135deg, transparent 0px, transparent 9px, rgba(29,28,28,0.28) 9px, rgba(29,28,28,0.28) 10px);"></div>
+          {{ leader }}
+          <div class="vx-sec-label" style="width: 168px; flex: 0 0 auto; padding-left: 10px; display: flex; flex-direction: column; gap: 1px; align-self: center;">
+            <span style="font-size: 14px; font-weight: 600; color: #1d1c1c; white-space: nowrap;"><span style="color: #8a5e3b; margin-right: 6px;">05</span><span class="vx-sec-name">{{ s.layer_5_name }}</span></span>
+            {%- if s.layer_5_spec != blank -%}<span class="vx-sec-spec" style="font-size: 12px; color: #6b655e;">{{ s.layer_5_spec }}</span>{%- endif -%}
+          </div>
+        </div>
+      </div>
+      <figcaption style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; border-top: 1px solid #e2ddd5; padding: 16px 0 18px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #6b655e;"><span>{{ s.caption_left }}</span><span>{{ s.caption_right }}</span></figcaption>
+    </figure>
+    <ol style="flex: 1 1 420px; min-width: 0; margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-top: 1px solid #e2ddd5;">
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }} style="flex: 1 1 0%; display: flex; gap: 20px; align-items: flex-start; padding: 22px 0; border-bottom: 1px solid #e2ddd5;">
+          <span style="width: 28px; flex: 0 0 auto; font-size: 15px; font-weight: 600; color: #8a5e3b; padding-top: 2px;">{%- if forloop.index < 10 -%}0{%- endif -%}{{ forloop.index }}</span>
+          <span style="display: flex; flex-direction: column; gap: 6px; flex: 1 1 0%; min-width: 0;">
+            <span style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; align-items: baseline;"><span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">{{ block.settings.title }}</span>
+              {%- if block.settings.link_label != blank -%}
+                <a class="vx-link" href="{{ block.settings.link }}" style="font-size: 14px; font-weight: 600; text-decoration: underline;">{{ block.settings.link_label }}</a>
+              {%- elsif block.settings.tag != blank -%}
+                <span style="font-size: 13px; color: #6b655e;">{{ block.settings.tag }}</span>
+              {%- endif -%}
+            </span>
+            <span style="font-size: 16px; line-height: 1.55; color: #5b554f;">{{ block.settings.text }}</span>
+          </span>
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Vertex pedestal system",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor", "default": "system", "info": "Used by the On this page links, without the #." },
+    { "type": "header", "content": "Warning panel" },
+    { "type": "text", "id": "warn_title", "label": "Heading", "default": "Composite boards need a frame", "info": "Leave blank to hide the panel." },
+    { "type": "textarea", "id": "warn_text", "label": "Text", "default": "Never lay composite boards straight onto pedestals unless the board maker has approved that exact set-up. Boards sit on joists, and the joists sit on the pedestals." },
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "The system" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "What goes into a pedestal deck" },
+    { "type": "textarea", "id": "text", "label": "Intro", "default": "A pedestal deck is built in layers. The boards never touch the pedestals: they’re fixed to a frame of joists, and the frame sits on the pedestals." },
+    { "type": "header", "content": "Section drawing" },
+    { "type": "textarea", "id": "diagram_label", "label": "Description for screen readers", "default": "Section through a pedestal deck. From the top: decking boards 25 mm, a 50 mm joist, adjustable pedestals 75 mm tall, protection pads, and the existing base." },
+    { "type": "text", "id": "dim_board", "label": "Board height label", "default": "25" },
+    { "type": "text", "id": "dim_joist", "label": "Joist height label", "default": "50" },
+    { "type": "text", "id": "dim_pedestal", "label": "Pedestal height label", "default": "75" },
+    { "type": "text", "id": "layer_1_name", "label": "Layer 1 name", "default": "Decking boards" },
+    { "type": "text", "id": "layer_1_spec", "label": "Layer 1 detail", "default": "Twin Deck, 4 m lengths" },
+    { "type": "text", "id": "layer_2_name", "label": "Layer 2 name", "default": "Joist" },
+    { "type": "text", "id": "layer_2_spec", "label": "Layer 2 detail", "default": "Aluminium or composite" },
+    { "type": "text", "id": "layer_3_name", "label": "Layer 3 name", "default": "Adjustable pedestal" },
+    { "type": "text", "id": "layer_3_spec", "label": "Layer 3 detail", "default": "Set to the height you need" },
+    { "type": "text", "id": "layer_4_name", "label": "Layer 4 name", "default": "Protection pad" },
+    { "type": "text", "id": "layer_4_spec", "label": "Layer 4 detail" },
+    { "type": "text", "id": "layer_5_name", "label": "Layer 5 name", "default": "Existing base" },
+    { "type": "text", "id": "layer_5_spec", "label": "Layer 5 detail", "default": "Concrete, paving or roof" },
+    { "type": "text", "id": "caption_left", "label": "Caption", "default": "Section through a pedestal deck · not to scale" },
+    { "type": "text", "id": "caption_right", "label": "Caption (right)", "default": "Example heights in mm" }
+  ],
+  "blocks": [
+    { "type": "layer", "name": "Layer", "settings": [
+      { "type": "text", "id": "title", "label": "Heading" },
+      { "type": "textarea", "id": "text", "label": "Text" },
+      { "type": "text", "id": "link_label", "label": "Link label" },
+      { "type": "url", "id": "link", "label": "Link" },
+      { "type": "text", "id": "tag", "label": "Note", "info": "Shown on the right when there is no link, for example Coming soon." }
+    ]}
+  ],
+  "presets": [{ "name": "Vertex pedestal system" }]
+}
+{% endschema %}

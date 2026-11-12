@@ -1,0 +1,62 @@
+{%- comment -%}
+  Warranty page: "Making a claim", dark band with the numbered checklist and the warranty team card.
+  Ported from design/pages/Warranty-B.dc.html. Contact rows are blocks.
+{%- endcomment -%}
+{%- assign items = section.settings.items | newline_to_br | split: '<br />' -%}
+<section class="vx vx-warranty" id="claims" style="background: #161616; color: #fff;">
+  <div class="vx-wrap vx-pad-lg" style="max-width: 1360px; margin: 0 auto; padding: 120px 40px; display: flex; flex-wrap: wrap; gap: 64px; align-items: flex-start;">
+    <div style="flex: 1.3 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 28px;">
+      {%- render 'vx-kicker', text: section.settings.kicker, color: '#b6855f' -%}
+      <h2 style="margin: 0; font-size: clamp(36px, 4.2vw, 60px); line-height: 1; font-weight: 600; letter-spacing: -0.03em;">{{ section.settings.title }}</h2>
+      {%- if section.settings.text != blank -%}
+        <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #c9c4bd; max-width: 520px;">{{ section.settings.text }}</p>
+      {%- endif -%}
+      <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-top: 1px solid #333131;">
+        {%- assign n = 0 -%}
+        {%- for item in items -%}
+          {%- assign item = item | strip -%}
+          {%- if item != blank -%}
+            {%- assign n = n | plus: 1 -%}
+            <li style="display: flex; gap: 20px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid #333131;"><span style="font-size: 14px; font-weight: 600; color: #b6855f; flex: 0 0 auto; width: 24px;">{% if n < 10 %}0{% endif %}{{ n }}</span><span style="font-size: 17px; line-height: 1.5; color: #e6e1da;">{{ item }}</span></li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ol>
+    </div>
+    <div style="flex: 1 1 360px; min-width: 0; background: #fff; color: #1d1c1c; padding: 36px; display: flex; flex-direction: column; gap: 22px;" class="vx-wcard">
+      <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #8a5e3b;">{{ section.settings.card_kicker }}</span><h3 style="margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -0.015em;">{{ section.settings.card_title }}</h3></div>
+      <div style="display: flex; flex-direction: column; border-top: 1px solid #e2ddd5;">
+        {%- for block in section.blocks -%}
+          <div {{ block.shopify_attributes }} style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; padding: 14px 0; border-bottom: 1px solid #e2ddd5; font-size: 15px;"><span style="color: #6b655e;">{{ block.settings.label }}</span><span style="font-weight: 600; overflow-wrap: anywhere;">{%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}" style="color: #1d1c1c;">{{ block.settings.value }}</a>{%- else -%}{{ block.settings.value }}{%- endif -%}</span></div>
+        {%- endfor -%}
+      </div>
+      {%- if section.settings.cta != blank -%}
+        <a class="vx-wbtn-dark" href="{{ section.settings.cta_link | default: '#' }}" style="min-height: 56px; background: #161616; color: #fff; text-decoration: none; font-weight: 600; font-size: 16px; display: flex; align-items: center; justify-content: center;">{{ section.settings.cta }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Vertex warranty claims",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Claims" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Making a claim" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Spotted a problem? Contact the warranty team and include the following, so we can look into it quickly." },
+    { "type": "textarea", "id": "items", "label": "What to include", "info": "One per line. Numbered automatically.", "default": "Proof of purchase or your invoice\nProduct details and batch reference, where you have it\nA description of the problem\nClear photos of the affected boards\nThe date you first noticed the issue\nYour installation photos, if we ask for them" },
+    { "type": "header", "content": "Contact card" },
+    { "type": "text", "id": "card_kicker", "label": "Kicker", "default": "Get in touch" },
+    { "type": "text", "id": "card_title", "label": "Heading", "default": "Vertex warranty team" },
+    { "type": "text", "id": "cta", "label": "Button label", "default": "Start a claim" },
+    { "type": "url", "id": "cta_link", "label": "Button link" }
+  ],
+  "blocks": [
+    { "type": "row", "name": "Contact row", "settings": [
+      { "type": "text", "id": "label", "label": "Label" },
+      { "type": "text", "id": "value", "label": "Value" },
+      { "type": "url", "id": "link", "label": "Link", "info": "Optional, for example mailto: or tel: once the details are confirmed." }
+    ]}
+  ],
+  "max_blocks": 8,
+  "presets": [{ "name": "Vertex warranty claims" }]
+}
+{% endschema %}

@@ -1,0 +1,144 @@
+{%- comment -%}
+  "Step by step" section of the pedestal installation guide (Install-B design).
+  One block per step. Points and table rows are one per line; table rows are written "Label | value".
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign hex = '<svg aria-hidden="true" height="12" style="flex: 0 0 auto; margin-top: 7px;" viewBox="0 0 16 14" width="14"><polygon fill="#b6855f" points="4,1 12,1 15,7 12,13 4,13 1,7"></polygon></svg>'
+-%}
+<section class="vx vx-wrap vx-pad-lg" id="{{ s.anchor | escape }}" style="max-width: 1360px; margin: 0 auto; padding: 120px 40px 80px; scroll-margin-top: 96px;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 56px;">
+    <div style="display: flex; flex-direction: column; gap: 18px; max-width: 640px;">
+      {%- render 'vx-kicker', text: s.kicker -%}
+      <h2 style="margin: 0; font-size: clamp(36px, 4.2vw, 60px); line-height: 1; font-weight: 600; letter-spacing: -0.03em;">{{ s.title }}</h2>
+    </div>
+    {%- if s.text != blank -%}<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #5b554f; max-width: 440px;">{{ s.text }}</p>{%- endif -%}
+  </div>
+  <div style="display: flex; flex-direction: column;">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign b = block.settings
+        assign n = forloop.index
+        assign num = n | prepend: '0' | slice: -2, 2
+        if n > 99
+          assign num = n
+        endif
+        assign pos = b.position | default: 'center'
+        assign img_style = 'position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: ' | append: pos | append: ';'
+        assign alt = b.alt
+        if b.image != blank and b.image.alt != blank
+          assign alt = b.image.alt
+        endif
+        assign fallback = ''
+        if b.builtin != 'none'
+          assign fallback = 'vx-install-step-' | append: b.builtin | append: '.webp'
+        endif
+        assign points = b.points | newline_to_br | split: '<br />'
+        assign rows = b.table | newline_to_br | split: '<br />'
+      -%}
+      <article id="step-{{ n }}" {{ block.shopify_attributes }} style="display: flex; flex-wrap: wrap; gap: 32px 56px; padding: 48px 0; border-top: 1px solid #e2ddd5; align-items: flex-start; scroll-margin-top: 96px;">
+        <div style="flex: 1 1 420px; min-width: 0; aspect-ratio: 3 / 2; position: relative; overflow: hidden; background-color: #efebe5; background-image: repeating-linear-gradient(135deg, rgba(29,28,28,0.035) 0 1px, transparent 1px 14px); display: flex; align-items: center; justify-content: center;">
+          {%- if b.image != blank or fallback != blank -%}
+            {%- render 'vx-image', image: b.image, fallback: fallback, alt: alt, style: img_style, sizes: '(min-width: 990px) 40vw, 100vw', width: 1400 -%}
+          {%- else -%}
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; color: #8a847d; padding: 24px;"><svg aria-hidden="true" height="46" viewBox="0 0 52 46" width="52"><polygon fill="none" points="13,1.5 39,1.5 50.5,23 39,44.5 13,44.5 1.5,23" stroke="#b9b1a6" stroke-width="1.5"></polygon></svg><span style="font-size: 15px; font-weight: 600; color: #6b655e;">[STEP {{ n }} DIAGRAM TO COME]</span></div>
+          {%- endif -%}
+          {%- if b.label != blank -%}<span style="position: absolute; left: 16px; top: 16px; background: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 8px 12px;">{{ s.step_word }} {{ n }} · {{ b.label }}</span>{%- endif -%}
+        </div>
+        <div style="flex: 1.15 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 22px;">
+          <div style="display: flex; align-items: baseline; gap: 18px;"><span style="font-size: 72px; line-height: 0.85; font-weight: 600; letter-spacing: -0.045em; color: #b6855f;">{{ num }}</span><h3 style="margin: 0; font-size: 32px; line-height: 1.05; font-weight: 600; letter-spacing: -0.02em;">{{ b.title }}</h3></div>
+          {%- if b.points != blank -%}
+            <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px;">
+              {%- for p in points -%}
+                {%- assign pt = p | strip -%}
+                {%- if pt != blank -%}<li style="display: flex; gap: 14px; align-items: flex-start; font-size: 17px; line-height: 1.55; color: #3d3a37;">{{ hex }}{{ pt }}</li>{%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          {%- if b.table != blank -%}
+            {%- assign last_row = '' -%}
+            {%- for r in rows -%}{%- assign rs = r | strip -%}{%- if rs != blank -%}{%- assign last_row = rs -%}{%- endif -%}{%- endfor -%}
+            <div style="display: flex; flex-direction: column; border-top: 1px solid #cfc7bc; background: #f6f4f1; padding: 0 20px;">
+              {%- for r in rows -%}
+                {%- assign row = r | strip -%}
+                {%- if row == blank -%}{%- continue -%}{%- endif -%}
+                {%- assign k = row | split: '|' | first | strip -%}
+                {%- assign v = row | split: '|' | last | strip -%}
+                {%- if row == last_row -%}
+                  <div style="display: flex; justify-content: space-between; gap: 16px; padding: 13px 0; font-size: 15px; font-weight: 600; color: #1d1c1c;"><span>{{ k }}</span><span style="font-weight: 600; text-align: right;">{{ v }}</span></div>
+                {%- else -%}
+                  <div style="display: flex; justify-content: space-between; gap: 16px; padding: 13px 0; font-size: 15px; color: #3d3a37; border-bottom: 1px solid #e2ddd5;"><span>{{ k }}</span><span style="font-weight: 600; text-align: right;">{{ v }}</span></div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+          {%- if b.note != blank -%}<p style="margin: 0; font-size: 14px; line-height: 1.6; color: #6b655e;">{{ b.note }}</p>{%- endif -%}
+          {%- if b.part_1_label != blank or b.part_2_label != blank or b.part_3_label != blank -%}
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 14px;"><span style="color: #6b655e;">{{ s.parts_label }}</span>
+              {%- for i in (1..3) -%}
+                {%- assign lk = 'part_' | append: i | append: '_label' -%}
+                {%- assign uk = 'part_' | append: i | append: '_link' -%}
+                {%- if b[lk] != blank -%}<a href="{{ b[uk] }}" style="border: 1px solid #cfc7bc; color: #1d1c1c; text-decoration: none; font-weight: 600; padding: 9px 12px; min-height: 40px; display: flex; align-items: center;">{{ b[lk] }}</a>{%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+          {%- if b.photo_title != blank -%}
+            <div style="background: #161616; color: #ffffff; padding: 24px 26px; display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center;">
+              <svg aria-hidden="true" height="36" style="flex: 0 0 auto;" viewBox="0 0 52 46" width="40"><polygon fill="#B6855F" points="13,1.5 39,1.5 50.5,23 39,44.5 13,44.5 1.5,23"></polygon><rect fill="none" height="14" rx="2" stroke="#161616" stroke-width="2.2" width="20" x="16" y="17"></rect><circle cx="26" cy="24" fill="none" r="3.6" stroke="#161616" stroke-width="2.2"></circle></svg>
+              <div style="flex: 1 1 260px; display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 18px; font-weight: 600;">{{ b.photo_title }}</span><span style="font-size: 15px; line-height: 1.55; color: #c9c4bd;">{{ b.photo_text }}</span></div>
+              {%- if b.photo_link_label != blank -%}<a href="{{ b.photo_link }}" style="color: #ffffff; font-weight: 600; font-size: 15px; border-bottom: 1px solid #b6855f; padding-bottom: 3px; text-decoration: none;">{{ b.photo_link_label }}</a>{%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </article>
+    {%- endfor -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Vertex installation steps",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor", "default": "steps", "info": "Used by the On this page links, without the #." },
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Step by step" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Seven steps to a level deck" },
+    { "type": "textarea", "id": "text", "label": "Intro", "default": "Read all seven before you start. Spacings and gaps come from the Vertex data sheet for the boards and joists you’re using." },
+    { "type": "text", "id": "step_word", "label": "Word before the step number on photos", "default": "Step" },
+    { "type": "text", "id": "parts_label", "label": "Parts label", "default": "Parts for this step" }
+  ],
+  "blocks": [
+    { "type": "step", "name": "Step", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Photo" },
+      { "type": "select", "id": "builtin", "label": "Built-in photo", "info": "Shown when no photo is chosen above.", "options": [
+        { "value": "none", "label": "None" },
+        { "value": "1", "label": "Frame on a flat roof" },
+        { "value": "2", "label": "Measuring the height" },
+        { "value": "3", "label": "Rows of pedestals" },
+        { "value": "4", "label": "Joists in pedestals" },
+        { "value": "5", "label": "Checking the level" },
+        { "value": "6", "label": "Fixing a hidden clip" },
+        { "value": "7", "label": "Finished deck with trims" }
+      ], "default": "none" },
+      { "type": "text", "id": "alt", "label": "Photo description", "info": "For screen readers. The photo's own alt text is used when set." },
+      { "type": "text", "id": "position", "label": "Photo focus", "default": "center", "info": "CSS object-position, for example center 60%." },
+      { "type": "text", "id": "label", "label": "Label on photo", "info": "Shown after Step 1 ·, for example Before you start." },
+      { "type": "text", "id": "title", "label": "Heading" },
+      { "type": "textarea", "id": "points", "label": "Points", "info": "One per line." },
+      { "type": "textarea", "id": "table", "label": "Table", "info": "One row per line, written Label | value. The last row is shown in bold." },
+      { "type": "textarea", "id": "note", "label": "Small print" },
+      { "type": "header", "content": "Parts for this step" },
+      { "type": "text", "id": "part_1_label", "label": "Part 1" },
+      { "type": "url", "id": "part_1_link", "label": "Part 1 link" },
+      { "type": "text", "id": "part_2_label", "label": "Part 2" },
+      { "type": "url", "id": "part_2_link", "label": "Part 2 link" },
+      { "type": "text", "id": "part_3_label", "label": "Part 3" },
+      { "type": "url", "id": "part_3_link", "label": "Part 3 link" },
+      { "type": "header", "content": "Photo reminder" },
+      { "type": "text", "id": "photo_title", "label": "Heading", "info": "Leave blank to hide." },
+      { "type": "textarea", "id": "photo_text", "label": "Text" },
+      { "type": "text", "id": "photo_link_label", "label": "Link label" },
+      { "type": "url", "id": "photo_link", "label": "Link" }
+    ]}
+  ],
+  "presets": [{ "name": "Vertex installation steps" }]
+}
+{% endschema %}

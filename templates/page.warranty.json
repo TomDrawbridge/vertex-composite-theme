@@ -1,0 +1,350 @@
+{
+  "sections": {
+    "hero": {
+      "type": "vx-page-hero",
+      "blocks": {
+        "button_1": {
+          "type": "button",
+          "settings": {
+            "label": "Register your warranty",
+            "link": "#register",
+            "style": "solid"
+          }
+        },
+        "button_2": {
+          "type": "button",
+          "settings": {
+            "label": "Make a claim",
+            "link": "#claims",
+            "style": "outline"
+          }
+        }
+      },
+      "block_order": [
+        "button_1",
+        "button_2"
+      ],
+      "settings": {
+        "title": "Your Vertex warranty",
+        "text": "Register your decking or cladding with your order number and photos of the installation. It only takes a few minutes, and it makes any future claim far simpler.",
+        "parent": "Help",
+        "size": "tall",
+        "usp_1": "10-year fade warranty (terms apply)",
+        "usp_2": "Covers qualifying manufacturing defects",
+        "usp_3": "Installation photos needed to register",
+        "usp_4": "Your statutory rights are not affected"
+      }
+    },
+    "steps": {
+      "type": "vx-warranty-steps",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Photograph as you build",
+            "text": "Take photos of the frame, joists, pedestals and fixings before the boards cover them, then of the finished deck or wall."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Register online",
+            "text": "Add your details, your order number and the products you used, then upload your photos."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Get your reference",
+            "text": "We check your photos and email your warranty reference, with your start and expiry dates, within [TIMEFRAME]."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "kicker": "How it works",
+        "title": "Three steps to register",
+        "text": "The most important part happens before you finish: photograph the frame while you can still see it."
+      }
+    },
+    "photos": {
+      "type": "vx-warranty-photos",
+      "blocks": {
+        "set_1": {
+          "type": "set",
+          "settings": {
+            "when": "As you build",
+            "title": "During installation",
+            "items": "The subframe and joist spacing\nThe support system\nFixings and clips\nBoards being fitted"
+          }
+        },
+        "set_2": {
+          "type": "set",
+          "settings": {
+            "when": "Before it’s covered",
+            "title": "Supporting structure",
+            "items": "The supporting framework\nThe pedestal system, where used\nTaken before any boards cover it"
+          }
+        },
+        "set_3": {
+          "type": "set",
+          "settings": {
+            "when": "When it’s finished",
+            "title": "After installation",
+            "items": "The whole finished area\nClose-ups of the installed boards\nFinishing details such as trims"
+          }
+        }
+      },
+      "block_order": [
+        "set_1",
+        "set_2",
+        "set_3"
+      ],
+      "settings": {
+        "kicker": "Required photos",
+        "title": "The photos you’ll need",
+        "text": "We can’t register a warranty without them. Take them as you go: once the boards are down, nobody can see the frame underneath.",
+        "note": "Can’t upload them? Email your photos to <strong>[WARRANTY EMAIL]</strong> with your name, order number and installation address."
+      }
+    },
+    "register": {
+      "type": "vx-warranty-register",
+      "blocks": {
+        "product_1": {
+          "type": "product",
+          "settings": {
+            "label": "Twin Deck (Z-BPS03)"
+          }
+        },
+        "product_2": {
+          "type": "product",
+          "settings": {
+            "label": "Flush cladding (SP-WP03)"
+          }
+        },
+        "product_3": {
+          "type": "product",
+          "settings": {
+            "label": "Slatted cladding (SP-WP14)"
+          }
+        },
+        "product_4": {
+          "type": "product",
+          "settings": {
+            "label": "Slatted corner (LG-C01)"
+          }
+        },
+        "product_5": {
+          "type": "product",
+          "settings": {
+            "label": "L-corner trim (S-MF07)"
+          }
+        },
+        "product_6": {
+          "type": "product",
+          "settings": {
+            "label": "SSL starter"
+          }
+        },
+        "product_7": {
+          "type": "product",
+          "settings": {
+            "label": "Fasteners and screws (MC03)"
+          }
+        }
+      },
+      "block_order": [
+        "product_1",
+        "product_2",
+        "product_3",
+        "product_4",
+        "product_5",
+        "product_6",
+        "product_7"
+      ],
+      "settings": {
+        "kicker": "Registration",
+        "title": "Register your warranty",
+        "step_1": "Your details",
+        "step_2": "Your order",
+        "step_3": "Products",
+        "step_4": "Photos",
+        "step_5": "Check and send",
+        "time_note": "Takes about [X] minutes",
+        "address_hint": "Where the decking or cladding is installed, if different from your home address.",
+        "order_hint": "You’ll find it on your order confirmation email or invoice.",
+        "types_legend": "Product type (tick all that apply)",
+        "types": "Composite decking\nComposite cladding\nFencing\nFascia and trims\nAccessories",
+        "colours": "Eclipse / Storm (Twin Deck)\nChestnut / Silver Oak (Twin Deck)\nEclipse\nStorm\nChestnut\nSilver Oak\nDark grey\nBlack\nSilver",
+        "batch_hint": "[WHERE THE BATCH REFERENCE IS PRINTED]",
+        "add_row": "Add another product",
+        "photos_notice": "Photos can’t be added to this form yet. After you send it, email all three sets of photos to <strong>[WARRANTY EMAIL]</strong>, quoting your order number. We can’t complete your registration without them.",
+        "zone_1_title": "During installation",
+        "zone_1_hint": "Subframe, joist spacing, supports, fixings and boards being fitted.",
+        "zone_2_title": "Supporting structure",
+        "zone_2_hint": "The frame and pedestals, taken before the boards go on.",
+        "zone_3_title": "After installation",
+        "zone_3_hint": "The whole finished area, plus close-ups of boards and trims.",
+        "photos_confirm": "I’ll email all three sets of photos to [WARRANTY EMAIL], quoting my order number.",
+        "summary_photos": "By email, quoting the order number",
+        "ack": "I confirm the details above are correct. I understand that photos taken during and after installation are part of the warranty registration.",
+        "send": "Send registration",
+        "thanks_title": "Thanks, {name}. We’ve got your registration.",
+        "thanks_text": "We’ll check your details and photos, then email your warranty reference to {email} within [TIMEFRAME]. Keep your invoice and photos somewhere safe in case you ever need to make a claim.",
+        "ref_label": "Warranty reference",
+        "ref_value": "[ISSUED BY VERTEX AFTER CHECKS]",
+        "again": "Register another installation",
+        "need_title": "Before you start",
+        "need_items": "Your order or invoice number\nPurchase and delivery dates\nProduct names, colours and quantities\nBatch or product references, if you have them\nYour installation photos",
+        "paper_title": "Prefer a paper form?",
+        "paper_text": "Download the registration form, fill it in and email it back with your photos.",
+        "paper_label": "Download the form (PDF)",
+        "help": "Stuck? Call [WARRANTY TELEPHONE] or email <a href=\"mailto:sales@vertexcomposite.co.uk\">sales@vertexcomposite.co.uk</a>",
+        "photos_intro": ""
+      }
+    },
+    "cover": {
+      "type": "vx-warranty-cover",
+      "settings": {
+        "kicker": "What’s covered",
+        "title": "What the warranty covers",
+        "covered_title": "Covered",
+        "covered": "Qualifying manufacturing or material defects, under the Vertex warranty terms\n[FADE WARRANTY: what counts as fading, and for how long]\n[WARRANTY PERIOD FOR EACH PRODUCT: decking, cladding, trims]",
+        "not_covered_title": "Not covered",
+        "not_covered": "Incorrect installation\nImproper storage or handling\nMisuse or neglect\nUnauthorised changes to the product\nNot following the care and maintenance instructions",
+        "note": "Exclusions, remedies and limits are set out in the full warranty terms supplied with your order. Nothing in the warranty affects your statutory rights.",
+        "link_label": "Read the full warranty terms (PDF)",
+        "link": ""
+      }
+    },
+    "claims": {
+      "type": "vx-warranty-claims",
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "Contact",
+            "value": "[CONTACT NAME]",
+            "link": ""
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "Telephone",
+            "value": "[WARRANTY TELEPHONE]",
+            "link": ""
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "Email",
+            "value": "[WARRANTY EMAIL]",
+            "link": ""
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "Hours",
+            "value": "[OPENING HOURS]",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4"
+      ],
+      "settings": {
+        "kicker": "Claims",
+        "title": "Making a claim",
+        "text": "Spotted a problem? Contact the warranty team and include the following, so we can look into it quickly.",
+        "items": "Proof of purchase or your invoice\nProduct details and batch reference, where you have it\nA description of the problem\nClear photos of the affected boards\nThe date you first noticed the issue\nYour installation photos, if we ask for them",
+        "card_kicker": "Get in touch",
+        "card_title": "Vertex warranty team",
+        "cta": "Start a claim",
+        "cta_link": "shopify://pages/contact"
+      }
+    },
+    "faqs": {
+      "type": "vx-warranty-faqs",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "q": "Do I have to register my warranty?",
+            "a": "<p>Yes. We register your warranty once we have your details and all three sets of installation photos. [CONFIRM: any deadline for registering, for example within a set number of days of installation]</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "q": "I didn’t take photos while installing. What now?",
+            "a": "<p>Get in touch with the warranty team as soon as you can. Missing photos may delay registration, or the assessment of a future claim, subject to the warranty terms and your statutory rights.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "q": "How long does the warranty last?",
+            "a": "<p>[WARRANTY PERIOD BY PRODUCT]. Your start and expiry dates appear on your registration confirmation, along with your warranty reference.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "q": "My deck was fitted by a contractor. Can I still register?",
+            "a": "<p>[ANSWER: who can register, and how contractor installs are handled]</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "q": "Where do I find the batch reference?",
+            "a": "<p>[ANSWER: where the batch or product reference is printed on boards or packaging]</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "q": "Does the warranty affect my statutory rights?",
+            "a": "<p>No. The warranty is in addition to your statutory rights, not instead of them.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6"
+      ],
+      "settings": {
+        "kicker": "Questions",
+        "title": "Warranty questions",
+        "text": "Installing on pedestals? Our step-by-step guide shows what to photograph, and when.",
+        "link_label": "Read the installation guide",
+        "first_open": true,
+        "link": "shopify://pages/installation-guide"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "steps",
+    "photos",
+    "register",
+    "cover",
+    "claims",
+    "faqs"
+  ]
+}

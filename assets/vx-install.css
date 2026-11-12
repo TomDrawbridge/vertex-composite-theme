@@ -1,0 +1,16 @@
+/* Vertex installation guide (Install-B design). Section markup keeps the design's inline styles;
+   this file holds the rules from the design's <helmet> styles that cannot be inline. */
+
+/* Height calculator: bars and labels ease to their new heights */
+.vx-anim { transition: height .5s cubic-bezier(.16,1,.3,1); }
+
+/* Section drawing on small screens: drop the layer names, keep the numbers */
+@media (max-width: 640px) {
+  .vx-sec-label { width: 34px !important; padding-left: 6px !important; }
+  .vx-sec-name, .vx-sec-spec { display: none !important; }
+  .vx-sec-dim { width: 40px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vx-anim { transition: none !important; }
+}
